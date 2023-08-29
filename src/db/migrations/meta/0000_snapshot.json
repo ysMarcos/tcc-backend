@@ -1,0 +1,112 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "id": "f9bb5496-0cb3-4a87-92c0-a343643a20d5",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "pessoa": {
+      "name": "pessoa",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "nome": {
+          "name": "nome",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "telefone": {
+          "name": "telefone",
+          "type": "varchar(11)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "cadastro": {
+          "name": "cadastro",
+          "type": "varchar(14)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "registro": {
+          "name": "registro",
+          "type": "varchar(11)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "isFisico": {
+          "name": "isFisico",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(now())"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "pessoa_id": {
+          "name": "pessoa_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {
+        "pessoa_email_unique": {
+          "name": "pessoa_email_unique",
+          "columns": [
+            "email"
+          ]
+        },
+        "pessoa_telefone_unique": {
+          "name": "pessoa_telefone_unique",
+          "columns": [
+            "telefone"
+          ]
+        },
+        "pessoa_cadastro_unique": {
+          "name": "pessoa_cadastro_unique",
+          "columns": [
+            "cadastro"
+          ]
+        },
+        "pessoa_registro_unique": {
+          "name": "pessoa_registro_unique",
+          "columns": [
+            "registro"
+          ]
+        }
+      }
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}
