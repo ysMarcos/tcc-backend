@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/main/server.ts"
+    "dev": "tsx watch src/main/server.ts",
+    "drizzle:studio": "npx drizzle-kit studio --host 127.0.0.1 --port 3001 --verbose",
+    "drizzle:migration": "npx drizzle-kit generate:mysql"
   },
   "keywords": [],
   "author": "",
