@@ -1,0 +1,1 @@
+ALTER TABLE `endereco` ADD `tipo` char(1);

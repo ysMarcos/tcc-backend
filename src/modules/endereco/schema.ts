@@ -8,6 +8,7 @@ export const endereco = mysqlTable('endereco', {
     numero: varchar('numero', { length: 6 }).notNull(),
     bairro: varchar('bairro', { length: 50 }).notNull(),
     cep: char('cep', { length: 8 }).notNull(),
+    tipo: char('tipo', { length: 1, enum: ['U', 'R'] }),
     complemento: varchar('complemento', { length: 50 }),
     cidadeId: int('cidadeId')
 });
