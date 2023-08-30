@@ -1,5 +1,6 @@
-import { InferInsertModel, InferSelectModel } from "drizzle-orm";
+import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm";
 import { boolean, int, mysqlTable, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { pessoaEndereco } from "../pessoa-endereco/schema";
 
 export const pessoa = mysqlTable('pessoa', {
     id: int('id').autoincrement().primaryKey(),
@@ -10,7 +11,12 @@ export const pessoa = mysqlTable('pessoa', {
     registro: varchar('registro', { length:  11 }).unique(),
     isFisico: boolean('isFisico'),
     createdAt: timestamp('createdAt').defaultNow()
-})
+});
+
+export const pessoaRelations = relations(pessoa, ({many}) => ({
+    pessoaEndereco: many(pessoaEndereco)
+}));
+
 
 export type Pessoa = InferSelectModel<typeof pessoa>;
 export type InsertPessoa = InferInsertModel<typeof pessoa>;

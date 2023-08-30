@@ -1,0 +1,1 @@
+ALTER TABLE `endereco` ADD CONSTRAINT `endereco_cidade_id_cidade_id_fk` FOREIGN KEY (`cidade_id`) REFERENCES `cidade`(`id`) ON DELETE no action ON UPDATE no action;

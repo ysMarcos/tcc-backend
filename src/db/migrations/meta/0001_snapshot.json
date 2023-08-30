@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "211ced4e-bd55-490f-b6dc-d83ebcdfdff9",
-  "prevId": "f9bb5496-0cb3-4a87-92c0-a343643a20d5",
+  "id": "d303a169-fea0-4de6-9dd5-aafbd95a70d1",
+  "prevId": "4849b9fa-d904-4227-a81d-b69231ec7998",
   "tables": {
     "cidade": {
       "name": "cidade",
@@ -20,6 +20,14 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(now())"
         }
       },
       "indexes": {},
@@ -79,6 +87,13 @@
           "notNull": true,
           "autoincrement": false
         },
+        "tipo": {
+          "name": "tipo",
+          "type": "char(1)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "complemento": {
           "name": "complemento",
           "type": "varchar(50)",
@@ -86,16 +101,38 @@
           "notNull": false,
           "autoincrement": false
         },
-        "cidadeId": {
-          "name": "cidadeId",
+        "cidade_id": {
+          "name": "cidade_id",
           "type": "int",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(now())"
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "endereco_cidade_id_cidade_id_fk": {
+          "name": "endereco_cidade_id_cidade_id_fk",
+          "tableFrom": "endereco",
+          "tableTo": "cidade",
+          "columnsFrom": [
+            "cidade_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {
         "endereco_id": {
           "name": "endereco_id",
@@ -104,6 +141,56 @@
           ]
         }
       },
+      "uniqueConstraints": {}
+    },
+    "pessoa_endereco": {
+      "name": "pessoa_endereco",
+      "columns": {
+        "pessoa_id": {
+          "name": "pessoa_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "endereco_id": {
+          "name": "endereco_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "pessoa_endereco_pessoa_id_pessoa_id_fk": {
+          "name": "pessoa_endereco_pessoa_id_pessoa_id_fk",
+          "tableFrom": "pessoa_endereco",
+          "tableTo": "pessoa",
+          "columnsFrom": [
+            "pessoa_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "pessoa_endereco_endereco_id_endereco_id_fk": {
+          "name": "pessoa_endereco_endereco_id_endereco_id_fk",
+          "tableFrom": "pessoa_endereco",
+          "tableTo": "endereco",
+          "columnsFrom": [
+            "endereco_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
     "pessoa": {

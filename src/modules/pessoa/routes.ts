@@ -1,12 +1,12 @@
 import express from "express";
 import { createPessoaController, deletePessoaController, getPessoaByIdController, listPessoaController, updatePessoaController } from "./controller";
 
-const pessoaRouter = express.Router();
+const router = express.Router();
 
-pessoaRouter.post('/new', createPessoaController);
-pessoaRouter.get('/list', listPessoaController);
-pessoaRouter.get('/get/:id', getPessoaByIdController);
-pessoaRouter.put('/update/:id', updatePessoaController);
-pessoaRouter.delete('/delete/:id', deletePessoaController);
+router.post('/new', createPessoaController);
+router.get('/list', listPessoaController);
+router.get('/get/:id', getPessoaByIdController);
+router.put('/update/:id', updatePessoaController);
+router.delete('/delete/:id', deletePessoaController);
 
-export default pessoaRouter;
+export default router;

@@ -1,10 +1,11 @@
 import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm";
-import { int, mysqlTable, varchar } from "drizzle-orm/mysql-core";
+import { int, mysqlTable, timestamp, varchar } from "drizzle-orm/mysql-core";
 import { endereco } from "../endereco/schema";
 
 export const cidade = mysqlTable('cidade', {
     id: int('id').autoincrement().primaryKey(),
-    nome: varchar('nome', { length: 50 }).unique()
+    nome: varchar('nome', { length: 50 }).unique(),
+    createdAt: timestamp('createdAt').defaultNow()
 });
 
 export const cidadeRelations = relations(cidade, ({many}) => ({
