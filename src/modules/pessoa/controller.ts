@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { db } from "../../db";
-import { InsertPessoa, Pessoa, pessoa } from "./model";
+import { InsertPessoa, Pessoa, pessoa } from "./schema";
 import { eq } from 'drizzle-orm';
 
 export async function createPessoaController (request: Request, response: Response, next: NextFunction) {
@@ -41,9 +41,7 @@ export async function updatePessoaController(request: Request, response: Respons
         const id = Number(request.params.id);
         const data = request.body;
 
-        const pessoaToUpdate = await db.select({
-            id: pessoa.id
-        }).from(pessoa).where(eq(pessoa.id, id)).limit(1);
+        const pessoaToUpdate = await db.select().from(pessoa).where(eq(pessoa.id, id)).limit(1);
         const updatePessoa = await db.update(pessoa).set({
             ...pessoaToUpdate[0],
             ...data
