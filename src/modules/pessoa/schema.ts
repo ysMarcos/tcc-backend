@@ -19,8 +19,8 @@ export const pessoaRelations = relations(pessoa, ({many}) => ({
     pessoaEndereco: many(pessoaEndereco)
 }));
 
-export const selectPessoaSchema = createSelectSchema(pessoa);
-export const insertPessoaSchema = createInsertSchema(pessoa, {
+export const pessoaSelectSchema = createSelectSchema(pessoa);
+export const pessoaInsertSchema = createInsertSchema(pessoa, {
     nome: z.string().min(3),
     email: z.string().email(),
     telefone: z.string(),
