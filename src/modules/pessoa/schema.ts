@@ -6,11 +6,11 @@ import { pessoaEndereco } from "../pessoa-endereco/schema";
 
 export const pessoa = mysqlTable('pessoa', {
     id: int('id').autoincrement().primaryKey(),
-    nome: varchar('nome', { length:  150 }),
-    email: varchar('email', { length:  100 }).unique(),
-    telefone: varchar('telefone', { length:  11 }).unique(),
-    cadastro: varchar('cadastro', { length:  14 }).unique(),
-    registro: varchar('registro', { length:  11 }).unique(),
+    nome: varchar('nome', { length:  150 }).notNull(),
+    email: varchar('email', { length:  100 }).unique().notNull(),
+    telefone: varchar('telefone', { length:  11 }).unique().notNull(),
+    cadastro: varchar('cadastro', { length:  14 }).unique().notNull(),
+    registro: varchar('registro', { length:  11 }).unique().notNull(),
     isFisico: boolean('isFisico'),
     createdAt: timestamp('createdAt').defaultNow()
 });
