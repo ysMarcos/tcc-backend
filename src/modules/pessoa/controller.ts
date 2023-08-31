@@ -7,7 +7,9 @@ export async function createPessoaController (request: Request, response: Respon
     try {
         const newPessoa: InsertPessoa = request.body;
 
-        const createdPessoa = await db.insert(pessoa).values(newPessoa);
+        const createdPessoa = await db
+        .insert(pessoa)
+        .values(newPessoa);
 
         response.status(200)
             .json( createdPessoa )
@@ -18,7 +20,10 @@ export async function createPessoaController (request: Request, response: Respon
 
 export async function listPessoaController (request: Request, response: Response, next: NextFunction) {
     try{
-        const pessoas: Pessoa[] = await db.select().from(pessoa).orderBy(pessoa.nome);
+        const pessoas: Pessoa[] = await db
+        .select()
+        .from(pessoa)
+        .orderBy(pessoa.nome);
 
         response.status(200).json(pessoas);
     } catch (error) {
@@ -29,7 +34,13 @@ export async function listPessoaController (request: Request, response: Response
 export async function getPessoaByIdController (request: Request, response: Response, next: NextFunction) {
     try {
         const id  = Number(request.params.id);
-        const selectPessoa: Pessoa[] = await db.select().from(pessoa).where(eq(pessoa.id, id)).limit(1);
+
+        const selectPessoa: Pessoa[] = await db
+        .select()
+        .from(pessoa)
+        .where(eq(pessoa.id, id))
+        .limit(1);
+
         response.status(200).json(selectPessoa[0]);
     } catch (error) {
         next(error);
@@ -41,11 +52,20 @@ export async function updatePessoaController(request: Request, response: Respons
         const id = Number(request.params.id);
         const data = request.body;
 
-        const pessoaToUpdate = await db.select().from(pessoa).where(eq(pessoa.id, id)).limit(1);
-        const updatePessoa = await db.update(pessoa).set({
+        const pessoaToUpdate = await db
+        .select()
+        .from(pessoa)
+        .where(eq(pessoa.id, id))
+        .limit(1);
+
+        const updatePessoa = await db
+        .update(pessoa)
+        .set({
             ...pessoaToUpdate[0],
             ...data
-        }).where(eq(pessoa.id, id));
+        })
+        .where(eq(pessoa.id, id));
+
         response.status(200).json(updatePessoa)
     } catch (error) {
         next(error)
@@ -55,7 +75,11 @@ export async function updatePessoaController(request: Request, response: Respons
 export async function deletePessoaController(request: Request, response: Response, next: NextFunction) {
     try {
         const id = Number(request.params.id);
-        const deletedPessoa = await db.delete(pessoa).where(eq(pessoa.id, id));
+
+        const deletedPessoa = await db
+        .delete(pessoa)
+        .where(eq(pessoa.id, id));
+
         return response.status(200).json(deletedPessoa);
     } catch (error){
         next(error);
