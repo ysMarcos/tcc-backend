@@ -1,18 +1,23 @@
 import { NextFunction, Request, Response } from "express";
 import { db } from "../../db";
-import { InsertPessoa, Pessoa, pessoa } from "./schema";
+import { insertPessoaSchema, Pessoa, pessoa } from "./schema";
 import { eq } from 'drizzle-orm';
 
 export async function createPessoaController (request: Request, response: Response, next: NextFunction) {
     try {
-        const newPessoa: InsertPessoa = request.body;
+        const newPessoa = request.body
 
+        const isValid = insertPessoaSchema.safeParse(newPessoa);
+
+        if(!isValid.success) response.status(400).json(isValid.error.issues);
+        else {
         const createdPessoa = await db
         .insert(pessoa)
         .values(newPessoa);
 
         response.status(200)
             .json( createdPessoa )
+        }
     } catch(error) {
         next(error)
     }
