@@ -9,7 +9,12 @@ export const categoria = mysqlTable('categoria', {
 });
 
 export const categoriaInsertSchema = createInsertSchema(categoria, {
-    nome: z.string().min(3)
+    nome: z
+    .string({
+        required_error: "Nome não preenchido"
+    })
+    .min(3)
+    .max(50),
 });
 export const categoriaSelectSchema = createSelectSchema(categoria);
 

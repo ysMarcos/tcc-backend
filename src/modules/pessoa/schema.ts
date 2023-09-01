@@ -21,13 +21,37 @@ export const pessoaRelations = relations(pessoa, ({many}) => ({
 
 export const pessoaSelectSchema = createSelectSchema(pessoa);
 export const pessoaInsertSchema = createInsertSchema(pessoa, {
-    nome: z.string().min(3),
-    email: z.string().email(),
-    telefone: z.string(),
-    cadastro: z.string().min(9).max(15),
-    registro: z.string().min(7).max(11).nullable(),
-    isFisico: z.boolean(),
+    nome: z
+        .string({
+            required_error: "Nome não preenchido"
+        })
+        .min(3),
+    email: z
+        .string({
+            required_error: "Email não preenchido"
+        })
+        .email("invalid Email"),
+    telefone: z
+        .string({
+            required_error: "Telefone não preenchido"
+        })
+        .regex(
+            new RegExp("^[1-9]{2}(?:[2-8]|9[1-9])[0-9]{3}\-?[0-9]{4}$"),
+            "Telefone inválido"
+        ),
+    cadastro: z
+        .string({
+            required_error: "Cadastro não preenchido"
+        })
+        .min(9)
+        .max(15),
+    registro: z
+        .string()
+        .min(7)
+        .max(11)
+        .nullable(),
+    isFisico: z
+        .boolean(),
 });
 
 export type Pessoa = InferSelectModel<typeof pessoa>;
-export type InsertPessoa = InferInsertModel<typeof pessoa>;
