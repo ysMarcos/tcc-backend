@@ -8,8 +8,7 @@ export async function createPessoaController (request: Request, response: Respon
         const newPessoa = request.body
 
         const isValid = pessoaInsertSchema.safeParse(newPessoa);
-
-        if(!isValid.success) response.status(400).json(isValid.error.issues);
+        if(!isValid.success) return response.status(400).json(isValid.error.issues);
 
         const createdPessoa = await db
         .insert(pessoa)
