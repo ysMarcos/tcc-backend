@@ -1,11 +1,14 @@
 import { NextFunction, Request, Response } from "express";
-import { Endereco, endereco, InsertEndereco } from "./schema";
+import { Endereco, endereco, enderecoInsertSchema } from "./schema";
 import { db } from "../../db";
 import { eq } from "drizzle-orm";
 
 export async function createEnderecoController(request: Request, response: Response, next: NextFunction) {
     try {
-        const newEndereco: InsertEndereco = request.body;
+        const newEndereco = request.body;
+        const isValid = enderecoInsertSchema.safeParse(newEndereco);
+
+        if(!isValid.success) return response.status(400).json(isValid.error.issues[0].message);
 
         const createdEndereco = await db
         .insert(endereco)

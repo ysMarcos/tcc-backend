@@ -21,13 +21,13 @@ export const itemRelations = relations(item, ({ one }) => ({
 export const itemInsertSchema = createInsertSchema(item, {
     nome: z
         .string({
-            required_error: "Nome não preenchido"
+            required_error: "Nome is required"
         })
-        .min(3)
-        .max(50),
+        .min(3, { message: "Item should be 3 or more characters long" })
+        .max(50, { message: "Item should be 50 or fewer characters long" }),
     valorUnitario: z
         .number({
-            required_error: "Valor não preenchido"
+            required_error: "Valor is required"
         })
         .positive("O valo deve ser positivo")
 })

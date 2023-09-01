@@ -1,10 +1,10 @@
 import express from "express";
-import { createCidadeController, getCiadeByIdController, listCidadeController } from "./controller";
+import { createCidade, getCiadeById, listCidade } from "./controller";
 
 const router = express.Router();
 
-router.post('/new', createCidadeController);
-router.get('/list', listCidadeController);
-router.get('/get/:id', getCiadeByIdController);
+router.post('/new', createCidade);
+router.get('/list', listCidade);
+router.get('/get/:id', getCiadeById);
 
 export default router;

@@ -1,8 +1,8 @@
 import express from "express";
-import { createItemController } from "./controller";
+import { createItem } from "./controller";
 
 const router = express.Router();
 
-router.post('/new', createItemController);
+router.post('/new', createItem);
 
 export default router;

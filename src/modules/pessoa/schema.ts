@@ -10,7 +10,7 @@ export const pessoa = mysqlTable('pessoa', {
     email: varchar('email', { length:  100 }).unique().notNull(),
     telefone: varchar('telefone', { length:  11 }).unique().notNull(),
     cadastro: varchar('cadastro', { length:  14 }).unique().notNull(),
-    registro: varchar('registro', { length:  11 }).unique().notNull(),
+    registro: varchar('registro', { length:  11 }).unique(),
     isFisico: boolean('isFisico'),
     createdAt: timestamp('createdAt').defaultNow()
 });
@@ -23,32 +23,32 @@ export const pessoaSelectSchema = createSelectSchema(pessoa);
 export const pessoaInsertSchema = createInsertSchema(pessoa, {
     nome: z
         .string({
-            required_error: "Nome não preenchido"
+            required_error: "Nome is required"
         })
         .min(3),
     email: z
         .string({
-            required_error: "Email não preenchido"
+            required_error: "Email is required"
         })
         .email("invalid Email"),
     telefone: z
         .string({
-            required_error: "Telefone não preenchido"
+            required_error: "Telefone is required"
         })
         .regex(
             new RegExp("^[1-9]{2}(?:[2-8]|9[1-9])[0-9]{3}\-?[0-9]{4}$"),
-            "Telefone inválido"
+            "Telefone is invalid"
         ),
     cadastro: z
         .string({
-            required_error: "Cadastro não preenchido"
+            required_error: "Cadastro is required"
         })
-        .min(9)
-        .max(15),
+        .min(11, { message: "Cadastro should be 11 or more characters long" })
+        .max(15, { message: "Cadastro should be 15 or fewer characters long" }),
     registro: z
         .string()
-        .min(7)
-        .max(11)
+        .min(7, { message: "Registro should be 7 or more characters long" })
+        .max(11, { message: "Registro should be 11 or fewer characters long" })
         .nullable(),
     isFisico: z
         .boolean(),

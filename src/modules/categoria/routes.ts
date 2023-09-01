@@ -1,11 +1,11 @@
 import express from "express";
-import { createCategoriaController, getCategoriaByIdController, listCategoriaController, updateCategoriaController } from "./controller";
+import { createCategoria, getCategoriaById, listCategoria, updateCategoria } from "./controller";
 
 const router = express.Router();
 
-router.post('/new', createCategoriaController);
-router.get('/get/:id', getCategoriaByIdController);
-router.get('/list', listCategoriaController);
-router.put('/update/:id', updateCategoriaController);
+router.post('/new', createCategoria);
+router.get('/get/:id', getCategoriaById);
+router.get('/list', listCategoria);
+router.put('/update/:id', updateCategoria);
 
 export default router;

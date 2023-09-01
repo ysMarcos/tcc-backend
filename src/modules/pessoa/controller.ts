@@ -3,7 +3,7 @@ import { db } from "../../db";
 import { pessoaInsertSchema, Pessoa, pessoa } from "./schema";
 import { eq } from 'drizzle-orm';
 
-export async function createPessoaController (request: Request, response: Response, next: NextFunction) {
+export async function createPessoa (request: Request, response: Response, next: NextFunction) {
     try {
         const newPessoa = request.body
 
@@ -21,7 +21,7 @@ export async function createPessoaController (request: Request, response: Respon
     }
 }
 
-export async function listPessoaController (request: Request, response: Response, next: NextFunction) {
+export async function listPessoa (request: Request, response: Response, next: NextFunction) {
     try{
         const pessoas: Pessoa[] = await db
         .select()
@@ -34,7 +34,7 @@ export async function listPessoaController (request: Request, response: Response
     }
 }
 
-export async function getPessoaByIdController (request: Request, response: Response, next: NextFunction) {
+export async function getPessoaById (request: Request, response: Response, next: NextFunction) {
     try {
         const id  = Number(request.params.id);
 
@@ -50,7 +50,7 @@ export async function getPessoaByIdController (request: Request, response: Respo
     }
 }
 
-export async function updatePessoaController(request: Request, response: Response, next: NextFunction) {
+export async function updatePessoa(request: Request, response: Response, next: NextFunction) {
     try {
         const id = Number(request.params.id);
         const data = request.body;
@@ -75,7 +75,7 @@ export async function updatePessoaController(request: Request, response: Respons
     }
 }
 
-export async function deletePessoaController(request: Request, response: Response, next: NextFunction) {
+export async function deletePessoa(request: Request, response: Response, next: NextFunction) {
     try {
         const id = Number(request.params.id);
 

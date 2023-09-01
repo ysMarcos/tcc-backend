@@ -1,11 +1,14 @@
 import { eq } from "drizzle-orm";
 import { NextFunction, Request, Response } from "express";
 import { db } from "../../db";
-import { Cidade, cidade, InsertCidade } from "./schema";
+import { Cidade, cidade, cidadeInsertSchema } from "./schema";
 
-export async function createCidadeController(request: Request, response: Response, next: NextFunction) {
+export async function createCidade(request: Request, response: Response, next: NextFunction) {
     try {
-        const newCidade : InsertCidade = request.body;
+        const newCidade = request.body;
+        const isValid = cidadeInsertSchema.safeParse(newCidade);
+
+        if(!isValid.success) return response.status(400).json(isValid.error.issues[0].message);
 
         const createdCidade = await db
         .insert(cidade)
@@ -17,7 +20,7 @@ export async function createCidadeController(request: Request, response: Respons
     }
 }
 
-export async function listCidadeController(request: Request, response: Response, next: NextFunction) {
+export async function listCidade(request: Request, response: Response, next: NextFunction) {
     try {
         const cidades: Cidade[] = await db
         .select()
@@ -30,7 +33,7 @@ export async function listCidadeController(request: Request, response: Response,
     }
 }
 
-export async function getCiadeByIdController(request: Request, response: Response, next: NextFunction) {
+export async function getCiadeById(request: Request, response: Response, next: NextFunction) {
     try {
         const id = Number(request.params.id);
 

@@ -5,7 +5,7 @@ import { endereco } from "../endereco/schema";
 import { pessoa } from "../pessoa/schema";
 import { pessoaEndereco } from "./schema";
 
-export async function addEnderecoToPessoaController(request: Request, response: Response, next: NextFunction) {
+export async function addEnderecoToPessoa(request: Request, response: Response, next: NextFunction) {
     try {
         const pessoaId = Number(request.params.pessoaId);
         const enderecoId = Number(request.params.enderecoId);
@@ -22,7 +22,7 @@ export async function addEnderecoToPessoaController(request: Request, response: 
     }
 }
 
-export async function removePessoaFromEnderecoController(request: Request, response: Response, next: NextFunction) {
+export async function removePessoaFromEndereco(request: Request, response: Response, next: NextFunction) {
     try {
         const pessoaId = Number(request.params.pessoaId);
         const enderecoId = Number(request.params.enderecoId);
@@ -41,7 +41,7 @@ export async function removePessoaFromEnderecoController(request: Request, respo
     }
 }
 
-export async function getPessoaEnderecoController(request: Request, response: Response, next: NextFunction) {
+export async function getPessoaEndereco(request: Request, response: Response, next: NextFunction) {
     try {
         const pessoaId = Number(request.params.pessoaId);
 

@@ -1,11 +1,11 @@
 import express from "express";
-import { addEnderecoToPessoaController, getPessoaEnderecoController, removePessoaFromEnderecoController } from "./controller";
+import { addEnderecoToPessoa, getPessoaEndereco, removePessoaFromEndereco } from "./controller";
 
 const router = express.Router();
 
-router.post('/:pessoaId/endereco/:enderecoId/add', addEnderecoToPessoaController);
-router.get('/:pessoaId/endereco/list', getPessoaEnderecoController);
-router.delete('/:pessoaId/endereco/:enderecoId/remove', removePessoaFromEnderecoController);
+router.post('/:pessoaId/endereco/:enderecoId/add', addEnderecoToPessoa);
+router.get('/:pessoaId/endereco/list', getPessoaEndereco);
+router.delete('/:pessoaId/endereco/:enderecoId/remove', removePessoaFromEndereco);
 
 
 export default router;

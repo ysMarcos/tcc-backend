@@ -3,12 +3,12 @@ import { NextFunction, Request, Response } from "express";
 import { db } from "../../db";
 import { Categoria, categoria, categoriaInsertSchema } from "./schema";
 
-export async function createCategoriaController(request: Request, response: Response, next: NextFunction) {
+export async function createCategoria(request: Request, response: Response, next: NextFunction) {
     try {
     const newCategoriaData = request.body;
 
     const isValid = categoriaInsertSchema.safeParse(newCategoriaData);
-    if(!isValid.success) response.status(400).json(isValid.error.issues);
+    if(!isValid.success) return response.status(400).json(isValid.error.issues);
 
     const newCategoria = await db
     .insert(categoria)
@@ -21,7 +21,7 @@ export async function createCategoriaController(request: Request, response: Resp
     }
 }
 
-export async function getCategoriaByIdController(request: Request, response: Response, next: NextFunction) {
+export async function getCategoriaById(request: Request, response: Response, next: NextFunction) {
     try {
         const id = Number(request.params.id);
 
@@ -37,7 +37,7 @@ export async function getCategoriaByIdController(request: Request, response: Res
     }
 }
 
-export async function listCategoriaController(request: Request, response: Response, next: NextFunction) {
+export async function listCategoria(request: Request, response: Response, next: NextFunction) {
     try {
         const categorias = await db
         .select()
@@ -50,7 +50,7 @@ export async function listCategoriaController(request: Request, response: Respon
     }
 }
 
-export async function updateCategoriaController(request: Request, response: Response, next: NextFunction) {
+export async function updateCategoria(request: Request, response: Response, next: NextFunction) {
     try {
         const id = Number(request.params.id);
         const newData = request.body;
@@ -73,7 +73,7 @@ export async function updateCategoriaController(request: Request, response: Resp
     }
 }
 
-export async function deleteCategoriaController(request: Request, response: Response, next: NextFunction) {
+export async function deleteCategoria(request: Request, response: Response, next: NextFunction) {
     try {
         const id = Number(request.params.id);
 

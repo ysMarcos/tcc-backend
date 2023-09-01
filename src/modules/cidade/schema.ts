@@ -17,11 +17,10 @@ export const cidadeRelations = relations(cidade, ({many}) => ({
 export const cidadeInsertSchema = createInsertSchema(cidade, {
     nome: z
     .string({
-        required_error: "Nome não preenchido"
+        required_error: "Nome is required"
     })
-    .min(3)
-    .max(50),
+    .min(3, { message: "Nome should be 3 or more characters long" })
+    .max(50, { message: "Nome should be 50 or fewer characters long" })
 })
 
 export type Cidade = InferSelectModel<typeof cidade>;
-export type InsertCidade = InferInsertModel<typeof cidade>;

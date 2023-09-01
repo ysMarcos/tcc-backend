@@ -1,16 +1,14 @@
 import { NextFunction, Request, Response } from "express";
 import { item, itemInsertSchema } from "./schema";
 import { db } from "../../db";
+import { eq } from "drizzle-orm";
 
-export async function createItemController(request: Request, response: Response, next: NextFunction) {
+export async function createItem(request: Request, response: Response, next: NextFunction) {
     try {
         const newItemData = request.body;
 
         const isValid = itemInsertSchema.safeParse(newItemData);
-        if (!isValid.success) return response.status(400).send({
-            path: isValid.error.issues[0].path[0],
-            message: isValid.error.issues[0].message
-        });
+        if (!isValid.success) return response.status(400).send(isValid.error.issues[0].message);
 
         const newItem = await db
         .insert(item)
@@ -22,14 +20,18 @@ export async function createItemController(request: Request, response: Response,
     }
 }
 
-// export async function listItemController(request: Request, response: Response, next: NextFunction) {
-//     try {
-//         const { params } = request;
-//         const id = Number(params.id);
+export async function getItemById(request: Request, response: Response, next: NextFunction) {
+    try {
+        const { params } = request;
+        const id = Number(params.id);
 
-//         co
+        const itemData = await db
+        .select()
+        .from(item)
+        .where(eq(item.id, id));
 
-//     } catch(error){
-//         next(error);
-//     }
-// }
+        response.status(200).json(itemData);
+    } catch(error){
+        next(error);
+    }
+}
