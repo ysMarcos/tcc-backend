@@ -29,5 +29,9 @@ export const itemInsertSchema = createInsertSchema(item, {
         .number({
             required_error: "Valor is required"
         })
-        .positive("O valo deve ser positivo")
+        .positive("O valo deve ser positivo"),
+    unidadeMedidaId: z
+        .number({
+            required_error: "unidadeMedidaId is required"
+        })
 })

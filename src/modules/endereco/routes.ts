@@ -1,12 +1,12 @@
 import express from "express";
-import { createEnderecoController, deleteEnderecoController, getEnderecoByIdController, listEnderecosController, updateEnderecoController } from "./controller";
+import { createEndereco, deleteEndereco, getEnderecoById, listEnderecos, updateEndereco } from "./controller";
 
 const router = express.Router();
 
-router.post('/new', createEnderecoController);
-router.get('/list', listEnderecosController);
-router.get('/get/:id', getEnderecoByIdController);
-router.put('/update/:id', updateEnderecoController);
-router.delete('/delete/:id', deleteEnderecoController);
+router.post('/new', createEndereco);
+router.get('/list', listEnderecos);
+router.get('/get/:id', getEnderecoById);
+router.put('/update/:id', updateEndereco);
+router.delete('/delete/:id', deleteEndereco);
 
 export default router;

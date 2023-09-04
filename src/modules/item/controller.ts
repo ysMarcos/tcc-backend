@@ -28,9 +28,65 @@ export async function getItemById(request: Request, response: Response, next: Ne
         const itemData = await db
         .select()
         .from(item)
-        .where(eq(item.id, id));
+        .where(eq(item.id, id))
+        .limit(1);
 
         response.status(200).json(itemData);
+    } catch(error){
+        next(error);
+    }
+}
+
+export async function listItem(request: Request, response: Response, next: NextFunction) {
+    try {
+
+        const itemData = await db
+        .select()
+        .from(item)
+        .orderBy(item.nome);
+
+        response.status(200).json(itemData);
+    } catch(error){
+        next(error);
+    }
+}
+
+export async function updateItem(request: Request, response: Response, next: NextFunction) {
+    try {
+        const { params } = request;
+        const id = Number(params.id);
+        const newItemData = request.body;
+
+        const itemToUpdate = await db
+        .select()
+        .from(item)
+        .where(eq(item.id, id));
+
+        const updatedItem = await db
+        .update(item)
+        .set({
+            ...itemToUpdate[0],
+            ...newItemData
+        })
+        .where(eq(item.id, id));
+
+        return response.status(200).json(updatedItem);
+    } catch(error){
+        next(error);
+    }
+}
+
+
+export async function deleteItem(request: Request, response: Response, next: NextFunction) {
+    try {
+        const { params } = request;
+        const id = Number(params.id);
+
+        const deletedItem = await db
+        .delete(item)
+        .where(eq(item.id, id));
+
+        return response.status(200).json(deletedItem);
     } catch(error){
         next(error);
     }

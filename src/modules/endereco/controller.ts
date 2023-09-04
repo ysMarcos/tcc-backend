@@ -3,7 +3,7 @@ import { Endereco, endereco, enderecoInsertSchema } from "./schema";
 import { db } from "../../db";
 import { eq } from "drizzle-orm";
 
-export async function createEnderecoController(request: Request, response: Response, next: NextFunction) {
+export async function createEndereco(request: Request, response: Response, next: NextFunction) {
     try {
         const newEndereco = request.body;
         const isValid = enderecoInsertSchema.safeParse(newEndereco);
@@ -20,7 +20,7 @@ export async function createEnderecoController(request: Request, response: Respo
     }
 };
 
-export async function listEnderecosController(request: Request, response: Response, next: NextFunction) {
+export async function listEnderecos(request: Request, response: Response, next: NextFunction) {
     try {
         const enderecos: Endereco[] = await db
         .select()
@@ -37,7 +37,7 @@ export async function listEnderecosController(request: Request, response: Respon
     }
 }
 
-export async function getEnderecoByIdController(request: Request, response: Response, next: NextFunction) {
+export async function getEnderecoById(request: Request, response: Response, next: NextFunction) {
     try {
         const id = Number(request.params.id);
 
@@ -53,7 +53,7 @@ export async function getEnderecoByIdController(request: Request, response: Resp
     }
 }
 
-export async function updateEnderecoController(request: Request, response: Response, next: NextFunction) {
+export async function updateEndereco(request: Request, response: Response, next: NextFunction) {
     try {
         const id = Number(request.params.id);
         const data = request.body;
@@ -78,7 +78,7 @@ export async function updateEnderecoController(request: Request, response: Respo
     }
 }
 
-export async function deleteEnderecoController(request: Request, response: Response, next: NextFunction) {
+export async function deleteEndereco(request: Request, response: Response, next: NextFunction) {
     try {
         const id = Number(request.params.id);
 
