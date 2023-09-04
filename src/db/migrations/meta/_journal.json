@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1693501740199,
-      "tag": "0000_keen_moonstone",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1693587816173,
-      "tag": "0001_brave_valeria_richards",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1693831058854,
-      "tag": "0002_moaning_hydra",
+      "when": 1693850803335,
+      "tag": "0000_chunky_revanche",
       "breakpoints": true
     }
   ]

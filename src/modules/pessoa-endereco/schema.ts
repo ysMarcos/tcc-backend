@@ -4,6 +4,7 @@ import { endereco } from "../endereco/schema";
 import { pessoa } from "../pessoa/schema";
 
 export const pessoaEndereco = mysqlTable('pessoa_endereco', {
+    id: int('id').autoincrement().primaryKey(),
     pessoaId: int('pessoa_id').notNull().references(() => pessoa.id),
     enderecoId: int('endereco_id').notNull().references(() => endereco.id)
 });

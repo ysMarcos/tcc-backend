@@ -4,6 +4,7 @@ import { categoria } from "../categoria/schema";
 import { item } from "../item/schema";
 
 export const itemCategoria = mysqlTable("item_categoria", {
+    id: int('id').autoincrement().primaryKey(),
     itemId: int('item_id').notNull().references(() => item.id),
     categoriaId:int('categoria_id').notNull().references(() => categoria.id)
 })

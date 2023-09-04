@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { float, int, mysqlTable, varchar } from "drizzle-orm/mysql-core";
+import { float, int, mysqlTable, timestamp, varchar } from "drizzle-orm/mysql-core";
 import { unidadeMedida } from "../unidade-medida/schema";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from 'zod';
@@ -9,7 +9,8 @@ export const item = mysqlTable('item', {
     id: int('id').autoincrement().primaryKey(),
     nome: varchar('nome', { length: 50 }).notNull().unique(),
     valorUnitario: float('valor_unitario').notNull(),
-    unidadeMedidaId: int('unidade_medida_id').notNull().references(() => unidadeMedida.id)
+    unidadeMedidaId: int('unidade_medida_id').notNull().references(() => unidadeMedida.id),
+    createdAt: timestamp('createdAt').defaultNow()
 })
 
 export const itemRelations = relations(item, ({ one, many }) => ({
