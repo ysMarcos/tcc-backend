@@ -1,0 +1,1 @@
+ALTER TABLE `colaborador` ADD CONSTRAINT `colaborador_usuario_unique` UNIQUE(`usuario`);

@@ -1,10 +1,10 @@
 import express from "express";
 import { createColaborador } from "./controller";
-import { auth } from "./helpers/auth";
+import { auth } from "./auth";
 
 const router = express.Router();
 
 router.post('/new', createColaborador);
-router.post('/login', auth);
+router.post('/auth', auth);
 
 export default router;

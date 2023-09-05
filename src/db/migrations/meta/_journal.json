@@ -15,6 +15,20 @@
       "when": 1693915552919,
       "tag": "0001_gigantic_echo",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1693932162157,
+      "tag": "0002_cultured_wallflower",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1693932406535,
+      "tag": "0003_easy_goliath",
+      "breakpoints": true
     }
   ]
 }
