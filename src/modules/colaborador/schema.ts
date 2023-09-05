@@ -1,6 +1,6 @@
-import { relations } from "drizzle-orm";
+import { InferSelectModel, relations } from "drizzle-orm";
 import { boolean, datetime, int, mysqlTable, timestamp, varchar } from "drizzle-orm/mysql-core";
-import { createInsertSchema } from "drizzle-zod";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from 'zod';
 import { pessoa } from "../pessoa/schema";
 
@@ -52,4 +52,14 @@ export const colaboradorInsertSchema = createInsertSchema(colaborador, {
         .boolean({
             invalid_type_error: "Ativo should be true or false"
         })
+})
+
+export const colaboradorSelectSchema = createSelectSchema(colaborador, {
+    id: z.number(),
+    usuario: z.string(),
+    senha: z.string().optional(),
+    dataInicio: z.date(),
+    dataPrevisaoFim: z.date(),
+    ativo: z.boolean(),
+    pessoaId: z.number()
 })
