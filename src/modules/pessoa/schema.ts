@@ -8,7 +8,7 @@ export const pessoa = mysqlTable('pessoa', {
     id: int('id').autoincrement().primaryKey(),
     nome: varchar('nome', { length:  150 }).notNull(),
     email: varchar('email', { length:  100 }).unique().notNull(),
-    telefone: varchar('telefone', { length:  11 }).unique().notNull(),
+    telefone: varchar('telefone', { length:  11 }).notNull(),
     cadastro: varchar('cadastro', { length:  14 }).unique().notNull(),
     registro: varchar('registro', { length:  11 }).unique(),
     isFisico: boolean('isFisico'),

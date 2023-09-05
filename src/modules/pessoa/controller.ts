@@ -2,20 +2,26 @@ import { NextFunction, Request, Response } from "express";
 import { db } from "../../db";
 import { pessoaInsertSchema, Pessoa, pessoa } from "./schema";
 import { eq } from 'drizzle-orm';
+import { dataExists } from "../../helpers/exists";
 
 export async function createPessoa (request: Request, response: Response, next: NextFunction) {
     try {
-        const newPessoa = request.body
+        const newPessoaData = request.body;
 
-        const isValid = pessoaInsertSchema.safeParse(newPessoa);
+        const isValid = pessoaInsertSchema.safeParse(newPessoaData);
         if(!isValid.success) return response.status(400).json(isValid.error.issues);
 
-        const createdPessoa = await db
-        .insert(pessoa)
-        .values(newPessoa);
+        const cadastroExists = await dataExists(newPessoaData, pessoa, "cadastro");
+        if(cadastroExists) return response.status(400).json({ message: "This cpf/cnpj already exists" });
 
-        response.status(200)
-            .json( createdPessoa )
+        const emailExists = await dataExists(newPessoaData, pessoa, "email");
+        if(emailExists) return response.status(400).json({ message: "This email already exists" });
+
+        const newPessoa = await db
+        .insert(pessoa)
+        .values(newPessoaData);
+
+        response.status(200).json( newPessoa )
     } catch(error) {
         next(error)
     }
@@ -55,19 +61,28 @@ export async function updatePessoa(request: Request, response: Response, next: N
         const id = Number(request.params.id);
         const data = request.body;
 
+        const fields = ["nome", "telefone", "email", "cadastro", "registro"];
+        let validateData;
+        for(let i = 0; i < fields.length; i++){
+            validateData = await dataExists(data, pessoa, fields[i]);
+            if(validateData) return response.status(400)
+                .json({
+                    message: `This ${fields[i]} already exists`
+                });
+        }
+
         const pessoaToUpdate = await db
-        .select()
-        .from(pessoa)
-        .where(eq(pessoa.id, id))
-        .limit(1);
+            .select()
+            .from(pessoa)
+            .where(eq(pessoa.id, id))
 
         const updatePessoa = await db
-        .update(pessoa)
-        .set({
-            ...pessoaToUpdate[0],
-            ...data
-        })
-        .where(eq(pessoa.id, id));
+            .update(pessoa)
+            .set({
+                ...pessoaToUpdate[0],
+                ...data
+            })
+            .where(eq(pessoa.id, id));
 
         response.status(200).json(updatePessoa)
     } catch (error) {
