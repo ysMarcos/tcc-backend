@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { db } from "../../db";
 import { colaborador } from "./schema"
+import { jwtSecret } from "../../../env";
 
 export async function auth(request: Request, response: Response) {
     const { usuario, senha } = request.body;
@@ -25,7 +26,7 @@ export async function auth(request: Request, response: Response) {
         dataPrevisaoFim: user.dataPrevisaoFim,
         ativo: user.ativo,
         pessoaId: user.pessoaId
-    }, 'segredo', { expiresIn: '1d' });
+    }, jwtSecret, { expiresIn: '1d' });
 
     return response.json(token)
 }

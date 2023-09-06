@@ -1,5 +1,4 @@
 import express from "express";
-import * as dotenv from "dotenv";
 import cidadeRouter from "../modules/cidade/routes";
 import pessoaRouter from "../modules/pessoa/routes";
 import enderecoRouter from "../modules/endereco/routes";
@@ -9,7 +8,8 @@ import itemRouter from "../modules/item/routes";
 import itemCategoriaRouter from "../modules/item-categoria/routes";
 import colaboradorRouter from "../modules/colaborador/routes";
 
-dotenv.config();
+import { expressPort } from "../../env";
+
 const app = express();
 
 app.use(express.json());
@@ -21,6 +21,6 @@ app.use('/categoria', categoriaRouter, itemCategoriaRouter);
 app.use('/item', itemRouter);
 app.use('/colaborador', colaboradorRouter);
 
-const port = process.env.PORT || 3005;
+const port = expressPort;
 
 app.listen(port, () => console.log(`Rodando na porta ${port}`));
