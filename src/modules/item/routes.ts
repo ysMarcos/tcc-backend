@@ -1,5 +1,5 @@
 import express from "express";
-import { ensureAuthenticated } from "../../middlewares/ensure-authenticated";
+import { ensureAuthenticated } from "../../middlewares/auth-middleware";
 import { createItem, deleteItem, getItemById, listItem, updateItem } from "./controller";
 
 const router = express.Router();
