@@ -10,7 +10,7 @@ export const permissao = mysqlTable('permissao', {
     createdAt: timestamp('createdAt').defaultNow()
 });
 
-export const categoriaInsertSchema = createInsertSchema(permissao, {
+export const permissaoInsertSchema = createInsertSchema(permissao, {
     nome: z
     .string({ required_error: "Nome is required" })
     .min(3, { message: "Nome should be 3 or more characters long" })

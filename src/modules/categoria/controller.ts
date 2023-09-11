@@ -15,7 +15,6 @@ export async function createCategoria(request: Request, response: Response, next
     .values(newCategoriaData)
 
     response.status(200).json(newCategoria);
-
     } catch(error) {
         next(error)
     }

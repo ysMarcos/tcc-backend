@@ -7,6 +7,7 @@ import categoriaRouter from "../modules/categoria/routes";
 import itemRouter from "../modules/item/routes";
 import itemCategoriaRouter from "../modules/item-categoria/routes";
 import colaboradorRouter from "../modules/colaborador/routes";
+import permissaoRouter from "../modules/permissao/routes";
 
 import { expressPort } from "../../env";
 
@@ -20,6 +21,7 @@ app.use('/endereco', enderecoRouter);
 app.use('/categoria', categoriaRouter, itemCategoriaRouter);
 app.use('/item', itemRouter);
 app.use('/colaborador', colaboradorRouter);
+app.use('/permissao', permissaoRouter);
 
 const port = expressPort;
 
