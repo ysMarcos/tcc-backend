@@ -2,6 +2,7 @@ import { relations } from "drizzle-orm";
 import { boolean, datetime, int, mysqlTable, timestamp, varchar } from "drizzle-orm/mysql-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from 'zod';
+import { permissaoColaborador } from "../permissao-colaborador/schema";
 import { pessoa } from "../pessoa/schema";
 
 export const colaborador = mysqlTable("colaborador", {
@@ -15,11 +16,12 @@ export const colaborador = mysqlTable("colaborador", {
     createdAt: timestamp('createdAt').defaultNow()
 })
 
-export const colaboradorRelations = relations(colaborador, ({ one }) => ({
+export const colaboradorRelations = relations(colaborador, ({ one, many }) => ({
     pessoaId: one(pessoa, {
         fields: [colaborador.pessoaId],
         references: [pessoa.id]
-    })
+    }),
+    permissaoColaborador: many(permissaoColaborador)
 }))
 
 export const colaboradorInsertSchema = createInsertSchema(colaborador, {
