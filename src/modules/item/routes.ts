@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post('/new', createItem);
 router.get('/get/:id', getItemById);
-router.get('/list', ensureAuthenticated, verifyPermission(['a']), listItem);
+router.get('/list', ensureAuthenticated, verifyPermission(['get-item']), listItem);
 router.put('/update/:id', updateItem);
 router.delete('/delete/:id', deleteItem);
 

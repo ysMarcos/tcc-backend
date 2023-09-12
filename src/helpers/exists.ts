@@ -11,3 +11,14 @@ export async function dataExists(data: any, schema: any, field: any): Promise<Bo
     if(dataExists[0]) return true;
     return false;
 }
+
+export async function dataExistsParams(dataId: any, schema: any): Promise<Boolean> {
+    const dataExists = await db
+        .select({id: schema.id})
+        .from(schema)
+        .where(eq(schema["id"], dataId))
+        .limit(1);
+
+    if(dataExists[0]) return true;
+    return false;
+}

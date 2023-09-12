@@ -14,14 +14,14 @@ export function verifyPermission(permission: string[]) {
         .from(colaborador)
         .where(eq(colaborador.id, userId));
 
-        if(!userExists) return response.status(400).json({ message: "User does not exits" });
+        if(!userExists) return response.sendStatus(400).json({ message: "User does not exits" });
 
         const permissaoExists = await db
         .select({id: permissao.id})
         .from(permissao)
         .where(inArray(permissao.nome, permission));
 
-        if(!permissaoExists) return response.status(400).json({ message: "Permission does not exits" });
+        if(!permissaoExists) return response.sendStatus(400).json({ message: "Permission does not exits" });
 
         const userPermission = await db
         .select()
@@ -36,8 +36,7 @@ export function verifyPermission(permission: string[]) {
                 inArray(permissao.nome, permission)
             )
         )
-
-        if(!userPermission) return response.status(401)
+        if(!userPermission[0]) return response.sendStatus(401)
 
         return next();
     }
