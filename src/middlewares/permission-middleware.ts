@@ -1,9 +1,9 @@
-import { eq, inArray } from "drizzle-orm";
+import { and, eq, inArray } from "drizzle-orm";
 import { NextFunction, Request, Response } from "express";
 import { db } from "../db";
 import { colaborador } from "../modules/colaborador/schema";
 import { permissao } from "../modules/permissao/schema";
-
+import { permissaoColaborador } from "../modules/permissao-colaborador/schema";
 
 export function verifyPermission(permission: string[]) {
     return async (request: Request, response: Response, next: NextFunction) => {
@@ -14,13 +14,30 @@ export function verifyPermission(permission: string[]) {
         .from(colaborador)
         .where(eq(colaborador.id, userId));
 
-        if(!userExists) return response.status(401).json({ message: "User does not exits" });
+        if(!userExists) return response.status(400).json({ message: "User does not exits" });
 
         const permissaoExists = await db
         .select({id: permissao.id})
         .from(permissao)
-        .where(inArray(permissao.nome, permission))
-        if(!permissaoExists) return response.status(401).json({ message: "User does not exits" });
+        .where(inArray(permissao.nome, permission));
+
+        if(!permissaoExists) return response.status(400).json({ message: "Permission does not exits" });
+
+        const userPermission = await db
+        .select()
+        .from(permissaoColaborador)
+        .innerJoin(
+            permissao,
+            eq(permissao.id, permissaoColaborador.permissaoId)
+        )
+        .where(
+            and(
+                eq(permissaoColaborador.colaboradorId, userId),
+                inArray(permissao.nome, permission)
+            )
+        )
+
+        if(!userPermission) return response.status(401)
 
         return next();
     }

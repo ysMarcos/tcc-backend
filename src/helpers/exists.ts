@@ -1,5 +1,5 @@
 import { eq } from "drizzle-orm";
-import { db } from "../db";
+import { db } from "../db/index.js";
 
 export async function dataExists(data: any, schema: any, field: any): Promise<Boolean> {
     const dataExists = await db

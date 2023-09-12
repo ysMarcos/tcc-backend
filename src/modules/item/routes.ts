@@ -1,7 +1,7 @@
 import express from "express";
-import { ensureAuthenticated } from "../../middlewares/auth-middleware";
-import { verifyPermission } from "../../middlewares/permission-middleware";
-import { createItem, deleteItem, getItemById, listItem, updateItem } from "./controller";
+import { ensureAuthenticated } from "../../middlewares/auth-middleware.js";
+import { verifyPermission } from "../../middlewares/permission-middleware.js";
+import { createItem, deleteItem, getItemById, listItem, updateItem } from "./controller.js";
 
 const router = express.Router();
 
