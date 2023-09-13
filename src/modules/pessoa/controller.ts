@@ -67,7 +67,7 @@ export async function updatePessoa(request: Request, response: Response, next: N
             validateData = await dataExists(data, pessoa, fields[i]);
             if(validateData) return response.status(400)
                 .json({
-                    message: `This ${fields[i]} already exists`
+                    message: `There is another person with this ${fields[i]} already exists`
                 });
         }
 
