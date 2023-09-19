@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { item, itemInsertSchema } from "./schema";
+import { itemTable, itemInsertSchema } from "./schema";
 import { db } from "../../db";
 import { eq } from "drizzle-orm";
 
@@ -11,7 +11,7 @@ export async function createItem(request: Request, response: Response, next: Nex
         if (!isValid.success) return response.status(400).send(isValid.error.issues[0].message);
 
         const newItem = await db
-        .insert(item)
+        .insert(itemTable)
         .values(newItemData);
 
         response.status(200).json(newItem);
@@ -27,8 +27,8 @@ export async function getItemById(request: Request, response: Response, next: Ne
 
         const itemData = await db
         .select()
-        .from(item)
-        .where(eq(item.id, id))
+        .from(itemTable)
+        .where(eq(itemTable.id, id))
         .limit(1);
 
         response.status(200).json(itemData);
@@ -42,8 +42,8 @@ export async function listItem(request: Request, response: Response, next: NextF
 
         const itemData = await db
         .select()
-        .from(item)
-        .orderBy(item.nome);
+        .from(itemTable)
+        .orderBy(itemTable.nome);
 
         response.status(200).json(itemData);
     } catch(error){
@@ -59,16 +59,16 @@ export async function updateItem(request: Request, response: Response, next: Nex
 
         const itemToUpdate = await db
         .select()
-        .from(item)
-        .where(eq(item.id, id));
+        .from(itemTable)
+        .where(eq(itemTable.id, id));
 
         const updatedItem = await db
-        .update(item)
+        .update(itemTable)
         .set({
             ...itemToUpdate[0],
             ...newItemData
         })
-        .where(eq(item.id, id));
+        .where(eq(itemTable.id, id));
 
         return response.status(200).json(updatedItem);
     } catch(error){
@@ -83,8 +83,8 @@ export async function deleteItem(request: Request, response: Response, next: Nex
         const id = Number(params.id);
 
         const deletedItem = await db
-        .delete(item)
-        .where(eq(item.id, id));
+        .delete(itemTable)
+        .where(eq(itemTable.id, id));
 
         return response.status(200).json(deletedItem);
     } catch(error){

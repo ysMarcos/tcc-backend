@@ -5,7 +5,7 @@ import { createInsertSchema } from "drizzle-zod";
 import { z } from 'zod';
 import { itemCategoria } from "../item-categoria/schema";
 
-export const item = mysqlTable('item', {
+export const itemTable = mysqlTable('item', {
     id: int('id').autoincrement().primaryKey(),
     nome: varchar('nome', { length: 50 }).notNull().unique(),
     valorUnitario: float('valor_unitario').notNull(),
@@ -13,15 +13,15 @@ export const item = mysqlTable('item', {
     createdAt: timestamp('createdAt').defaultNow()
 })
 
-export const itemRelations = relations(item, ({ one, many }) => ({
+export const itemRelations = relations(itemTable, ({ one, many }) => ({
     unidadeMedida: one(unidadeMedida, {
-        fields: [item.unidadeMedidaId],
+        fields: [itemTable.unidadeMedidaId],
         references: [unidadeMedida.id]
     }),
     itemCategoria: many(itemCategoria)
 }))
 
-export const itemInsertSchema = createInsertSchema(item, {
+export const itemInsertSchema = createInsertSchema(itemTable, {
     nome: z
         .string({
             required_error: "Nome is required"

@@ -1,0 +1,654 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "tcc",
+    "dateExported": "2023-09-19T18:02:55.390Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "da4677c2-4294-4df1-ab14-640e7b5e5c9f",
+            "name": "pessoa",
+            "containerId": "",
+            "created": "2023-08-30T11:40:10.374Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "3cbb65cc-02c9-46e5-8def-142d165501aa",
+            "name": "cidade",
+            "containerId": "",
+            "created": "2023-08-30T13:20:56.531Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "d7b1e5cc-45cb-40b6-8211-a0e73130b61f",
+            "name": "endereco",
+            "containerId": "",
+            "created": "2023-08-30T16:40:51.968Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "03579ca9-2f97-4015-be1f-1759006f4681",
+            "name": "pessoa endereco",
+            "containerId": "",
+            "created": "2023-08-30T18:10:13.880Z",
+            "sortNum": 40000
+        },
+        {
+            "_id": "058c32df-e99d-4836-ba4a-c6370794fbbf",
+            "name": "categoria",
+            "containerId": "",
+            "created": "2023-08-31T14:16:36.897Z",
+            "sortNum": 50000
+        },
+        {
+            "_id": "40bb0f12-3865-4cdf-9218-8825d708ac90",
+            "name": "item",
+            "containerId": "",
+            "created": "2023-09-04T11:25:15.566Z",
+            "sortNum": 60000
+        },
+        {
+            "_id": "520d895b-edf4-45d0-96fa-928bb014d616",
+            "name": "item categoria",
+            "containerId": "",
+            "created": "2023-09-04T13:03:14.590Z",
+            "sortNum": 70000
+        },
+        {
+            "_id": "618b20da-928c-47a0-82d3-c06b26ea8503",
+            "name": "colaborador",
+            "containerId": "",
+            "created": "2023-09-04T18:08:20.857Z",
+            "sortNum": 80000
+        },
+        {
+            "_id": "0a799fbe-2bba-4430-a005-c549b652aa27",
+            "name": "permissao",
+            "containerId": "",
+            "created": "2023-09-11T13:24:49.754Z",
+            "sortNum": 90000
+        },
+        {
+            "_id": "3efb38fe-c2aa-4bc5-a8f9-c5604286b1e9",
+            "name": "permissao colaborador",
+            "containerId": "",
+            "created": "2023-09-12T11:59:51.049Z",
+            "sortNum": 100000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "024abafe-06d5-4606-a5af-902685bc6107",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "da4677c2-4294-4df1-ab14-640e7b5e5c9f",
+            "name": "insert pessoa",
+            "url": "{{url}}:{{port}}/pessoa/new",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-08-30T11:40:20.398Z",
+            "modified": "2023-09-05T12:28:53.731Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nome\": \"aaaaaaa\",\n  \"email\": \"aaaaaba@gmail.cm\",\n  \"telefone\": \"89999999999\",\n  \"cadastro\": \"22232222322\",\n  \"registro\": null,\n  \"isFisico\": true\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "3763e077-5877-403d-8770-d5ecfb36953a",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "03579ca9-2f97-4015-be1f-1759006f4681",
+            "name": "add endereco to pessoa",
+            "url": "{{url}}:{{port}}/pessoa/1/endereco/4/add",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-08-30T18:02:29.616Z",
+            "modified": "2023-08-31T11:56:45.545Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "31c07753-ae22-4493-ad3d-513d6f26b5c7",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "520d895b-edf4-45d0-96fa-928bb014d616",
+            "name": "add item to categoria",
+            "url": "{{url}}:{{port}}/categoria/1/item/1/add",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-09-04T12:57:57.299Z",
+            "modified": "2023-09-04T12:58:15.865Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "f01c5e20-3fad-449e-9877-c065cb345b92",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "03579ca9-2f97-4015-be1f-1759006f4681",
+            "name": "delete endereco from pessoa",
+            "url": "{{url}}:{{port}}/pessoa/1/endereco/1/remove",
+            "method": "DELETE",
+            "sortNum": 20000,
+            "created": "2023-08-30T18:13:54.623Z",
+            "modified": "2023-08-30T18:14:02.886Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "51481bd8-e005-4fb4-97f7-152064871d9c",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "520d895b-edf4-45d0-96fa-928bb014d616",
+            "name": "remove item from categoria",
+            "url": "{{url}}:{{port}}/categoria/1/item/1/remove",
+            "method": "DELETE",
+            "sortNum": 20000,
+            "created": "2023-09-04T13:03:26.445Z",
+            "modified": "2023-09-04T13:03:47.743Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "cec30bfe-a743-4690-8876-355a989a1777",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "da4677c2-4294-4df1-ab14-640e7b5e5c9f",
+            "name": "list pessoa",
+            "url": "{{host}}/pessoa/list",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-08-30T11:55:06.832Z",
+            "modified": "2023-09-12T12:35:07.193Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "964fd2ab-db64-4237-b133-2f23306ebac6",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "520d895b-edf4-45d0-96fa-928bb014d616",
+            "name": "get item categoria",
+            "url": "{{url}}:{{port}}/categoria/1/item/list",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-09-04T13:03:29.933Z",
+            "modified": "2023-09-04T13:03:58.316Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "e77559bb-934a-4ce2-b095-e7bdc486daee",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "da4677c2-4294-4df1-ab14-640e7b5e5c9f",
+            "name": "get pessoa by id",
+            "url": "{{url}}:{{port}}/pessoa/get/1",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2023-08-30T12:02:35.665Z",
+            "modified": "2023-08-30T12:03:20.140Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "51fbeb0e-1bed-4563-b391-cc719b67ac4b",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "da4677c2-4294-4df1-ab14-640e7b5e5c9f",
+            "name": "update pessoa",
+            "url": "{{url}}:{{port}}/pessoa/update/1",
+            "method": "PUT",
+            "sortNum": 50000,
+            "created": "2023-08-30T12:23:55.314Z",
+            "modified": "2023-09-05T12:42:54.023Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nome\": \"teste1\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "cf1b5661-acaa-4089-88bd-a77f7cb0d2a5",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "da4677c2-4294-4df1-ab14-640e7b5e5c9f",
+            "name": "delete pessoa",
+            "url": "{{url}}:{{port}}/pessoa/delete/3",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2023-08-30T12:31:45.174Z",
+            "modified": "2023-08-30T12:32:03.522Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "22a8abf0-3105-430b-b986-dde17dde4f36",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "3cbb65cc-02c9-46e5-8def-142d165501aa",
+            "name": "create cidade",
+            "url": "{{url}}:{{port}}/cidade/new",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2023-08-30T13:21:04.477Z",
+            "modified": "2023-08-30T16:42:21.307Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nome\": \"Campo Mourão\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "663f37b3-fd78-499c-a0ab-0a53846df513",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "3cbb65cc-02c9-46e5-8def-142d165501aa",
+            "name": "list cidades",
+            "url": "{{url}}:{{port}}/cidade/list",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2023-08-30T13:25:26.801Z",
+            "modified": "2023-08-30T13:27:34.946Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "62aec390-d95d-4bbd-be3f-21f7ccbe61de",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "3cbb65cc-02c9-46e5-8def-142d165501aa",
+            "name": "get cidade",
+            "url": "{{url}}:{{port}}/cidade/get/1",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2023-08-30T13:27:42.376Z",
+            "modified": "2023-08-30T13:27:58.057Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "d1cb6bc2-6284-45d7-bac5-0e4161a26537",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "d7b1e5cc-45cb-40b6-8211-a0e73130b61f",
+            "name": "create endereco",
+            "url": "{{url}}:{{port}}/endereco/new",
+            "method": "POST",
+            "sortNum": 90000,
+            "created": "2023-08-30T16:41:06.456Z",
+            "modified": "2023-08-31T11:56:31.521Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"rua\": \"Rua Pitanga\",\n  \"numero\": \"131\",\n  \"bairro\": \"Centro\",\n  \"cep\": \"87308060\",\n  \"tipo\": \"U\",\n  \"complemento\": \"\",\n  \"cidade_id\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "f56172af-9e24-4d74-9b4f-78aa202a6569",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "d7b1e5cc-45cb-40b6-8211-a0e73130b61f",
+            "name": "list enderecos",
+            "url": "{{url}}:{{port}}/endereco/list",
+            "method": "GET",
+            "sortNum": 100000,
+            "created": "2023-08-30T16:46:17.772Z",
+            "modified": "2023-08-30T16:46:37.836Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "34744716-67db-41ad-8586-2be7cb9df9ed",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "d7b1e5cc-45cb-40b6-8211-a0e73130b61f",
+            "name": "update endereco",
+            "url": "{{url}}:{{port}}/endereco/update/1",
+            "method": "PUT",
+            "sortNum": 100000,
+            "created": "2023-08-30T16:57:20.128Z",
+            "modified": "2023-08-31T11:46:35.284Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"cidadeId\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "df968930-2276-44bb-a35f-3fcbbbf451a4",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "d7b1e5cc-45cb-40b6-8211-a0e73130b61f",
+            "name": "get Endereco by id",
+            "url": "{{url}}:{{port}}/endereco/get/1",
+            "method": "GET",
+            "sortNum": 110000,
+            "created": "2023-08-30T16:48:56.685Z",
+            "modified": "2023-08-30T16:49:05.193Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b2256525-b58e-48a4-b0cf-716798919e61",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "d7b1e5cc-45cb-40b6-8211-a0e73130b61f",
+            "name": "delete endereco",
+            "url": "{{url}}:{{port}}/endereco/delete/1",
+            "method": "DELETE",
+            "sortNum": 110000,
+            "created": "2023-08-30T17:14:42.320Z",
+            "modified": "2023-08-31T11:46:06.865Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "6da2cdbf-738a-4aeb-84d4-e6dabfe27cd8",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "03579ca9-2f97-4015-be1f-1759006f4681",
+            "name": "get pessoa endereco",
+            "url": "{{url}}:{{port}}/pessoa/1/endereco/list",
+            "method": "GET",
+            "sortNum": 120000,
+            "created": "2023-08-31T11:42:11.807Z",
+            "modified": "2023-08-31T11:47:45.665Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "17509e24-b0c1-47a3-a260-21c403bbfd36",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "058c32df-e99d-4836-ba4a-c6370794fbbf",
+            "name": "create categoria",
+            "url": "{{url}}:{{port}}/categoria/new",
+            "method": "POST",
+            "sortNum": 130000,
+            "created": "2023-08-31T14:16:51.147Z",
+            "modified": "2023-08-31T14:17:17.163Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nome\": \"categoria1\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "51c23b1b-9588-4672-bb9d-25930422ed2c",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "058c32df-e99d-4836-ba4a-c6370794fbbf",
+            "name": "get categoria by id",
+            "url": "{{url}}:{{port}}/categoria/get/1",
+            "method": "GET",
+            "sortNum": 140000,
+            "created": "2023-08-31T14:31:53.469Z",
+            "modified": "2023-08-31T14:34:18.311Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "2c760fcf-2054-445e-8d17-b874544c6570",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "058c32df-e99d-4836-ba4a-c6370794fbbf",
+            "name": "list categoria",
+            "url": "{{url}}:{{port}}/categoria/list",
+            "method": "GET",
+            "sortNum": 150000,
+            "created": "2023-08-31T14:34:02.208Z",
+            "modified": "2023-09-04T12:59:05.649Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nome\": \"teste\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "a1aaeb4b-e9d8-4d9d-970e-6f3a21588542",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "058c32df-e99d-4836-ba4a-c6370794fbbf",
+            "name": "update categoria",
+            "url": "{{url}}:{{port}}/categoria/update/1",
+            "method": "PUT",
+            "sortNum": 150000,
+            "created": "2023-08-31T14:37:59.291Z",
+            "modified": "2023-08-31T14:38:22.487Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nome\": \"categoria\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "7796d7bb-9a16-481a-99fa-8c79ca4d646e",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "40bb0f12-3865-4cdf-9218-8825d708ac90",
+            "name": "get item by id",
+            "url": "{{url}}:{{port}}/item/get/1",
+            "method": "GET",
+            "sortNum": 170000,
+            "created": "2023-09-04T11:32:45.464Z",
+            "modified": "2023-09-04T11:32:52.795Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "bc0066cf-befb-4ae5-bb00-d2b2b3497dd0",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "40bb0f12-3865-4cdf-9218-8825d708ac90",
+            "name": "create item",
+            "url": "{{url}}:{{port}}/item/new",
+            "method": "POST",
+            "sortNum": 180000,
+            "created": "2023-09-04T11:25:27.773Z",
+            "modified": "2023-09-04T11:36:42.315Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nome\": \"bteste\",\n  \"valorUnitario\": 2,\n  \"unidadeMedidaId\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "eef42ca5-23ff-4ac9-b982-e5d5e563bece",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "40bb0f12-3865-4cdf-9218-8825d708ac90",
+            "name": "list item",
+            "url": "{{host}}/item/list",
+            "method": "GET",
+            "sortNum": 180000,
+            "created": "2023-09-04T11:33:03.784Z",
+            "modified": "2023-09-12T13:05:07.402Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXN1YXJpbyI6InRlc3RlIiwiZGF0YUluaWNpbyI6IjIwMjMtMDktMDRUMDM6MDA6MDAuMDAwWiIsImRhdGFQcmV2aXNhb0ZpbSI6bnVsbCwiYXRpdm8iOnRydWUsInBlc3NvYUlkIjoxLCJpYXQiOjE2OTM5MzgwNzIsImV4cCI6MTY5NDAyNDQ3Mn0.ONfdMchMZ4xstvfo7PjWIqny-PssKrKlhbEMPZ7pibo",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXN1YXJpbyI6InRlc3RlMSIsImRhdGFJbmljaW8iOiIyMDIzLTA5LTA0VDAzOjAwOjAwLjAwMFoiLCJkYXRhUHJldmlzYW9GaW0iOm51bGwsImF0aXZvIjp0cnVlLCJwZXNzb2FJZCI6MSwiaWF0IjoxNjk0NTIzOTAwLCJleHAiOjE2OTQ2MTAzMDB9.Fi6kB6GY3NxA-ARIQ2bRuNwjtGbXroxHdZ-HxFbN6HU"
+            },
+            "tests": []
+        },
+        {
+            "_id": "cc05f9cf-fe68-40ae-b62e-9a90b22cabd0",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "40bb0f12-3865-4cdf-9218-8825d708ac90",
+            "name": "list item Copy",
+            "url": "{{host}}/item/list/test?nome&valorMin=0&valorMax=20&limit=20&page=1",
+            "method": "GET",
+            "sortNum": 185000,
+            "created": "2023-09-19T11:48:52.500Z",
+            "modified": "2023-09-19T18:02:14.930Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXN1YXJpbyI6InRlc3RlIiwiZGF0YUluaWNpbyI6IjIwMjMtMDktMDRUMDM6MDA6MDAuMDAwWiIsImRhdGFQcmV2aXNhb0ZpbSI6bnVsbCwiYXRpdm8iOnRydWUsInBlc3NvYUlkIjoxLCJpYXQiOjE2OTM5MzgwNzIsImV4cCI6MTY5NDAyNDQ3Mn0.ONfdMchMZ4xstvfo7PjWIqny-PssKrKlhbEMPZ7pibo",
+                    "isDisabled": true
+                }
+            ],
+            "params": [
+                {
+                    "name": "nome",
+                    "value": "",
+                    "isPath": false
+                },
+                {
+                    "name": "valorMin",
+                    "value": "0",
+                    "isPath": false
+                },
+                {
+                    "name": "valorMax",
+                    "value": "20",
+                    "isPath": false
+                },
+                {
+                    "name": "limit",
+                    "value": "20",
+                    "isPath": false
+                },
+                {
+                    "name": "page",
+                    "value": "1",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "13e2d5ca-339d-487d-ab75-e00fa2261443",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "40bb0f12-3865-4cdf-9218-8825d708ac90",
+            "name": "update item",
+            "url": "{{url}}:{{port}}/item/update/1",
+            "method": "PUT",
+            "sortNum": 190000,
+            "created": "2023-09-04T11:53:40.399Z",
+            "modified": "2023-09-04T11:54:13.565Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nome\": \"teste3\",\n  \"valorUnitario\": 5.29\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "cd008d4f-dfb7-470c-9c47-87346a70112a",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "40bb0f12-3865-4cdf-9218-8825d708ac90",
+            "name": "delete item",
+            "url": "{{url}}:{{port}}/item/delete/3",
+            "method": "DELETE",
+            "sortNum": 200000,
+            "created": "2023-09-04T11:56:35.947Z",
+            "modified": "2023-09-04T11:56:50.027Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "bb3144fc-ad89-44eb-aac0-96ed7b3bcf28",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "618b20da-928c-47a0-82d3-c06b26ea8503",
+            "name": "create colaborador",
+            "url": "{{url}}:{{port}}/colaborador/new",
+            "method": "POST",
+            "sortNum": 210000,
+            "created": "2023-09-04T18:08:33.264Z",
+            "modified": "2023-09-11T11:53:59.855Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"usuario\": \"teste1\",\n  \"senha\": \"12345\",\n  \"dataInicio\": \"2023-09-04\",\n  \"daraPrevisaoFim\": \"2025-09-04\",\n  \"pessoaId\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "3a7a594e-c176-48df-9dad-970e7a7c4c12",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "618b20da-928c-47a0-82d3-c06b26ea8503",
+            "name": "login",
+            "url": "{{host}}/colaborador/auth",
+            "method": "POST",
+            "sortNum": 230000,
+            "created": "2023-09-05T13:59:48.279Z",
+            "modified": "2023-09-12T13:05:00.513Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"usuario\": \"teste1\",\n  \"senha\": \"12345\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "7756d99e-44df-4020-8fd4-19292e1dd54b",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "0a799fbe-2bba-4430-a005-c549b652aa27",
+            "name": "create permissao",
+            "url": "{{host}}/permissao/new",
+            "method": "POST",
+            "sortNum": 240000,
+            "created": "2023-09-11T13:24:56.660Z",
+            "modified": "2023-09-12T12:46:01.623Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nome\": \"get-item\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "7fee760c-1dd4-4f4f-8f42-43c6c5ba3ca2",
+            "colId": "e05813b0-df30-4cee-9c4a-97b022787347",
+            "containerId": "3efb38fe-c2aa-4bc5-a8f9-c5604286b1e9",
+            "name": "add permissao to colaborador",
+            "url": "{{host}}/colaborador/2/permissions",
+            "method": "POST",
+            "sortNum": 250000,
+            "created": "2023-09-12T12:00:05.237Z",
+            "modified": "2023-09-12T12:46:54.878Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"permissoes\": [\"create-item\", \"get-item\"]\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}
