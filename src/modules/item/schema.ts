@@ -43,3 +43,23 @@ export const itemInsertSchema = createInsertSchema(itemTable, {
             required_error: "unidadeMedidaId is required"
         })
 })
+
+export const itemUpdateSchema = createInsertSchema(itemTable, {
+    nome: z
+        .string()
+        .min(3, { message: "Item should be 3 or more characters long" })
+        .max(50, { message: "Item should be 50 or fewer characters long" })
+        .optional(),
+    descricao: z
+        .string()
+        .min(3, { message: "Descricao should be 3 or more characters long" })
+        .max(50, { message: "Descricao should be 150 or fewer characters long" })
+        .optional(),
+    valorUnitario: z
+        .number()
+        .positive("The value must be positive")
+        .optional(),
+    unidadeMedidaId: z
+        .number()
+        .optional()
+})
