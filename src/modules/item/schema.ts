@@ -8,6 +8,7 @@ import { itemCategoria } from "../item-categoria/schema";
 export const itemTable = mysqlTable('item', {
     id: int('id').autoincrement().primaryKey(),
     nome: varchar('nome', { length: 50 }).notNull().unique(),
+    descricao: varchar('descricao', { length: 150 }),
     valorUnitario: float('valor_unitario').notNull(),
     unidadeMedidaId: int('unidade_medida_id').notNull().references(() => unidadeMedida.id),
     createdAt: timestamp('createdAt').defaultNow()
@@ -28,6 +29,10 @@ export const itemInsertSchema = createInsertSchema(itemTable, {
         })
         .min(3, { message: "Item should be 3 or more characters long" })
         .max(50, { message: "Item should be 50 or fewer characters long" }),
+    descricao: z
+        .string()
+        .min(3, { message: "Descricao should be 3 or more characters long" })
+        .max(50, { message: "Descricao should be 150 or fewer characters long" }),
     valorUnitario: z
         .number({
             required_error: "Valor is required"
