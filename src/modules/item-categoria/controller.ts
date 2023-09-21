@@ -1,7 +1,7 @@
 import { and, eq } from "drizzle-orm";
 import { NextFunction, Request, Response } from "express";
 import { db } from "../../db";
-import { categoria } from "../categoria/schema";
+import { categoriaTable } from "../categoria/schema";
 import { itemTable } from "../item/schema";
 import { unidadeMedida } from "../unidade-medida/schema";
 import { itemCategoria } from "./schema";
@@ -37,10 +37,10 @@ export async function listItemCategoria(request: Request, response: Response, ne
             unidadeMedida: unidadeMedida.nome
         })
         .from(itemCategoria)
-        .innerJoin(categoria, eq(itemCategoria.categoriaId, categoria.id))
+        .innerJoin(categoriaTable, eq(itemCategoria.categoriaId, categoriaTable.id))
         .innerJoin(itemTable, eq(itemCategoria.itemId, itemTable.id))
         .innerJoin(unidadeMedida, eq(unidadeMedida.id, itemTable.unidadeMedidaId))
-        .where(eq(categoria.id, categoriaId));
+        .where(eq(categoriaTable.id, categoriaId));
 
         response.status(200).json(resultItemCategoria);
     } catch (error) {

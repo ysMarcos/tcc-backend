@@ -1,12 +1,12 @@
 import { relations } from "drizzle-orm";
 import { int, mysqlTable } from "drizzle-orm/mysql-core";
-import { categoria } from "../categoria/schema";
+import { categoriaTable } from "../categoria/schema";
 import { itemTable } from "../item/schema";
 
 export const itemCategoria = mysqlTable("item_categoria", {
     id: int('id').autoincrement().primaryKey(),
     itemId: int('item_id').notNull().references(() => itemTable.id),
-    categoriaId:int('categoria_id').notNull().references(() => categoria.id)
+    categoriaId:int('categoria_id').notNull().references(() => categoriaTable.id)
 })
 
 export const itemCategoriaRelations = relations(itemCategoria, ({one}) => ({
@@ -14,8 +14,8 @@ export const itemCategoriaRelations = relations(itemCategoria, ({one}) => ({
         fields: [itemCategoria.itemId],
         references: [itemTable.id]
     }),
-    categoria: one(categoria, {
+    categoria: one(categoriaTable, {
         fields: [itemCategoria.categoriaId],
-        references: [categoria.id]
+        references: [categoriaTable.id]
     })
 }))

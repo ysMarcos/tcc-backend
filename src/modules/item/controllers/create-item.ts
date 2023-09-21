@@ -3,7 +3,7 @@ import  { sql } from "drizzle-orm"
 import { db } from "../../../db";
 import { itemInsertSchema, itemTable } from "../schema";
 
-export async function insertItem(request: Request, response: Response){
+export async function createItem(request: Request, response: Response){
     const newItemData = request.body;
 
     const sqlQuery = db

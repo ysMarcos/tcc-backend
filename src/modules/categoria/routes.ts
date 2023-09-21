@@ -1,11 +1,14 @@
 import express from "express";
-import { createCategoria, getCategoriaById, listCategoria, updateCategoria } from "./controller";
+import { ensureAuthenticated } from "../../middlewares/auth-middleware";
+import { verifyPermission } from "../../middlewares/permission-middleware";
+import { getCategoriaById, listCategoria, updateCategoria } from "./controller";
+import { createCategoria } from "./controllers/create-categoria";
 
 const router = express.Router();
 
-router.post('/new', createCategoria);
-router.get('/get/:id', getCategoriaById);
-router.get('/list', listCategoria);
-router.put('/update/:id', updateCategoria);
+router.post('/new', ensureAuthenticated, verifyPermission(['admin','create-categoria']), createCategoria);
+router.get('/get/:id', ensureAuthenticated, verifyPermission(['admin','get-categoria']), getCategoriaById);
+router.get('/list', ensureAuthenticated, verifyPermission(['admin','get-categoria']), listCategoria);
+router.put('/update/:id', ensureAuthenticated, verifyPermission(['admin','update-categoria']), updateCategoria);
 
 export default router;
