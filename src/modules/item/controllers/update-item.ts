@@ -20,7 +20,7 @@ export async function updateItemTest(request: Request, response: Response){
         const isValid = itemUpdateSchema.safeParse(data);
         if (!isValid.success) return response.status(400).send(isValid.error.issues[0].message);
 
-        const updatedItem = await db.transaction(async (transaction) => {
+        const result = await db.transaction(async (transaction) => {
             const [item] = await getItemQuery.execute({ id });
             if(!item) {
                 transaction.rollback();
@@ -38,7 +38,7 @@ export async function updateItemTest(request: Request, response: Response){
             );
             return updatedItem;
         });
-        return response.status(200).json(updatedItem);
+        return response.status(200).json(result);
     } catch(error){
         return response.status(404).json(error);
     }

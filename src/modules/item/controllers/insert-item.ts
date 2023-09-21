@@ -20,13 +20,16 @@ export async function insertItemTest(request: Request, response: Response){
         const isValid = itemInsertSchema.safeParse(newItemData);
         if (!isValid.success) return response.status(400).send(isValid.error.issues[0].message);
 
-        const result = await sqlQuery
-        .execute({
-            nome: newItemData.nome,
-            valorUnitario: newItemData.valorUnitario,
-            descricao: newItemData.descricao,
-            unidadeMedidaId: newItemData.unidadeMedidaId,
-        });
+        const result = await db.transaction(async (transaction) => {
+            const insertedItem = sqlQuery.execute({
+                nome: newItemData.nome,
+                valorUnitario: newItemData.valorUnitario,
+                descricao: newItemData.descricao,
+                unidadeMedidaId: newItemData.unidadeMedidaId,
+            });
+            if(!insertedItem) transaction.rollback();
+            return insertedItem;
+        })
 
         response.status(200)
             .json(result);
