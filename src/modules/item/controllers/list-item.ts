@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { db } from "../../../db";
 import { itemTable } from "../schema";
 
-export async function listItemTest(request: Request, response: Response) {
+export async function listItem(request: Request, response: Response) {
     const { query } = request;
     const { nome, limit, page, valorMin, valorMax } = query;
 

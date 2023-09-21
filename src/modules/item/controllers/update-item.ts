@@ -3,7 +3,7 @@ import {Request, Response} from "express";
 import { db } from "../../../db";
 import { itemTable, itemUpdateSchema } from "../schema";
 
-export async function updateItemTest(request: Request, response: Response){
+export async function updateItem(request: Request, response: Response){
     const { params } = request;
     const id = Number(params.id);
     const data = request.body;

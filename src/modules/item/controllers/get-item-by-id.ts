@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { db } from "../../../db";
 import { itemTable } from "../schema";
 
-export async function getItemByIdTest(request: Request, response: Response){
+export async function getItemById(request: Request, response: Response){
     const { params } = request;
     const id = Number(params.id);
     const sqlQuery = db
