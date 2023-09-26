@@ -1,8 +1,7 @@
 import express from "express";
 import { ensureAuthenticated } from "../../middlewares/auth-middleware";
 import { verifyPermission } from "../../middlewares/permission-middleware";
-import { getCategoriaById, listCategoria, updateCategoria } from "./controller";
-import { createCategoria } from "./controllers/create-categoria";
+import { getCategoriaById, listCategoria, updateCategoria, createCategoria } from "./controllers";
 
 const router = express.Router();
 

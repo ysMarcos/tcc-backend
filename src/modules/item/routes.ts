@@ -1,11 +1,7 @@
 import express from "express";
 import { ensureAuthenticated } from "../../middlewares/auth-middleware.js";
 import { verifyPermission } from "../../middlewares/permission-middleware.js";
-import { deleteItem } from "./controllers/delete-item.js";
-import { getItemById } from "./controllers/get-item-by-id.js";
-import { createItem } from "./controllers/create-item.js";
-import { listItem } from "./controllers/list-item.js";
-import { updateItem } from "./controllers/update-item.js";
+import { deleteItem, getItemById, createItem, listItem, updateItem } from "./controllers";
 
 const router = express.Router();
 

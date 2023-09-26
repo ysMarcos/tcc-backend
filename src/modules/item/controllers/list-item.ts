@@ -1,4 +1,4 @@
-import { and, between, eq, gt, isNotNull, like, or, sql } from "drizzle-orm";
+import { and, between, like, sql } from "drizzle-orm";
 import { Request, Response } from "express";
 import { db } from "../../../db";
 import { itemTable } from "../schema";

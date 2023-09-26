@@ -32,5 +32,3 @@ export const categoriaUpdateSchema = createInsertSchema(categoriaTable, {
     .optional()
 });
 export const categoriaSelectSchema = createSelectSchema(categoriaTable);
-
-export type Categoria = InferSelectModel<typeof categoriaTable>;
