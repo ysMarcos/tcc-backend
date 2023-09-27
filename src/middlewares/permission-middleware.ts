@@ -1,4 +1,4 @@
-import { and, eq, inArray } from "drizzle-orm";
+import { and, eq, inArray, like, or } from "drizzle-orm";
 import { NextFunction, Request, Response } from "express";
 import { db } from "../db";
 import { colaborador } from "../modules/colaborador/schema";
@@ -33,7 +33,11 @@ export function verifyPermission(permission: string[]) {
         .where(
             and(
                 eq(permissaoColaborador.colaboradorId, userId),
-                inArray(permissao.nome, permission)
+                or(
+                    inArray(permissao.nome, permission),
+                    like(permissao.nome, "admin")
+                )
+
             )
         )
         if(!userPermission[0]) return response.sendStatus(401)

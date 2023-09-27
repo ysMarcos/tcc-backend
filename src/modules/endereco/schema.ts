@@ -2,7 +2,7 @@ import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm";
 import { char, int, mysqlTable, timestamp, varchar } from "drizzle-orm/mysql-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from 'zod';
-import { cidade } from "../cidade/schema";
+import { cidadeTable } from "../cidade/schema";
 import { pessoaEndereco } from "../pessoa-endereco/schema";
 
 export const endereco = mysqlTable('endereco', {
@@ -13,14 +13,14 @@ export const endereco = mysqlTable('endereco', {
     cep: char('cep', { length: 8 }).notNull(),
     tipo: char('tipo', { length: 1, enum: ['U', 'R'] }),
     complemento: varchar('complemento', { length: 50 }),
-    cidadeId: int('cidade_id').references(() => cidade.id),
+    cidadeId: int('cidade_id').references(() => cidadeTable.id),
     createdAt: timestamp('createdAt').defaultNow()
 });
 
 export const enderecoRelations = relations(endereco, ({ one, many }) => ({
-    cidade: one(cidade, {
+    cidade: one(cidadeTable, {
         fields: [endereco.cidadeId],
-        references: [cidade.id]
+        references: [cidadeTable.id]
     }),
     pessoaEndereco: many(pessoaEndereco)
 }));
