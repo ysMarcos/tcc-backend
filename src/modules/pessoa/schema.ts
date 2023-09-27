@@ -1,26 +1,25 @@
-import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm";
+import { InferSelectModel, relations } from "drizzle-orm";
 import { boolean, int, mysqlTable, timestamp, varchar } from "drizzle-orm/mysql-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from 'zod';
 import { pessoaEndereco } from "../pessoa-endereco/schema";
 
-export const pessoa = mysqlTable('pessoa', {
+export const pessoaTable = mysqlTable('pessoa', {
     id: int('id').autoincrement().primaryKey(),
     nome: varchar('nome', { length:  150 }).notNull(),
     email: varchar('email', { length:  100 }).unique().notNull(),
     telefone: varchar('telefone', { length:  11 }).notNull(),
     cadastro: varchar('cadastro', { length:  14 }).unique().notNull(),
     registro: varchar('registro', { length:  11 }).unique(),
-    isFisico: boolean('isFisico'),
     createdAt: timestamp('createdAt').defaultNow()
 });
 
-export const pessoaRelations = relations(pessoa, ({many}) => ({
+export const pessoaRelations = relations(pessoaTable, ({many}) => ({
     pessoaEndereco: many(pessoaEndereco)
 }));
 
-export const pessoaSelectSchema = createSelectSchema(pessoa);
-export const pessoaInsertSchema = createInsertSchema(pessoa, {
+export const pessoaSelectSchema = createSelectSchema(pessoaTable);
+export const pessoaInsertSchema = createInsertSchema(pessoaTable, {
     nome: z
         .string({
             required_error: "Nome is required"
@@ -50,8 +49,6 @@ export const pessoaInsertSchema = createInsertSchema(pessoa, {
         .min(7, { message: "Registro should be 7 or more characters long" })
         .max(11, { message: "Registro should be 11 or fewer characters long" })
         .nullable(),
-    isFisico: z
-        .boolean(),
 });
 
-export type Pessoa = InferSelectModel<typeof pessoa>;
+export type Pessoa = InferSelectModel<typeof pessoaTable>;

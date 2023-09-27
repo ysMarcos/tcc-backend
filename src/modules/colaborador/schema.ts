@@ -3,7 +3,7 @@ import { boolean, datetime, int, mysqlTable, timestamp, varchar } from "drizzle-
 import { createInsertSchema } from "drizzle-zod";
 import { z } from 'zod';
 import { permissaoColaborador } from "../permissao-colaborador/schema";
-import { pessoa } from "../pessoa/schema";
+import { pessoaTable } from "../pessoa/schema";
 
 export const colaborador = mysqlTable("colaborador", {
     id: int('id').autoincrement().primaryKey(),
@@ -12,14 +12,14 @@ export const colaborador = mysqlTable("colaborador", {
     dataInicio: datetime('data_inicio_contrato').notNull(),
     dataPrevisaoFim: datetime('data_previsao_fim').notNull(),
     ativo: boolean('ativo').default(true),
-    pessoaId: int('pessoa_id').references(() => pessoa.id),
+    pessoaId: int('pessoa_id').references(() => pessoaTable.id),
     createdAt: timestamp('createdAt').defaultNow()
 })
 
 export const colaboradorRelations = relations(colaborador, ({ one, many }) => ({
-    pessoaId: one(pessoa, {
+    pessoaId: one(pessoaTable, {
         fields: [colaborador.pessoaId],
-        references: [pessoa.id]
+        references: [pessoaTable.id]
     }),
     permissaoColaborador: many(permissaoColaborador)
 }))

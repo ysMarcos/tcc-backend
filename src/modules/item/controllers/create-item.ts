@@ -21,7 +21,7 @@ export async function createItem(request: Request, response: Response){
         if (!isValid.success) return response.status(400).send(isValid.error.issues[0].message);
 
         const result = await db.transaction(async (transaction) => {
-            const insertedItem = sqlQuery.execute({
+            const insertedItem = await sqlQuery.execute({
                 nome: newItemData.nome,
                 valorUnitario: newItemData.valorUnitario,
                 descricao: newItemData.descricao,

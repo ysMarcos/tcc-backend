@@ -43,6 +43,13 @@
       "when": 1695219614657,
       "tag": "0005_dazzling_ben_parker",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1695834859234,
+      "tag": "0006_ambitious_hex",
+      "breakpoints": true
     }
   ]
 }

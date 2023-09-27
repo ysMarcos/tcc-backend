@@ -1,0 +1,810 @@
+{
+    "info": {
+        "_postman_id": "3c187798-6bee-4fc2-94a9-8c0bb47f7c07",
+        "name": "tcc",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "pessoa",
+            "item": [
+                {
+                    "name": "insert pessoa",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "{{host}}/pessoa/new",
+                            "path": [
+                                "pessoa",
+                                "new"
+                            ],
+                            "host": [
+                                "{{host}}"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"nome\": \"admin\",\n  \"email\": \"adm@gmail.cssm\",\n  \"telefone\": \"89999929999\",\n  \"cadastro\": \"22232262322\",\n  \"registro\": null,\n  \"isFisico\": true\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "list pessoa",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{host}}/pessoa/list",
+                            "path": [
+                                "pessoa",
+                                "list"
+                            ],
+                            "host": [
+                                "{{host}}"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "get pessoa by id",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{url}}:{{port}}/pessoa/get/1",
+                            "path": [
+                                "pessoa",
+                                "get",
+                                "1"
+                            ],
+                            "host": [
+                                "{{url}}"
+                            ],
+                            "port": "{{port}}"
+                        }
+                    }
+                },
+                {
+                    "name": "update pessoa",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "{{url}}:{{port}}/pessoa/update/1",
+                            "path": [
+                                "pessoa",
+                                "update",
+                                "1"
+                            ],
+                            "host": [
+                                "{{url}}"
+                            ],
+                            "port": "{{port}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"nome\": \"teste1\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "delete pessoa",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "{{url}}:{{port}}/pessoa/delete/3",
+                            "path": [
+                                "pessoa",
+                                "delete",
+                                "3"
+                            ],
+                            "host": [
+                                "{{url}}"
+                            ],
+                            "port": "{{port}}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "cidade",
+            "item": [
+                {
+                    "name": "create cidade",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "{{url}}:{{port}}/cidade/new",
+                            "path": [
+                                "cidade",
+                                "new"
+                            ],
+                            "host": [
+                                "{{url}}"
+                            ],
+                            "port": "{{port}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"nome\": \"Campo Mourão\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "list cidades",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{url}}:{{port}}/cidade/list",
+                            "path": [
+                                "cidade",
+                                "list"
+                            ],
+                            "host": [
+                                "{{url}}"
+                            ],
+                            "port": "{{port}}"
+                        }
+                    }
+                },
+                {
+                    "name": "get cidade",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{url}}:{{port}}/cidade/get/1",
+                            "path": [
+                                "cidade",
+                                "get",
+                                "1"
+                            ],
+                            "host": [
+                                "{{url}}"
+                            ],
+                            "port": "{{port}}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "endereco",
+            "item": [
+                {
+                    "name": "create endereco",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "{{url}}:{{port}}/endereco/new",
+                            "path": [
+                                "endereco",
+                                "new"
+                            ],
+                            "host": [
+                                "{{url}}"
+                            ],
+                            "port": "{{port}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"rua\": \"Rua Pitanga\",\n  \"numero\": \"131\",\n  \"bairro\": \"Centro\",\n  \"cep\": \"87308060\",\n  \"tipo\": \"U\",\n  \"complemento\": \"\",\n  \"cidade_id\": 1\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "list enderecos",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{url}}:{{port}}/endereco/list",
+                            "path": [
+                                "endereco",
+                                "list"
+                            ],
+                            "host": [
+                                "{{url}}"
+                            ],
+                            "port": "{{port}}"
+                        }
+                    }
+                },
+                {
+                    "name": "get Endereco by id",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{url}}:{{port}}/endereco/get/1",
+                            "path": [
+                                "endereco",
+                                "get",
+                                "1"
+                            ],
+                            "host": [
+                                "{{url}}"
+                            ],
+                            "port": "{{port}}"
+                        }
+                    }
+                },
+                {
+                    "name": "update endereco",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "{{url}}:{{port}}/endereco/update/1",
+                            "path": [
+                                "endereco",
+                                "update",
+                                "1"
+                            ],
+                            "host": [
+                                "{{url}}"
+                            ],
+                            "port": "{{port}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"cidadeId\": 1\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "delete endereco",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "{{url}}:{{port}}/endereco/delete/1",
+                            "path": [
+                                "endereco",
+                                "delete",
+                                "1"
+                            ],
+                            "host": [
+                                "{{url}}"
+                            ],
+                            "port": "{{port}}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "pessoa endereco",
+            "item": [
+                {
+                    "name": "add endereco to pessoa",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "{{url}}:{{port}}/pessoa/1/endereco/4/add",
+                            "path": [
+                                "pessoa",
+                                "1",
+                                "endereco",
+                                "4",
+                                "add"
+                            ],
+                            "host": [
+                                "{{url}}"
+                            ],
+                            "port": "{{port}}"
+                        }
+                    }
+                },
+                {
+                    "name": "delete endereco from pessoa",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "{{url}}:{{port}}/pessoa/1/endereco/1/remove",
+                            "path": [
+                                "pessoa",
+                                "1",
+                                "endereco",
+                                "1",
+                                "remove"
+                            ],
+                            "host": [
+                                "{{url}}"
+                            ],
+                            "port": "{{port}}"
+                        }
+                    }
+                },
+                {
+                    "name": "get pessoa endereco",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{url}}:{{port}}/pessoa/1/endereco/list",
+                            "path": [
+                                "pessoa",
+                                "1",
+                                "endereco",
+                                "list"
+                            ],
+                            "host": [
+                                "{{url}}"
+                            ],
+                            "port": "{{port}}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "categoria",
+            "item": [
+                {
+                    "name": "create categoria",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "{{host}}/categoria/new",
+                            "path": [
+                                "categoria",
+                                "new"
+                            ],
+                            "host": [
+                                "{{host}}"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"nome\": \"categoria1\"\n}"
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "get categoria by id",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{url}}:{{port}}/categoria/get/1",
+                            "path": [
+                                "categoria",
+                                "get",
+                                "1"
+                            ],
+                            "host": [
+                                "{{url}}"
+                            ],
+                            "port": "{{port}}"
+                        }
+                    }
+                },
+                {
+                    "name": "list categoria",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{url}}:{{port}}/categoria/list",
+                            "path": [
+                                "categoria",
+                                "list"
+                            ],
+                            "host": [
+                                "{{url}}"
+                            ],
+                            "port": "{{port}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"nome\": \"teste\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "update categoria",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "{{url}}:{{port}}/categoria/update/1",
+                            "path": [
+                                "categoria",
+                                "update",
+                                "1"
+                            ],
+                            "host": [
+                                "{{url}}"
+                            ],
+                            "port": "{{port}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"nome\": \"categoria\"\n}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "item",
+            "item": [
+                {
+                    "name": "create item",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "{{host}}/item/new",
+                            "path": [
+                                "item",
+                                "new"
+                            ],
+                            "host": [
+                                "{{host}}"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"nome\": \"btseste\",\n  \"valorUnitario\": 2,\n  \"unidadeMedidaId\": 1\n}"
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXN1YXJpbyI6ImFkbWluIiwiZGF0YUluaWNpbyI6IjIwMjMtMDktMDRUMDM6MDA6MDAuMDAwWiIsImRhdGFQcmV2aXNhb0ZpbSI6bnVsbCwiYXRpdm8iOnRydWUsInBlc3NvYUlkIjo3LCJpYXQiOjE2OTU4MjA5OTUsImV4cCI6MTY5NTkwNzM5NX0.CiJZDnKAeE9kHLtd6xNYdHsUyptxTpyFp1cmJgaxMRY",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "get item by id",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{url}}:{{port}}/item/get/1",
+                            "path": [
+                                "item",
+                                "get",
+                                "1"
+                            ],
+                            "host": [
+                                "{{url}}"
+                            ],
+                            "port": "{{port}}"
+                        }
+                    }
+                },
+                {
+                    "name": "list item",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{host}}/item/list?nome=&valorMin=0&valorMax=100&limit=5&page=1",
+                            "query": [
+                                {
+                                    "key": "nome",
+                                    "value": ""
+                                },
+                                {
+                                    "key": "valorMin",
+                                    "value": "0"
+                                },
+                                {
+                                    "key": "valorMax",
+                                    "value": "100"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "5"
+                                },
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "item",
+                                "list"
+                            ],
+                            "host": [
+                                "{{host}}"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXN1YXJpbyI6InRlc3RlIiwiZGF0YUluaWNpbyI6IjIwMjMtMDktMDRUMDM6MDA6MDAuMDAwWiIsImRhdGFQcmV2aXNhb0ZpbSI6bnVsbCwiYXRpdm8iOnRydWUsInBlc3NvYUlkIjoxLCJpYXQiOjE2OTM5MzgwNzIsImV4cCI6MTY5NDAyNDQ3Mn0.ONfdMchMZ4xstvfo7PjWIqny-PssKrKlhbEMPZ7pibo",
+                                "disabled": true
+                            }
+                        ],
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXN1YXJpbyI6ImFkbWluIiwiZGF0YUluaWNpbyI6IjIwMjMtMDktMDRUMDM6MDA6MDAuMDAwWiIsImRhdGFQcmV2aXNhb0ZpbSI6bnVsbCwiYXRpdm8iOnRydWUsInBlc3NvYUlkIjo3LCJpYXQiOjE2OTU4MjA5OTUsImV4cCI6MTY5NTkwNzM5NX0.CiJZDnKAeE9kHLtd6xNYdHsUyptxTpyFp1cmJgaxMRY",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "update item",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "{{url}}:{{port}}/item/update/1",
+                            "path": [
+                                "item",
+                                "update",
+                                "1"
+                            ],
+                            "host": [
+                                "{{url}}"
+                            ],
+                            "port": "{{port}}"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"nome\": \"teste3\",\n  \"valorUnitario\": 5.29\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "delete item",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "{{url}}:{{port}}/item/delete/3",
+                            "path": [
+                                "item",
+                                "delete",
+                                "3"
+                            ],
+                            "host": [
+                                "{{url}}"
+                            ],
+                            "port": "{{port}}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "item categoria",
+            "item": [
+                {
+                    "name": "add item to categoria",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "{{url}}:{{port}}/categoria/1/item/1/add",
+                            "path": [
+                                "categoria",
+                                "1",
+                                "item",
+                                "1",
+                                "add"
+                            ],
+                            "host": [
+                                "{{url}}"
+                            ],
+                            "port": "{{port}}"
+                        }
+                    }
+                },
+                {
+                    "name": "remove item from categoria",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "{{url}}:{{port}}/categoria/1/item/1/remove",
+                            "path": [
+                                "categoria",
+                                "1",
+                                "item",
+                                "1",
+                                "remove"
+                            ],
+                            "host": [
+                                "{{url}}"
+                            ],
+                            "port": "{{port}}"
+                        }
+                    }
+                },
+                {
+                    "name": "get item categoria",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{url}}:{{port}}/categoria/1/item/list",
+                            "path": [
+                                "categoria",
+                                "1",
+                                "item",
+                                "list"
+                            ],
+                            "host": [
+                                "{{url}}"
+                            ],
+                            "port": "{{port}}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "colaborador",
+            "item": [
+                {
+                    "name": "create colaborador",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "{{host}}/colaborador/new",
+                            "path": [
+                                "colaborador",
+                                "new"
+                            ],
+                            "host": [
+                                "{{host}}"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"usuario\": \"admin\",\n  \"senha\": \"admin\",\n  \"dataInicio\": \"2023-09-04\",\n  \"daraPrevisaoFim\": \"2025-09-04\",\n  \"pessoaId\": 7\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "login",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "{{host}}/colaborador/auth",
+                            "path": [
+                                "colaborador",
+                                "auth"
+                            ],
+                            "host": [
+                                "{{host}}"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"usuario\": \"admin\",\n  \"senha\": \"admin\"\n}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "permissao",
+            "item": [
+                {
+                    "name": "create permissao",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "{{host}}/permissao/new",
+                            "path": [
+                                "permissao",
+                                "new"
+                            ],
+                            "host": [
+                                "{{host}}"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"nome\": \"get-item\"\n}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "permissao colaborador",
+            "item": [
+                {
+                    "name": "add permissao to colaborador",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "{{host}}/colaborador/4/permissions",
+                            "path": [
+                                "colaborador",
+                                "4",
+                                "permissions"
+                            ],
+                            "host": [
+                                "{{host}}"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"permissoes\": [\"admin\"]\n}"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -2,19 +2,19 @@ import { relations } from "drizzle-orm";
 import { boolean, datetime, int, mysqlTable, timestamp } from "drizzle-orm/mysql-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
-import { pessoa } from "../pessoa/schema";
+import { pessoaTable } from "../pessoa/schema";
 
 export const clienteFornecedor = mysqlTable('cliente-fornecedor', {
     id: int('id').autoincrement().primaryKey(),
     isCliente: boolean('isCliente').notNull(),
-    pessoaId: int('pessoa_id').references(() => pessoa.id),
+    pessoaId: int('pessoa_id').references(() => pessoaTable.id),
     createdAt: timestamp('createdAt').defaultNow()
 })
 
 export const clienteFornecedorRelations = relations(clienteFornecedor, ({one}) => ({
-    pessoaId: one(pessoa, {
+    pessoaId: one(pessoaTable, {
         fields: [clienteFornecedor.pessoaId],
-        references: [pessoa.id]
+        references: [pessoaTable.id]
     })
 }))
 

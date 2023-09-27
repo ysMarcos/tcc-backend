@@ -2,7 +2,7 @@ import { and, eq } from "drizzle-orm";
 import { NextFunction, Request, Response } from "express";
 import { db } from "../../db";
 import { endereco } from "../endereco/schema";
-import { pessoa } from "../pessoa/schema";
+import { pessoaTable } from "../pessoa/schema";
 import { pessoaEndereco } from "./schema";
 
 export async function addEnderecoToPessoa(request: Request, response: Response, next: NextFunction) {
@@ -53,9 +53,9 @@ export async function getPessoaEndereco(request: Request, response: Response, ne
             tipo: endereco.tipo
         })
         .from(pessoaEndereco)
-        .innerJoin(pessoa, eq(pessoaEndereco.pessoaId, pessoa.id))
+        .innerJoin(pessoaTable, eq(pessoaEndereco.pessoaId, pessoaTable.id))
         .innerJoin(endereco, eq(pessoaEndereco.enderecoId, endereco.id))
-        .where(eq(pessoa.id, pessoaId));
+        .where(eq(pessoaTable.id, pessoaId));
 
         response.status(200).json(resultPessoaEndereco);
     } catch (error) {
