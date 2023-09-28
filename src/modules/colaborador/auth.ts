@@ -28,5 +28,5 @@ export async function auth(request: Request, response: Response) {
         pessoaId: user.pessoaId
     }, jwtSecret, { expiresIn: '1d' });
 
-    return response.json(token)
+    return response.json({ token })
 }
