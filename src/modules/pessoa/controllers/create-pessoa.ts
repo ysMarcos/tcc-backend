@@ -1,4 +1,4 @@
-import { sql } from "drizzle-orm";
+import { eq, or, sql } from "drizzle-orm";
 import { Request, Response } from "express";
 import { db } from "../../../db";
 import { pessoaInsertSchema, pessoaTable } from "../schema";
@@ -21,6 +21,27 @@ export async function createPessoa(request: Request, response: Response){
     });
     if(!isValid.success) return response.status(400).json(isValid.error.issues);
 
+    const sqlVerify = db
+    .select({
+        id: pessoaTable.id
+    })
+    .from(pessoaTable)
+    .where(
+        or(
+            eq(
+                pessoaTable.email,  sql.placeholder("email")
+            ),
+            eq(
+                pessoaTable.cadastro, sql.placeholder("cadastro")
+            ),
+            eq(
+                pessoaTable.registro, sql.placeholder("registro")
+            )
+        )
+
+    )
+    .prepare()
+
     const sqlQuery = db
     .insert(pessoaTable)
     .values({
@@ -33,6 +54,12 @@ export async function createPessoa(request: Request, response: Response){
     .prepare();
 
     try {
+        const [pessoa] = await sqlVerify.execute({
+            email,
+            cadastro,
+            registro
+        })
+        if(pessoa) return response.status(400).json({ message: "Pessoa already exists" })
         const result = await db.transaction(async (transaction) => {
             const insertedPessoa = await sqlQuery.execute({
                 nome,

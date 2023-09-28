@@ -41,5 +41,4 @@ values ("admin"),
 ("get-clifor"),("create-clifor"),("update-clifor"),("delete-clifor"),
 ("get-cidade"),("create-cidade"),("update-cidade"),("delete-cidade"),
 ("get-categoria"),("create-categoria"),("update-categoria"),("delete-categoria"),
-("get-cidade"),("create-cidade"),("update-cidade"),("delete-cidade"),
 ("get-prestacao"),("create-prestacao"),("update-prestacao"),("delete-prestacao");

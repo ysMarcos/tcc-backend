@@ -1,0 +1,130 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "teste",
+        "description": "teste",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000/api",
+            "description": "Servidor principal da API"
+        }
+    ],
+    "paths": {
+        "/pessoa/new": {
+            "post": {
+                "summary": "cadastro de pessoa",
+                "description": "Essa rota é responsavel por inserir um registro pessoal no sistema",
+                "tags": ["Pessoa"],
+                "security": [{"bearerAuth": []}],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Pessoa"
+                            },
+                            "examples": {
+                                "Pessoa Fisica": {
+                                    "value": {
+                                        "nome": "Pessoa Fisica da Silva",
+                                        "email": "email@mail.com",
+                                        "telefone": "44912345678",
+                                        "cadastro": "12345678910",
+                                        "registro": "12345678"
+                                    }
+                                },
+                                "Pessoa Juridica": {
+                                    "value": {
+                                        "nome": "Pessoa Juridica de Souza",
+                                        "email": "email@mail.com",
+                                        "telefone": "44912345678",
+                                        "cadastro": "123456789012345",
+                                        "registro": "12345678901"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Pessoa already exists"
+                    },
+                    "201": {
+                        "description": "OK"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/pessoa/list": {
+            "get": {
+                "summary": "Listagem de pessoas no sistema",
+                "description": "Essa rota é responsavel por listar os registros de pessoas no sistema",
+                "tags": ["Pessoa"],
+                "security": [{"bearerAuth": []}],
+                "parameters": [
+                    {
+                        "name": "nome",
+                        "in": "query",
+                        "description": "Nome da Pessoa para a busca",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Pessoa"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Pessoa": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "nome": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "telefone": {
+                        "type": "string"
+                    },
+                    "cadastro": {
+                        "type": "string"
+                    },
+                    "registro": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}
