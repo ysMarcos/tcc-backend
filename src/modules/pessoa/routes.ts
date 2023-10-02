@@ -1,16 +1,20 @@
 import express from "express";
-import { createPessoa, listPessoa } from "./controllers"
-import { deletePessoa, getPessoaById, updatePessoa } from "./controller";
+import { createPessoa, listPessoa, getPessoaById, updatePessoa, deletePessoa } from "./controllers";
 import { verifyPermission } from "../../middlewares/permission-middleware";
 import { ensureAuthenticated } from "../../middlewares/auth-middleware";
 
 const router = express.Router();
-const permission = ['create-pessoa', 'get-pessoa', 'update-pessoa', 'delete-pessoa'];
+enum permissions {
+    create = 'create-pessoa',
+    get = 'get-pessoa',
+    update = 'update-pessoa',
+    delete = 'delete-pessoa',
+}
 
-router.post('/new', ensureAuthenticated, verifyPermission([permission[0]]), createPessoa);
-router.get('/list', ensureAuthenticated, verifyPermission([permission[1]]), listPessoa);
-router.get('/get/:id', getPessoaById);
-router.put('/update/:id', updatePessoa);
-router.delete('/delete/:id', deletePessoa);
+router.post('/new', ensureAuthenticated, verifyPermission([permissions.create]), createPessoa);
+router.get('/list', ensureAuthenticated, verifyPermission([permissions.get]), listPessoa);
+router.get('/get/:id', ensureAuthenticated, verifyPermission([permissions.get]), getPessoaById);
+router.put('/update/:id', ensureAuthenticated, verifyPermission([permissions.update]), updatePessoa);
+router.delete('/delete/:id', ensureAuthenticated, verifyPermission([permissions.delete]), deletePessoa);
 
 export default router;

@@ -1,4 +1,4 @@
-import { DrizzleError, eq, sql } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import {Request, Response} from "express";
 import { db } from "../../../db";
 import { itemTable, itemUpdateSchema } from "../schema";

@@ -51,4 +51,39 @@ export const pessoaInsertSchema = createInsertSchema(pessoaTable, {
         .nullable(),
 });
 
-export type Pessoa = InferSelectModel<typeof pessoaTable>;
+export const pessoaUpdateSchema = createInsertSchema(pessoaTable, {
+    nome: z
+        .string({
+            required_error: "Nome is required"
+        })
+        .min(3)
+        .optional(),
+    email: z
+        .string({
+            required_error: "Email is required"
+        })
+        .email("invalid Email")
+        .optional(),
+    telefone: z
+        .string({
+            required_error: "Telefone is required"
+        })
+        .regex(
+            new RegExp("^[1-9]{2}(?:[2-8]|9[1-9])[0-9]{3}\-?[0-9]{4}$"),
+            "Telefone is invalid"
+        )
+        .optional(),
+    cadastro: z
+        .string({
+            required_error: "Cadastro is required"
+        })
+        .min(11, { message: "Cadastro should be 11 or more characters long" })
+        .max(15, { message: "Cadastro should be 15 or fewer characters long" })
+        .optional(),
+    registro: z
+        .string()
+        .min(7, { message: "Registro should be 7 or more characters long" })
+        .max(11, { message: "Registro should be 11 or fewer characters long" })
+        .nullable()
+        .optional(),
+});
