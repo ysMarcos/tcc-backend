@@ -66,7 +66,7 @@
         "/pessoa/list": {
             "get": {
                 "summary": "Listagem de pessoas no sistema",
-                "description": "Essa rota é responsavel por listar os registros de pessoas no sistema",
+                "description": "Essa rota é responsável por listar os registros de pessoas no sistema, podem ser passados como parâmetros Nome, Email e Cadastro(CPF ou CNPJ).",
                 "tags": ["Pessoa"],
                 "security": [{"bearerAuth": []}],
                 "parameters": [
@@ -74,6 +74,18 @@
                         "name": "nome",
                         "in": "query",
                         "description": "Nome da Pessoa para a busca",
+                        "required": false
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email da Pessoa para a busca",
+                        "required": false
+                    },
+                    {
+                        "name": "cadastro",
+                        "in": "query",
+                        "description": "CPF/CNPJ da Pessoa para a busca",
                         "required": false
                     }
                 ],
@@ -88,6 +100,9 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
                     }
                 }
             }
