@@ -1,7 +1,7 @@
 import { and, eq, inArray, like, or } from "drizzle-orm";
 import { NextFunction, Request, Response } from "express";
 import { db } from "../db";
-import { colaborador } from "../modules/colaborador/schema";
+import { colaboradorTable } from "../modules/colaborador/schema";
 import { permissao } from "../modules/permissao/schema";
 import { permissaoColaborador } from "../modules/permissao-colaborador/schema";
 
@@ -10,9 +10,9 @@ export function verifyPermission(permission: string[]) {
         const { userId } = request;
 
         const userExists = await db
-        .select({id: colaborador.id})
-        .from(colaborador)
-        .where(eq(colaborador.id, userId));
+        .select({id: colaboradorTable.id})
+        .from(colaboradorTable)
+        .where(eq(colaboradorTable.id, userId));
 
         if(!userExists) return response.sendStatus(400).json({ message: "User does not exits" });
 

@@ -2,7 +2,7 @@ import { inArray } from "drizzle-orm";
 import { Request, Response } from "express";
 import { db } from "../../db";
 import { dataExistsParams } from "../../helpers/exists";
-import { colaborador } from "../colaborador/schema";
+import { colaboradorTable } from "../colaborador/schema";
 import { permissao } from "../permissao/schema";
 import { permissaoColaborador } from "./schema";
 
@@ -10,7 +10,7 @@ export async function addPermissaoToColaborador(request: Request, response: Resp
     const userId = request.params.userId;
     const permissoes = request.body.permissoes;
     try {
-        const userExists = await dataExistsParams(Number(userId), colaborador);
+        const userExists = await dataExistsParams(Number(userId), colaboradorTable);
         if(!userExists) return response.status(400).json({ message: "User does not exists" });
 
         const permissoesId = await db
