@@ -1,6 +1,6 @@
 import { relations } from "drizzle-orm";
 import { float, int, mysqlTable, timestamp, varchar } from "drizzle-orm/mysql-core";
-import { unidadeMedida } from "../unidade-medida/schema";
+import { unidadeMedidaTable } from "../unidade-medida/schema";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from 'zod';
 import { itemCategoria } from "../item-categoria/schema";
@@ -10,14 +10,14 @@ export const itemTable = mysqlTable('item', {
     nome: varchar('nome', { length: 50 }).notNull().unique(),
     descricao: varchar('descricao', { length: 150 }),
     valorUnitario: float('valor_unitario').notNull(),
-    unidadeMedidaId: int('unidade_medida_id').notNull().references(() => unidadeMedida.id),
+    unidadeMedidaId: int('unidade_medida_id').notNull().references(() => unidadeMedidaTable.id),
     createdAt: timestamp('createdAt').defaultNow()
 })
 
 export const itemRelations = relations(itemTable, ({ one, many }) => ({
-    unidadeMedida: one(unidadeMedida, {
+    unidadeMedida: one(unidadeMedidaTable, {
         fields: [itemTable.unidadeMedidaId],
-        references: [unidadeMedida.id]
+        references: [unidadeMedidaTable.id]
     }),
     itemCategoria: many(itemCategoria)
 }))
