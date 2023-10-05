@@ -1,3 +1,4 @@
+import { isCPFOrCNPJ } from "brazilian-values";
 import { eq, or, sql } from "drizzle-orm";
 import { Request, Response } from "express";
 import { db } from "../../../db";
@@ -11,15 +12,6 @@ export async function createPessoa(request: Request, response: Response){
         cadastro,
         registro
     } = request.body;
-
-    const isValid = pessoaInsertSchema.safeParse({
-        nome,
-        email,
-        telefone,
-        cadastro,
-        registro,
-    });
-    if(!isValid.success) return response.status(400).json(isValid.error.issues);
 
     const sqlVerify = db
     .select({
@@ -54,6 +46,19 @@ export async function createPessoa(request: Request, response: Response){
     .prepare();
 
     try {
+
+        const isValid = pessoaInsertSchema.safeParse({
+            nome,
+            email,
+            telefone,
+            cadastro,
+            registro,
+        });
+        if(!isValid.success) return response.status(400).json(isValid.error.issues);
+
+        const validCadastro = isCPFOrCNPJ(cadastro);
+        if(!validCadastro) return response.status(400).json({ message: "Cadastros is Invalid" });
+
         const [pessoa] = await sqlVerify.execute({
             email,
             cadastro,
