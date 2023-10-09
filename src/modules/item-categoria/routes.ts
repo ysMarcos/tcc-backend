@@ -1,10 +1,9 @@
 import express from "express";
-import { addItemToCategoria, listItemCategoria, removeItemFromCategoria } from "./controller";
+import { addItemToCategoria, removeItemFromCategoria } from "./controllers";
 
 const router = express.Router();
 
-router.post('/:categoriaId/item/:itemId/add', addItemToCategoria);
-router.get('/:categoriaId/item/list', listItemCategoria);
+router.post('/:itemId/', addItemToCategoria);
 router.delete('/:categoriaId/item/:itemId/remove', removeItemFromCategoria);
 
 export default router;
