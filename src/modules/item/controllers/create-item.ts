@@ -27,7 +27,10 @@ export async function createItem(request: Request, response: Response){
                 descricao: newItemData.descricao,
                 unidadeMedidaId: newItemData.unidadeMedidaId,
             });
-            if(!insertedItem) transaction.rollback();
+            if(!insertedItem) {
+                transaction.rollback()
+                return;
+            }
             return insertedItem;
         })
 

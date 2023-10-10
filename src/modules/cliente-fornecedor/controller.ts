@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { db } from "../../db";
 import { eq } from 'drizzle-orm';
 import { dataExists } from "../../helpers/exists";
-import { clienteFornecedor, clienteFornecedorInsertSchema } from "./schema";
+import { clienteFornecedorTable, clienteFornecedorInsertSchema } from "./schema";
 
 export async function createClienteFornecedor (request: Request, response: Response, next: NextFunction) {
     try {
@@ -11,14 +11,14 @@ export async function createClienteFornecedor (request: Request, response: Respo
         const isValid = clienteFornecedorInsertSchema.safeParse(newCliforData);
         if(!isValid.success) return response.status(400).json(isValid.error.issues);
 
-        const cadastroExists = await dataExists(newCliforData, clienteFornecedor, "cadastro");
+        const cadastroExists = await dataExists(newCliforData, clienteFornecedorTable, "cadastro");
         if(cadastroExists) return response.status(400).json({ message: "This cpf/cnpj already exists" });
 
-        const emailExists = await dataExists(newCliforData, clienteFornecedor, "email");
+        const emailExists = await dataExists(newCliforData, clienteFornecedorTable, "email");
         if(emailExists) return response.status(400).json({ message: "This email already exists" });
 
         const newClifor = await db
-        .insert(clienteFornecedor)
+        .insert(clienteFornecedorTable)
         .values(newCliforData);
 
         response.status(200).json( newClifor )
@@ -31,7 +31,7 @@ export async function listClienteFornecedor (request: Request, response: Respons
     try{
         const clienteFornecedores = await db
         .select()
-        .from(clienteFornecedor);
+        .from(clienteFornecedorTable);
 
         response.status(200).json(clienteFornecedores);
     } catch (error) {
@@ -45,8 +45,8 @@ export async function getClienteFornecedorById (request: Request, response: Resp
 
         const selectClifor = await db
         .select()
-        .from(clienteFornecedor)
-        .where(eq(clienteFornecedor.id, id))
+        .from(clienteFornecedorTable)
+        .where(eq(clienteFornecedorTable.id, id))
         .limit(1);
 
         response.status(200).json(selectClifor[0]);
@@ -60,8 +60,8 @@ export async function deleteClienteFornecedor(request: Request, response: Respon
         const id = Number(request.params.id);
 
         const deletedClifor = await db
-        .delete(clienteFornecedor)
-        .where(eq(clienteFornecedor.id, id));
+        .delete(clienteFornecedorTable)
+        .where(eq(clienteFornecedorTable.id, id));
 
         return response.status(200).json(deletedClifor);
     } catch (error){
@@ -76,16 +76,16 @@ export async function updateClienteFornecedor(request: Request, response: Respon
 
         const cliforToUpdate = await db
             .select()
-            .from(clienteFornecedor)
-            .where(eq(clienteFornecedor.id, id))
+            .from(clienteFornecedorTable)
+            .where(eq(clienteFornecedorTable.id, id))
 
         const updateClifor = await db
-            .update(clienteFornecedor)
+            .update(clienteFornecedorTable)
             .set({
                 ...cliforToUpdate[0],
                 ...data
             })
-            .where(eq(clienteFornecedor.id, id));
+            .where(eq(clienteFornecedorTable.id, id));
 
         response.status(200).json(updateClifor);
     } catch (error) {

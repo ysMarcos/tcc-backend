@@ -3,7 +3,7 @@ import { float, int, mysqlTable, timestamp, varchar } from "drizzle-orm/mysql-co
 import { unidadeMedidaTable } from "../unidade-medida/schema";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from 'zod';
-import { itemCategoria } from "../item-categoria/schema";
+import { itemCategoriaTable } from "../item-categoria/schema";
 
 export const itemTable = mysqlTable('item', {
     id: int('id').autoincrement().primaryKey(),
@@ -19,7 +19,7 @@ export const itemRelations = relations(itemTable, ({ one, many }) => ({
         fields: [itemTable.unidadeMedidaId],
         references: [unidadeMedidaTable.id]
     }),
-    itemCategoria: many(itemCategoria)
+    itemCategoria: many(itemCategoriaTable)
 }))
 
 export const itemInsertSchema = createInsertSchema(itemTable, {
