@@ -1,6 +1,6 @@
 import express from "express";
-import { /*createClienteFornecedor*/ deleteClienteFornecedor, /*listClienteFornecedor,*/ updateClienteFornecedor } from "./controller";
-import { createClienteFornecedor, listClienteFornecedor, getClienteFornecedorById } from "./controllers";
+import { /*createClienteFornecedor*/ deleteClienteFornecedor, /*listClienteFornecedor,*/ } from "./controller";
+import { createClienteFornecedor, listClienteFornecedor, getClienteFornecedorById, updateClienteFornecedor } from "./controllers";
 
 const router = express.Router();
 
