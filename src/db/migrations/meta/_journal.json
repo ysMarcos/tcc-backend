@@ -50,6 +50,20 @@
       "when": 1695834859234,
       "tag": "0006_ambitious_hex",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1697548237055,
+      "tag": "0007_true_falcon",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1697548370015,
+      "tag": "0008_bouncy_kang",
+      "breakpoints": true
     }
   ]
 }

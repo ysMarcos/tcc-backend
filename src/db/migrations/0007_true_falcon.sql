@@ -1,0 +1,1 @@
+ALTER TABLE `venda` MODIFY COLUMN `cliente_fornecedor_id` int;
