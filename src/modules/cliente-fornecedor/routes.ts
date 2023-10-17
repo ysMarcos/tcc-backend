@@ -1,13 +1,19 @@
 import express from "express";
-import { /*createClienteFornecedor*/ deleteClienteFornecedor, /*listClienteFornecedor,*/ } from "./controller";
-import { createClienteFornecedor, listClienteFornecedor, getClienteFornecedorById, updateClienteFornecedor } from "./controllers";
+import { ensureAuthenticated } from "../../middlewares/auth-middleware";
+import { verifyPermission } from "../../middlewares/permission-middleware";
+import { createClienteFornecedor, listClienteFornecedor, getClienteFornecedorById, updateClienteFornecedor, deleteClienteFornecedor } from "./controllers";
 
 const router = express.Router();
-
-router.post("/new", createClienteFornecedor);
-router.get("/list", listClienteFornecedor);
-router.get("/get/:id", getClienteFornecedorById);
-router.put("/update/:id", updateClienteFornecedor);
-router.delete("/delete/:id", deleteClienteFornecedor);
+enum permissions {
+    create = "create-clifor",
+    get = "get-clifor",
+    update = "update-clifor",
+    delete = "delete-clifor"
+}
+router.post("/new", ensureAuthenticated, verifyPermission([permissions.create]), createClienteFornecedor);
+router.get("/list", ensureAuthenticated, verifyPermission([permissions.get]), listClienteFornecedor);
+router.get("/get/:id", ensureAuthenticated, verifyPermission([permissions.get]), getClienteFornecedorById);
+router.put("/update/:id", ensureAuthenticated, verifyPermission([permissions.update]), updateClienteFornecedor);
+router.delete("/delete/:id", ensureAuthenticated, verifyPermission([permissions.delete]), deleteClienteFornecedor);
 
 export default router;
