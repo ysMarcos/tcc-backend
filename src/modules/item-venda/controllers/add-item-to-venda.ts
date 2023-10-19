@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { db } from "../../../db";
 import { itemTable } from "../../item/schema";
 import { vendaTable } from "../../venda/schema";
-import { itemVendaTable } from "../schema";
+import { itemVendaInsertSchema, itemVendaTable } from "../schema";
 
 export async function addItemToVenda (request: Request, response: Response) {
     const { params, body } = request;
@@ -39,7 +39,12 @@ export async function addItemToVenda (request: Request, response: Response) {
             )
     try {
         for ( const produto of carrinho ){
-            const quantidade = Number(produto.quantidade);
+            const isValid = itemVendaInsertSchema.safeParse({
+                itemId: produto.itemId,
+                vendaId: vendaId,
+                quantidade: produto.quantidade
+            });
+            if (!isValid.success) return response.status(400).send(isValid.error.issues[0].message);
 
             await db.transaction( async (transaction) => {
                 const [venda] = await vendaSqlQuery.execute({vendaId});
@@ -52,29 +57,7 @@ export async function addItemToVenda (request: Request, response: Response) {
                 if (!item){
                     transaction.rollback();
                 }
-                const [itemVenda] = await itemVendaSqlQuery.execute({
-                    vendaId,
-                    itemId: produto.itemId
-                })
-
-                if(itemVenda){
-                    const result = await db
-                        .update(itemVendaTable)
-                        .set({
-                            quantidade: itemVenda.quantidade + quantidade
-                        })
-                        .where(
-                            and(
-                                eq(itemVendaTable.vendaId, vendaId),
-                                eq(itemVendaTable.itemId, produto.itemId)
-                            )
-                        );
-
-                    if(!result){
-                        transaction.rollback();
-                    }
-                } else{
-                    const result = await db
+                const result = await db
                         .insert(itemVendaTable)
                         .values({
                             vendaId,
@@ -83,10 +66,10 @@ export async function addItemToVenda (request: Request, response: Response) {
                             valor: item.valorUnitario
                         });
 
-                    if(!result){
-                        transaction.rollback();
-                    }
+                if(!result){
+                    transaction.rollback();
                 }
+                return result;
             });
         }
 

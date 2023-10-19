@@ -5,6 +5,6 @@ import { addPermissaoToColaborador } from "./controller";
 
 const router = express.Router();
 
-router.post("/:userId/permissions", /*ensureAuthenticated, verifyPermission([]),*/ addPermissaoToColaborador);
+router.post("/:userId/permissions", ensureAuthenticated, verifyPermission([]), addPermissaoToColaborador);
 
 export default router;
