@@ -31,7 +31,7 @@ export async function listVenda(request: Request, response: Response){
             dataInicio,
             dataFim
         });
-        console.log(query)
+
         return response.status(200).json(result)
     } catch(error){
         return response.status(400).json(error);

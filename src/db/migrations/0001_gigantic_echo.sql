@@ -1,1 +1,0 @@
-ALTER TABLE `pessoa` DROP CONSTRAINT `pessoa_telefone_unique`;

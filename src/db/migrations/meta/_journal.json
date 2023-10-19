@@ -5,64 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1693850803335,
-      "tag": "0000_chunky_revanche",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1693915552919,
-      "tag": "0001_gigantic_echo",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1693932162157,
-      "tag": "0002_cultured_wallflower",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1693932406535,
-      "tag": "0003_easy_goliath",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1694438338996,
-      "tag": "0004_material_kabuki",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "5",
-      "when": 1695219614657,
-      "tag": "0005_dazzling_ben_parker",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "5",
-      "when": 1695834859234,
-      "tag": "0006_ambitious_hex",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "5",
-      "when": 1697548237055,
-      "tag": "0007_true_falcon",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "5",
-      "when": 1697548370015,
-      "tag": "0008_bouncy_kang",
+      "when": 1697716904616,
+      "tag": "0000_flashy_anthem",
       "breakpoints": true
     }
   ]

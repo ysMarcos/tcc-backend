@@ -1,3 +1,4 @@
+
 insert into `unidade-medida` values (null, "kg", sysdate());
 
 insert into item
@@ -26,7 +27,6 @@ values
 (null, "Wireless control", null, 100, 1, sysdate()),
 (null, "Canvas", null, 10000, 1, sysdate()),
 (null, "Snail shell", null, 52, 1, sysdate()),
-(null, "Coasters", null, 29, 1, sysdate()),
 (null, "Snowglobe", null, 5, 1, sysdate());
 
 insert into permissao(nome)
@@ -42,3 +42,12 @@ values ("admin"),
 ("get-cidade"),("create-cidade"),("update-cidade"),("delete-cidade"),
 ("get-categoria"),("create-categoria"),("update-categoria"),("delete-categoria"),
 ("get-prestacao"),("create-prestacao"),("update-prestacao"),("delete-prestacao");
+
+insert into pessoa(nome, email, telefone, cadastro, registro)
+values( "admin", "admin@admin.com", "44997769448", "12069741095", "165460672");
+
+insert into colaborador(usuario, senha, data_inicio_contrato, data_previsao_fim, pessoa_id)
+values("admin", "$2b$12$DcxDuxXWXhatsHGq0JaoA.EBCMiYzGM9n\vcP.7arqEfdwSCCaEUq", sysdate(), sysdate(), 1);
+
+insert into `permissao-colaborador`(permissao_id, colaborador_id)
+values(1,1);

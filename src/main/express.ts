@@ -13,6 +13,7 @@ import permissaoColaboradorRouter from "../modules/permissao-colaborador/routes"
 import clienteFornecedorRouter from "../modules/cliente-fornecedor/routes";
 import unidadeMedidaRouter from "../modules/unidade-medida/routes";
 import vendaRouter from "../modules/venda/routes";
+import itemVendaRouter from "../modules/item-venda/routes";
 
 const router = express.Router();
 
@@ -25,6 +26,6 @@ router.use('/colaborador', colaboradorRouter, permissaoColaboradorRouter);
 router.use('/permissao', permissaoRouter);
 router.use('/clientefornecedor', clienteFornecedorRouter);
 router.use('/um', unidadeMedidaRouter)
-router.use('/venda', vendaRouter);
+router.use('/venda', vendaRouter, itemVendaRouter);
 
 export default router;

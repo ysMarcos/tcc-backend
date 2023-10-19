@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "faff682e-1aa7-4880-9984-bd58eb13eb1c",
+  "id": "df63173f-9582-40a8-85e3-3a220d9830d3",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "categoria": {
@@ -94,6 +94,65 @@
         }
       }
     },
+    "cliente-fornecedor": {
+      "name": "cliente-fornecedor",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "isCliente": {
+          "name": "isCliente",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "pessoa_id": {
+          "name": "pessoa_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(now())"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "cliente-fornecedor_pessoa_id_pessoa_id_fk": {
+          "name": "cliente-fornecedor_pessoa_id_pessoa_id_fk",
+          "tableFrom": "cliente-fornecedor",
+          "tableTo": "pessoa",
+          "columnsFrom": [
+            "pessoa_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "cliente-fornecedor_id": {
+          "name": "cliente-fornecedor_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
     "colaborador": {
       "name": "colaborador",
       "columns": {
@@ -108,28 +167,28 @@
           "name": "usuario",
           "type": "varchar(50)",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "senha": {
           "name": "senha",
           "type": "varchar(250)",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "data_inicio_contrato": {
           "name": "data_inicio_contrato",
           "type": "datetime",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "data_previsao_fim": {
           "name": "data_previsao_fim",
           "type": "datetime",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "ativo": {
@@ -180,7 +239,14 @@
           ]
         }
       },
-      "uniqueConstraints": {}
+      "uniqueConstraints": {
+        "colaborador_usuario_unique": {
+          "name": "colaborador_usuario_unique",
+          "columns": [
+            "usuario"
+          ]
+        }
+      }
     },
     "endereco": {
       "name": "endereco",
@@ -340,6 +406,84 @@
       },
       "uniqueConstraints": {}
     },
+    "item_venda": {
+      "name": "item_venda",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "item_id": {
+          "name": "item_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "venda_id": {
+          "name": "venda_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "quantidade": {
+          "name": "quantidade",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "valor": {
+          "name": "valor",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "item_venda_item_id_item_id_fk": {
+          "name": "item_venda_item_id_item_id_fk",
+          "tableFrom": "item_venda",
+          "tableTo": "item",
+          "columnsFrom": [
+            "item_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "item_venda_venda_id_venda_id_fk": {
+          "name": "item_venda_venda_id_venda_id_fk",
+          "tableFrom": "item_venda",
+          "tableTo": "venda",
+          "columnsFrom": [
+            "venda_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "item_venda_id": {
+          "name": "item_venda_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
     "item": {
       "name": "item",
       "columns": {
@@ -355,6 +499,13 @@
           "type": "varchar(50)",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false
+        },
+        "descricao": {
+          "name": "descricao",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": false,
           "autoincrement": false
         },
         "valor_unitario": {
@@ -407,6 +558,115 @@
       "uniqueConstraints": {
         "item_nome_unique": {
           "name": "item_nome_unique",
+          "columns": [
+            "nome"
+          ]
+        }
+      }
+    },
+    "permissao-colaborador": {
+      "name": "permissao-colaborador",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "permissao_id": {
+          "name": "permissao_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "colaborador_id": {
+          "name": "colaborador_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "permissao-colaborador_permissao_id_permissao_id_fk": {
+          "name": "permissao-colaborador_permissao_id_permissao_id_fk",
+          "tableFrom": "permissao-colaborador",
+          "tableTo": "permissao",
+          "columnsFrom": [
+            "permissao_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "permissao-colaborador_colaborador_id_colaborador_id_fk": {
+          "name": "permissao-colaborador_colaborador_id_colaborador_id_fk",
+          "tableFrom": "permissao-colaborador",
+          "tableTo": "colaborador",
+          "columnsFrom": [
+            "colaborador_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "permissao-colaborador_id": {
+          "name": "permissao-colaborador_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "permissao": {
+      "name": "permissao",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "nome": {
+          "name": "nome",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(now())"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "permissao_id": {
+          "name": "permissao_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {
+        "permissao_nome_unique": {
+          "name": "permissao_nome_unique",
           "columns": [
             "nome"
           ]
@@ -522,13 +782,6 @@
           "notNull": false,
           "autoincrement": false
         },
-        "isFisico": {
-          "name": "isFisico",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
         "createdAt": {
           "name": "createdAt",
           "type": "timestamp",
@@ -553,12 +806,6 @@
           "name": "pessoa_email_unique",
           "columns": [
             "email"
-          ]
-        },
-        "pessoa_telefone_unique": {
-          "name": "pessoa_telefone_unique",
-          "columns": [
-            "telefone"
           ]
         },
         "pessoa_cadastro_unique": {
@@ -619,6 +866,72 @@
           ]
         }
       }
+    },
+    "venda": {
+      "name": "venda",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "data_venda": {
+          "name": "data_venda",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "colaborador_id": {
+          "name": "colaborador_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "cliente_fornecedor_id": {
+          "name": "cliente_fornecedor_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(now())"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "venda_colaborador_id_colaborador_id_fk": {
+          "name": "venda_colaborador_id_colaborador_id_fk",
+          "tableFrom": "venda",
+          "tableTo": "colaborador",
+          "columnsFrom": [
+            "colaborador_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "venda_id": {
+          "name": "venda_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
     }
   },
   "schemas": {},

@@ -13,7 +13,7 @@ export async function createColaborador(request: Request, response: Response){
         pessoaId,
     } = request.body;
     const hashedPassword = await hashSenha(senha);
-
+    console.log(hashedPassword)
     const sqlQuery = db
         .insert(colaboradorTable)
         .values({
