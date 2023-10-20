@@ -45,6 +45,16 @@ export async function createPessoa(request: Request, response: Response){
     })
     .prepare();
 
+    const returnSql = db
+    .select({
+        id: pessoaTable.id
+    })
+    .from(pessoaTable)
+    .where(
+        eq(pessoaTable.id, sql.placeholder("insertId"))
+        )
+    .prepare();
+
     try {
 
         const isValid = pessoaInsertSchema.safeParse({
@@ -66,15 +76,19 @@ export async function createPessoa(request: Request, response: Response){
         })
         if(pessoa) return response.status(400).json({ message: "Pessoa already exists" })
         const result = await db.transaction(async (transaction) => {
-            const insertedPessoa = await sqlQuery.execute({
+            const [insertPessoa] = await sqlQuery.execute({
                 nome,
                 email,
                 telefone,
                 cadastro,
                 registro
             })
-            if(!insertedPessoa) transaction.rollback();
-            return insertedPessoa;
+            if(!insertPessoa) transaction.rollback();
+
+            const result = await returnSql.execute({
+                insertId: insertPessoa.insertId
+            })
+            return result;
         })
         return response.status(201).json(result);
     } catch(error){

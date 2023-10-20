@@ -30,6 +30,15 @@ export async function createClienteFornecedor(request: Request, response: Respon
         })
         .prepare();
 
+    const resultSql = db
+        .select()
+        .from(clienteFornecedorTable)
+        .where(
+            eq(
+                clienteFornecedorTable.id, sql.placeholder("insertId")
+            )
+        )
+        .prepare();
     try {
         const isValid = clienteFornecedorInsertSchema.safeParse({
             isCliente
@@ -46,15 +55,17 @@ export async function createClienteFornecedor(request: Request, response: Respon
                 return;
             }
 
-            const result = await sqlQuery.execute({
+            const [insertClifor] = await sqlQuery.execute({
                 pessoaId,
                 isCliente
             });
 
-            if(!result){
+            if(!insertClifor){
                 transaction.rollback();
-                return;
             }
+            const result = await resultSql.execute({
+                insertId: insertClifor.insertId
+            })
             return result;
         });
 

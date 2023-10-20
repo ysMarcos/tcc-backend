@@ -1,9 +1,9 @@
-import { sql } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { Request, Response } from "express";
 import { db } from "../../../db";
 import { hashSenha } from "../helpers/encrypt";
 import { colaboradorInsertSchema, colaboradorTable } from "../schema";
-
+//TODO: Validar de se a data de inicio é maior que a de fim
 export async function createColaborador(request: Request, response: Response){
     const {
         usuario,
@@ -13,7 +13,7 @@ export async function createColaborador(request: Request, response: Response){
         pessoaId,
     } = request.body;
     const hashedPassword = await hashSenha(senha);
-    console.log(hashedPassword)
+
     const sqlQuery = db
         .insert(colaboradorTable)
         .values({
@@ -23,6 +23,18 @@ export async function createColaborador(request: Request, response: Response){
             dataPrevisaoFim: sql.placeholder("dataPrevisaoFim"),
             pessoaId: sql.placeholder("pessoaId"),
         })
+        .prepare();
+
+    const returnSql = db
+        .select({
+            id: colaboradorTable.id
+        })
+        .from(colaboradorTable)
+        .where(
+            eq(
+                colaboradorTable.id, sql.placeholder("insertId")
+            )
+        )
         .prepare();
 
     try {
@@ -36,7 +48,7 @@ export async function createColaborador(request: Request, response: Response){
         if (!isValid.success) return response.status(400).send(isValid.error.issues[0].message);
 
         const result = await db.transaction(async (transaction) => {
-            const insertedColaborador = await sqlQuery.execute({
+            const [insertedColaborador] = await sqlQuery.execute({
                 usuario,
                 senha: hashedPassword,
                 dataInicio,
@@ -44,9 +56,13 @@ export async function createColaborador(request: Request, response: Response){
                 pessoaId,
             });
             if(!insertedColaborador) transaction.rollback();
-            return insertedColaborador;
+
+            const result = await returnSql.execute({
+                insertId: insertedColaborador.insertId
+            })
+            return result;
         })
-        if(!result) response.status(400).send({ message: "Cannot create user" })
+        if(!result) response.status(400).send({ result })
 
         response.status(201)
             .json({ message: "User created successfully" });
