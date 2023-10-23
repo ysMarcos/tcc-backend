@@ -11,10 +11,10 @@ enum permissions {
     delete = "delete-venda"
 }
 
-router.post("/new", ensureAuthenticated, verifyPermission([permissions.create]), createVenda);
-router.get("/list", ensureAuthenticated, verifyPermission([permissions.get]), listVenda);
-router.get("/get/:id", ensureAuthenticated, verifyPermission([permissions.get]), getVendaById);
-router.put("/update/:id", ensureAuthenticated, verifyPermission([permissions.update]), updateVenda);
-router.delete("/delete/:id", ensureAuthenticated, verifyPermission([permissions.delete]), deleteVenda);
+router.post("/", ensureAuthenticated, verifyPermission([permissions.create]), createVenda);
+router.get("/", ensureAuthenticated, verifyPermission([permissions.get]), listVenda);
+router.get("/:id", ensureAuthenticated, verifyPermission([permissions.get]), getVendaById);
+router.put("/:id", ensureAuthenticated, verifyPermission([permissions.update]), updateVenda);
+router.delete("/:id", ensureAuthenticated, verifyPermission([permissions.delete]), deleteVenda);
 
 export default router;

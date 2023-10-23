@@ -11,10 +11,10 @@ enum permissions {
     delete = "delete-unidade-medida"
 }
 
-router.post('/new', ensureAuthenticated, verifyPermission([permissions.create]), createUnidadeDeMedida);
-router.get('/get/:id', ensureAuthenticated, verifyPermission([permissions.get]), getUnidadeDeMedidaById);
-router.get('/list', ensureAuthenticated, verifyPermission([permissions.get]), listUnidadeMedida);
-router.put('/update/:id', ensureAuthenticated, verifyPermission([permissions.update]), updateUnidadeMedida);
-router.delete('/delete/:id', ensureAuthenticated, verifyPermission([permissions.delete]), deleteUnidadeMedida);
+router.post('/', ensureAuthenticated, verifyPermission([permissions.create]), createUnidadeDeMedida);
+router.get('/:id', ensureAuthenticated, verifyPermission([permissions.get]), getUnidadeDeMedidaById);
+router.get('/', ensureAuthenticated, verifyPermission([permissions.get]), listUnidadeMedida);
+router.put('/:id', ensureAuthenticated, verifyPermission([permissions.update]), updateUnidadeMedida);
+router.delete('/:id', ensureAuthenticated, verifyPermission([permissions.delete]), deleteUnidadeMedida);
 
 export default router;

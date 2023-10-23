@@ -4,12 +4,17 @@ import { verifyPermission } from "../../middlewares/permission-middleware.js";
 import { deleteItem, getItemById, createItem, listItem, updateItem } from "./controllers";
 
 const router = express.Router();
-const permission: string[] = ['create-item', 'get-item', 'update-item', 'delete-item'];
+enum permissions {
+    get = "get-item",
+    create = "create-item",
+    update = "update-item",
+    delete = "delete-item"
+}
 
-router.post('/new', ensureAuthenticated, verifyPermission([permission[0]]), createItem);
-router.get('/get/:id', ensureAuthenticated, verifyPermission([permission[1]]), getItemById);
-router.get('/list', ensureAuthenticated, verifyPermission([permission[1]]), listItem);
-router.put('/update/:id', ensureAuthenticated, verifyPermission([permission[2]]), updateItem);
-router.delete('/delete/:id', ensureAuthenticated, verifyPermission([permission[3]]), deleteItem);
+router.post('/', ensureAuthenticated, verifyPermission([permissions.create]), createItem);
+router.get('/:id', ensureAuthenticated, verifyPermission([permissions.get]), getItemById);
+router.get('/', ensureAuthenticated, verifyPermission([permissions.get]), listItem);
+router.put('/:id', ensureAuthenticated, verifyPermission([permissions.update]), updateItem);
+router.delete('/:id', ensureAuthenticated, verifyPermission([permissions.delete]), deleteItem);
 
 export default router;

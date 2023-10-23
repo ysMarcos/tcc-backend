@@ -3,10 +3,10 @@ import { createEndereco, deleteEndereco, getEnderecoById, listEnderecos, updateE
 
 const router = express.Router();
 
-router.post('/new', createEndereco);
-router.get('/list', listEnderecos);
-router.get('/get/:id', getEnderecoById);
-router.put('/update/:id', updateEndereco);
-router.delete('/delete/:id', deleteEndereco);
+router.post('/', createEndereco);
+router.get('/', listEnderecos);
+router.get('/:id', getEnderecoById);
+router.put('/:id', updateEndereco);
+router.delete('/:id', deleteEndereco);
 
 export default router;

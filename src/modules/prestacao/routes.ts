@@ -10,11 +10,11 @@ enum permissions {
     update = "update-prestacao",
     delete = "delete-prestacao"
 }
-
-router.post("/new", ensureAuthenticated, verifyPermission([permissions.create]), createPrestacao);
-router.get("/list", ensureAuthenticated, verifyPermission([permissions.get]), listPrestacao);
-router.get("/get/:id", ensureAuthenticated, verifyPermission([permissions.get]), getPrestacaoById);
-router.put("/update/:id", ensureAuthenticated, verifyPermission([permissions.update]), updatePrestacao);
-router.delete("/delete/:id", ensureAuthenticated, verifyPermission([permissions.delete]), deletePrestacao);
+//TODO: Fazer validadores para o insert
+router.post("/", ensureAuthenticated, verifyPermission([permissions.create]), createPrestacao);
+router.get("/", ensureAuthenticated, verifyPermission([permissions.get]), listPrestacao);
+router.get("/:id", ensureAuthenticated, verifyPermission([permissions.get]), getPrestacaoById);
+router.put("/:id", ensureAuthenticated, verifyPermission([permissions.update]), updatePrestacao);
+router.delete("/:id", ensureAuthenticated, verifyPermission([permissions.delete]), deletePrestacao);
 
 export default router;

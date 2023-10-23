@@ -35,13 +35,13 @@ export async function listPessoa(request: Request, response: Response){
     .prepare();
 
     try {
-        const pessoas = await sqlQuery.execute({
+        const result = await sqlQuery.execute({
             nome: `%${nome}%`,
             email: `${email}%`,
             cadastro: `%${cadastro}%`,
         })
-        response.status(200).json({ pessoas });
+        response.status(200).json({ result });
     } catch(error){
-        return response.status(500).json(error);
+        return response.status(400).json(error);
     }
 }
