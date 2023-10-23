@@ -15,6 +15,13 @@
       "when": 1697806022836,
       "tag": "0001_hesitant_havok",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1698068481242,
+      "tag": "0002_wild_solo",
+      "breakpoints": true
     }
   ]
 }
