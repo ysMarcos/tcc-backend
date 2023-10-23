@@ -10,7 +10,7 @@ export async function createCompra(request: Request, response: Response){
 
     const cliforId = Number(data.clienteFornecedorId);
     const colaboradorId = Number(data.colaboradorId);
-
+    console.log(data)
     const cliforExistsSql = db
         .select({
             id: clienteFornecedorTable.id
@@ -44,6 +44,7 @@ export async function createCompra(request: Request, response: Response){
             colaboradorId: sql.placeholder("colaboradorId"),
             clienteFornecedorId: sql.placeholder("clienteFornecedorId")
         })
+        .prepare();
     try {
         const result = await db.transaction(async (transaction) => {
             const cliforExists = await cliforExistsSql.execute({ cliforId });
@@ -55,9 +56,11 @@ export async function createCompra(request: Request, response: Response){
                 transaction.rollback();
             }
             const result = await sqlQuery.execute({
-                dataVenda: data.dataVenda,
-                colaboradorId,
-                cliforId
+                nf: data.nf,
+                dataCompra: data.dataCompra,
+                valorTotal: data.valorTotal,
+                colaboradorId: colaboradorId,
+                clienteFornecedorId: cliforId
             })
             if(!result){
                 transaction.rollback();

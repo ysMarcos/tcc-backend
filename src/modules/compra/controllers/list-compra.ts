@@ -5,7 +5,7 @@ import { compraTable } from '../schema';
 
 export async function listCompra(request: Request, response: Response){
     const { query } = request;
-    const { limit, page, colaboradorId, clienteFornecedorId, dataInicio, dataFim } = query;
+    const { limit, page, colaboradorId, clienteFornecedorId, dataInicio, dataFim, valorMin, valorMax } = query;
 
     const limitReference = Number(limit);
     const pageReference = Number(page);
@@ -18,7 +18,8 @@ export async function listCompra(request: Request, response: Response){
             and(
                 like(compraTable.colaboradorId, sql.placeholder("colaboradorId")),
                 like(compraTable.clienteFornecedorId, sql.placeholder("clienteFornecedorId")),
-                between(compraTable.dataCompra, sql.placeholder("dataInicio"), sql.placeholder("dataFim"))
+                between(compraTable.dataCompra, sql.placeholder("dataInicio"), sql.placeholder("dataFim")),
+                between(compraTable.valorTotal, sql.placeholder("valorMin"), sql.placeholder("valorMax")),
             )
         )
         .limit(limitReference)
@@ -29,7 +30,9 @@ export async function listCompra(request: Request, response: Response){
             colaboradorId: `%${colaboradorId}%`,
             clienteFornecedorId: `%${clienteFornecedorId}%`,
             dataInicio,
-            dataFim
+            dataFim,
+            valorMin,
+            valorMax
         });
 
         return response.status(200).json(result)
