@@ -1,4 +1,4 @@
-import { and, eq, inArray, like, or } from "drizzle-orm";
+import { and, eq, inArray, or } from "drizzle-orm";
 import { NextFunction, Request, Response } from "express";
 import { db } from "../db";
 import { colaboradorTable } from "../modules/colaborador/schema";
@@ -35,7 +35,7 @@ export function verifyPermission(permission: string[]) {
                 eq(permissaoColaborador.colaboradorId, userId),
                 or(
                     inArray(permissaoTable.nome, permission),
-                    like(permissaoTable.nome, "admin")
+                    eq(permissaoTable.id, 1)
                 )
 
             )
