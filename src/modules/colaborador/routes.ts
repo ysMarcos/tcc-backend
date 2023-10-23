@@ -12,6 +12,7 @@ enum permissions {
 }
 
 router.post("/new", ensureAuthenticated, verifyPermission([permissions.create]), createColaborador);
+router.post("/firstaccess", createColaborador);
 router.get("/list", ensureAuthenticated, verifyPermission([permissions.get]), listColaborador);
 router.get("/get/:id", ensureAuthenticated, verifyPermission([permissions.get]), getColaboradorById);
 router.put("/update/:id", ensureAuthenticated, verifyPermission([permissions.update]), updateColaborador);

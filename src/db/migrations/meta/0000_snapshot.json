@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "df63173f-9582-40a8-85e3-3a220d9830d3",
+  "id": "45bedf24-52a4-4e9d-9bf5-18e8a9a3690c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "categoria": {
@@ -248,6 +248,99 @@
         }
       }
     },
+    "compra": {
+      "name": "compra",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "nota_fiscal": {
+          "name": "nota_fiscal",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "data_compra": {
+          "name": "data_compra",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "valor_toal": {
+          "name": "valor_toal",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "colaborador_id": {
+          "name": "colaborador_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "cliente_fornecedor_id": {
+          "name": "cliente_fornecedor_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(now())"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "compra_colaborador_id_colaborador_id_fk": {
+          "name": "compra_colaborador_id_colaborador_id_fk",
+          "tableFrom": "compra",
+          "tableTo": "colaborador",
+          "columnsFrom": [
+            "colaborador_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "compra_cliente_fornecedor_id_cliente-fornecedor_id_fk": {
+          "name": "compra_cliente_fornecedor_id_cliente-fornecedor_id_fk",
+          "tableFrom": "compra",
+          "tableTo": "cliente-fornecedor",
+          "columnsFrom": [
+            "cliente_fornecedor_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "compra_id": {
+          "name": "compra_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
     "endereco": {
       "name": "endereco",
       "columns": {
@@ -399,6 +492,84 @@
       "compositePrimaryKeys": {
         "item_categoria_id": {
           "name": "item_categoria_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "item_compra": {
+      "name": "item_compra",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "item_id": {
+          "name": "item_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "compra_id": {
+          "name": "compra_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "quantidade": {
+          "name": "quantidade",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "valor": {
+          "name": "valor",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "item_compra_item_id_item_id_fk": {
+          "name": "item_compra_item_id_item_id_fk",
+          "tableFrom": "item_compra",
+          "tableTo": "item",
+          "columnsFrom": [
+            "item_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "item_compra_compra_id_compra_id_fk": {
+          "name": "item_compra_compra_id_compra_id_fk",
+          "tableFrom": "item_compra",
+          "tableTo": "compra",
+          "columnsFrom": [
+            "compra_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "item_compra_id": {
+          "name": "item_compra_id",
           "columns": [
             "id"
           ]
@@ -818,6 +989,209 @@
           "name": "pessoa_registro_unique",
           "columns": [
             "registro"
+          ]
+        }
+      }
+    },
+    "prestacao": {
+      "name": "prestacao",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "nota_fiscal": {
+          "name": "nota_fiscal",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "colaborador_id": {
+          "name": "colaborador_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "cliente_fornecedor_id": {
+          "name": "cliente_fornecedor_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(now())"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "prestacao_colaborador_id_colaborador_id_fk": {
+          "name": "prestacao_colaborador_id_colaborador_id_fk",
+          "tableFrom": "prestacao",
+          "tableTo": "colaborador",
+          "columnsFrom": [
+            "colaborador_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "prestacao_cliente_fornecedor_id_cliente-fornecedor_id_fk": {
+          "name": "prestacao_cliente_fornecedor_id_cliente-fornecedor_id_fk",
+          "tableFrom": "prestacao",
+          "tableTo": "cliente-fornecedor",
+          "columnsFrom": [
+            "cliente_fornecedor_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "prestacao_id": {
+          "name": "prestacao_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "prestacao_servico": {
+      "name": "prestacao_servico",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "valor_cobrado": {
+          "name": "valor_cobrado",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "prestacao_id": {
+          "name": "prestacao_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "servico_id": {
+          "name": "servico_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(now())"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "prestacao_servico_prestacao_id_prestacao_id_fk": {
+          "name": "prestacao_servico_prestacao_id_prestacao_id_fk",
+          "tableFrom": "prestacao_servico",
+          "tableTo": "prestacao",
+          "columnsFrom": [
+            "prestacao_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "prestacao_servico_servico_id_servico_id_fk": {
+          "name": "prestacao_servico_servico_id_servico_id_fk",
+          "tableFrom": "prestacao_servico",
+          "tableTo": "servico",
+          "columnsFrom": [
+            "servico_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "prestacao_servico_id": {
+          "name": "prestacao_servico_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "servico": {
+      "name": "servico",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "nome": {
+          "name": "nome",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(now())"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "servico_id": {
+          "name": "servico_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {
+        "servico_nome_unique": {
+          "name": "servico_nome_unique",
+          "columns": [
+            "nome"
           ]
         }
       }

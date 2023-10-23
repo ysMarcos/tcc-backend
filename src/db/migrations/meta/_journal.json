@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1697716904616,
-      "tag": "0000_flashy_anthem",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1697806022836,
-      "tag": "0001_hesitant_havok",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1698068481242,
-      "tag": "0002_wild_solo",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1698068874297,
-      "tag": "0003_safe_hemingway",
+      "when": 1698078920989,
+      "tag": "0000_curly_talkback",
       "breakpoints": true
     }
   ]
