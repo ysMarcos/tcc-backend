@@ -16,6 +16,7 @@ import vendaRouter from "../modules/venda/routes";
 import itemVendaRouter from "../modules/item-venda/routes";
 import compraRouter from "../modules/compra/routes";
 import itemCompraRouter from "../modules/item-compra/routes";
+import servicoRouter from "../modules/servico/routes";
 
 const router = express.Router();
 
@@ -30,5 +31,6 @@ router.use('/clientefornecedor', clienteFornecedorRouter);
 router.use('/um', unidadeMedidaRouter)
 router.use('/venda', vendaRouter, itemVendaRouter);
 router.use('/compra', compraRouter, itemCompraRouter);
+router.use('/servico', servicoRouter);
 
 export default router;
