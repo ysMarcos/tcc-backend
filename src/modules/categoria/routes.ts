@@ -4,12 +4,17 @@ import { verifyPermission } from "../../middlewares/permission-middleware";
 import { getCategoriaById, listCategoria, updateCategoria, createCategoria, deleteCategoria } from "./controllers";
 
 const router = express.Router();
-const permission: string[] = ['create-categoria', 'get-categoria', 'update-categoria', 'delete-categoria']
+enum permissions {
+    get = "get-categoria",
+    create = "create-categoria",
+    update = "update-categoria",
+    delete = "delete-categoria"
+}
 
-router.post('/new', ensureAuthenticated, verifyPermission([permission[0]]), createCategoria);
-router.get('/get/:id', ensureAuthenticated, verifyPermission([permission[1]]), getCategoriaById);
-router.get('/list', ensureAuthenticated, verifyPermission([permission[1]]), listCategoria);
-router.put('/update/:id', ensureAuthenticated, verifyPermission([permission[2]]), updateCategoria);
-router.delete('/delete/:id', ensureAuthenticated, verifyPermission([permission[3]]), deleteCategoria);
+router.post('/', ensureAuthenticated, verifyPermission([permissions.create]), createCategoria);
+router.get('/:id', ensureAuthenticated, verifyPermission([permissions.get]), getCategoriaById);
+router.get('/', ensureAuthenticated, verifyPermission([permissions.get]), listCategoria);
+router.put('/:id', ensureAuthenticated, verifyPermission([permissions.update]), updateCategoria);
+router.delete('/:id', ensureAuthenticated, verifyPermission([permissions.delete]), deleteCategoria);
 
 export default router;

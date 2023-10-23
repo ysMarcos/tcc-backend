@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Response } from "express";
 
 import cidadeRouter from "../modules/cidade/routes";
 import pessoaRouter from "../modules/pessoa/routes";
@@ -35,6 +35,8 @@ router.use('/venda', vendaRouter, itemVendaRouter);
 router.use('/compra', compraRouter, itemCompraRouter);
 router.use('/servico', servicoRouter);
 router.use('/prestacao', prestacaoRouter, servicoPrestacaoRouter);
-
+router.get('/teste', (response: Response) => {
+    response.send("A");
+})
 
 export default router;

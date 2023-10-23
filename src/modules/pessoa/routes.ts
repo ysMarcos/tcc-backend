@@ -1,5 +1,5 @@
 import express from "express";
-import { createPessoa, listPessoa, getPessoaById, updatePessoa, deletePessoa } from "./controllers";
+import { createPessoa, listPessoa, getPessoaById, updatePessoa, deletePessoa, firstAccess } from "./controllers";
 import { verifyPermission } from "../../middlewares/permission-middleware";
 import { ensureAuthenticated } from "../../middlewares/auth-middleware";
 
@@ -11,11 +11,11 @@ enum permissions {
     delete = 'delete-pessoa',
 }
 
-router.post('/new', ensureAuthenticated, verifyPermission([permissions.create]), createPessoa);
-router.post('/firstaccess', createPessoa);
-router.get('/list', ensureAuthenticated, verifyPermission([permissions.get]), listPessoa);
-router.get('/get/:id', ensureAuthenticated, verifyPermission([permissions.get]), getPessoaById);
-router.put('/update/:id', ensureAuthenticated, verifyPermission([permissions.update]), updatePessoa);
-router.delete('/delete/:id', ensureAuthenticated, verifyPermission([permissions.delete]), deletePessoa);
+router.post('/', ensureAuthenticated, verifyPermission([permissions.create]), createPessoa);
+router.post('/fa', firstAccess);
+router.get('/', ensureAuthenticated, verifyPermission([permissions.get]), listPessoa);
+router.get('/:id', ensureAuthenticated, verifyPermission([permissions.get]), getPessoaById);
+router.put('/:id', ensureAuthenticated, verifyPermission([permissions.update]), updatePessoa);
+router.delete('/:id', ensureAuthenticated, verifyPermission([permissions.delete]), deletePessoa);
 
 export default router;
