@@ -1,4 +1,4 @@
-import { float, int, mysqlTable, timestamp } from "drizzle-orm/mysql-core";
+import { float, int, mysqlTable, time, timestamp } from "drizzle-orm/mysql-core";
 import { prestacaoTable } from "../prestacao/schema";
 import { servicoTable } from "../servico/schema";
 import { relations } from "drizzle-orm";
@@ -8,6 +8,8 @@ export const prestacaoServicoTable = mysqlTable("prestacao_servico", {
     valorCobrado: float('valor_cobrado').notNull(),
     prestacaoId: int('prestacao_id').references(() => prestacaoTable.id).notNull(),
     servicoId: int('servico_id').references(() => servicoTable.id).notNull(),
+    dataInicio: time('data_inicio').notNull(),
+    dataFim: time('data_fim').notNull(),
     createdAt: timestamp('createdAt').defaultNow()
 })
 

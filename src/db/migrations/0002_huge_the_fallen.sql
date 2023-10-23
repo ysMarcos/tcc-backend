@@ -1,0 +1,1 @@
+ALTER TABLE `prestacao` ADD `isPago` boolean DEFAULT false;
