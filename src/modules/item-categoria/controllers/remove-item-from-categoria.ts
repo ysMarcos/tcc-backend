@@ -6,10 +6,10 @@ import { itemTable } from "../../item/schema";
 import { itemCategoriaTable } from "../schema";
 
 export async function removeItemFromCategoria(request: Request, response: Response) {
-    const { params } = request;
-    const itemId = Number(params.itemId);
-    const categoriaId = Number(request.body.categoriaId);
-
+    const data = request.body
+    const itemId = Number(data.itemId);
+    const categoriaId = Number(data.categoriaId);
+    console.log(data)
     const itemSqlQuery = db
         .select()
         .from(itemTable)
@@ -35,12 +35,10 @@ export async function removeItemFromCategoria(request: Request, response: Respon
             const [item] = await itemSqlQuery.execute({itemId});
             if (!item){
                 transaction.rollback();
-                return;
             }
             const [categoria] = await categoriaSqlQuery.execute({categoriaId});
             if (!categoria){
                 transaction.rollback();
-                return;
             }
             const result = await db
             .delete(itemCategoriaTable)
