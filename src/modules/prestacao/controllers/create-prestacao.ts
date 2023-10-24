@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { db } from '../../../db';
 import { clienteFornecedorTable } from '../../cliente-fornecedor/schema';
 import { colaboradorTable } from '../../colaborador/schema';
-import { prestacaoTable } from '../schema';
+import { prestacaoInsertSchema, prestacaoTable } from '../schema';
 
 export async function createPrestacao(request: Request, response: Response){
     const data = request.body;
@@ -45,6 +45,10 @@ export async function createPrestacao(request: Request, response: Response){
         })
         .prepare();
     try {
+
+        const isValid = prestacaoInsertSchema.safeParse({ data });
+        if(!isValid.success) return response.status(400).json(isValid.error.issues);
+
         const result = await db.transaction(async (transaction) => {
             const cliforExists = await cliforExistsSql.execute({ cliforId });
             if(!cliforExists){

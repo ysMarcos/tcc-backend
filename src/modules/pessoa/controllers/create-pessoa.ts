@@ -44,17 +44,7 @@ export async function createPessoa(request: Request, response: Response){
         registro: sql.placeholder("registro")
     })
     .prepare();
-
-    const returnSql = db
-    .select({
-        id: pessoaTable.id
-    })
-    .from(pessoaTable)
-    .where(
-        eq(pessoaTable.id, sql.placeholder("insertId"))
-        )
-    .prepare();
-
+    
     try {
 
         const isValid = pessoaInsertSchema.safeParse({
