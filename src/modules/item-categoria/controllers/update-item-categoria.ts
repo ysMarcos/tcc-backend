@@ -2,6 +2,7 @@ import { eq, sql } from 'drizzle-orm';
 import { Request, Response } from 'express';
 import { db } from '../../../db';
 import { itemCategoriaTable } from '../schema';
+//TODO: ajeitar delete e update de item categoria
 export async function funcao(request: Request, response: Response){
     const { params, body } = request;
     const itemId = Number(params.itemId);

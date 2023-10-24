@@ -9,10 +9,11 @@ export const itemTable = mysqlTable('item', {
     nome: varchar('nome', { length: 50 }).notNull().unique(),
     descricao: varchar('descricao', { length: 150 }),
     valorUnitario: float('valor_unitario').notNull(),
+    quantidade: int('quantidade').default(0),
     createdAt: timestamp('createdAt').defaultNow()
 })
 
-export const itemRelations = relations(itemTable, ({ one, many }) => ({
+export const itemRelations = relations(itemTable, ({ many }) => ({
     itemCategoria: many(itemCategoriaTable)
 }))
 

@@ -1,4 +1,4 @@
-import { sql, eq, and } from "drizzle-orm";
+import { sql, eq } from "drizzle-orm";
 import { Request, Response } from "express";
 import { db } from "../../../db";
 import { itemTable } from "../../item/schema";
@@ -28,15 +28,6 @@ export async function addItemToCompra (request: Request, response: Response) {
             )
         )
         .prepare();
-    const itemCompraSqlQuery = db
-            .select()
-            .from(itemCompraTable)
-            .where(
-                and(
-                    eq(itemCompraTable.compraId, sql.placeholder("compraId")),
-                    eq(itemCompraTable.itemId, sql.placeholder("itemId"))
-                )
-            )
     try {
         for ( const produto of carrinho ){
             // const isValid = itemVendaInsertSchema.safeParse({
@@ -58,13 +49,20 @@ export async function addItemToCompra (request: Request, response: Response) {
                     transaction.rollback();
                 }
                 const result = await db
-                        .insert(itemCompraTable)
-                        .values({
-                            itemId: item.id,
-                            compraId,
-                            quantidade: produto.quantidade,
-                            valor: item.valorUnitario
-                        });
+                    .insert(itemCompraTable)
+                    .values({
+                        itemId: item.id,
+                        compraId,
+                        quantidade: produto.quantidade,
+                        valor: item.valorUnitario
+                    });
+
+                await db
+                    .update(itemTable)
+                    .set({
+                        quantidade: item.quantidade + produto.quantidade
+                    })
+                    .where(eq(itemTable.id, item.id))
 
                 if(!result){
                     transaction.rollback();

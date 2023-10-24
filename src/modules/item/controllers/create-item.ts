@@ -4,27 +4,29 @@ import { db } from "../../../db";
 import { itemInsertSchema, itemTable } from "../schema";
 
 export async function createItem(request: Request, response: Response){
-    const newItemData = request.body;
+    const data = request.body;
 
     const sqlQuery = db
         .insert(itemTable)
         .values({
             nome: sql.placeholder("nome"),
             valorUnitario: sql.placeholder("valorUnitario"),
-            descricao: sql.placeholder("descricao")
+            descricao: sql.placeholder("descricao"),
+            quantidade: sql.placeholder("quantidade")
         })
         .prepare();
 
     try {
-        const isValid = itemInsertSchema.safeParse(newItemData);
+        const isValid = itemInsertSchema.safeParse(data);
         if (!isValid.success) return response.status(400).send(isValid.error.issues[0].message);
 
         const result = await db.transaction(async (transaction) => {
             const insertedItem = await sqlQuery.execute({
-                nome: newItemData.nome,
-                valorUnitario: newItemData.valorUnitario,
-                descricao: newItemData.descricao,
-                unidadeMedidaId: newItemData.unidadeMedidaId,
+                nome: data.nome,
+                valorUnitario: data.valorUnitario,
+                descricao: data.descricao,
+                unidadeMedidaId: data.unidadeMedidaId,
+                quantidade: data.quantidade
             });
             if(!insertedItem) {
                 transaction.rollback()
