@@ -36,14 +36,15 @@ export async function listClienteFornecedor(request: Request, response: Response
         .limit(limitReference)
         .offset(offset)
         .prepare()
+
     try {
         const result = await sqlQuery.execute({
+            isCliente,
             nome : `%${nome}%`,
             cadastro : `%${cadastro}%`,
-            isCliente
         });
         return response.status(200).json(result);
     } catch(error){
-        return response.status(500).json(error);
+        return response.status(400).json(error);
     }
 }
