@@ -2,11 +2,29 @@ import { Request, Response } from "express";
 import { db } from "../../../db";
 import { colaboradorTable, colaboradorUpdateSchema } from "../schema";
 import { eq, sql } from "drizzle-orm";
+import { hashSenha } from "../helpers/encrypt";
 
 export async function updateColaborador(request: Request, response: Response) {
     const { params } = request;
     const id = Number(params.id);
-    const newData = request.body;
+    const {
+        usuario,
+        senha,
+        ativo,
+        dataPrevisaoFim
+    } = request.body;
+
+    let newPassword;
+    if(senha){
+        newPassword = await hashSenha(senha);
+    }
+
+    const newData = {
+        usuario,
+        newPassword,
+        ativo,
+        dataPrevisaoFim
+    }
 
     const getColaboradorToUpdateQuery = db
         .select()
@@ -19,7 +37,12 @@ export async function updateColaborador(request: Request, response: Response) {
         .prepare();
 
     try {
-        const isValid = colaboradorUpdateSchema.safeParse(newData);
+        const isValid = colaboradorUpdateSchema.safeParse({
+            usuario: newData.usuario,
+            senha: newData.newPassword,
+            ativo: newData.ativo,
+            dataPrevisaoFim: newData.dataPrevisaoFim
+        });
         if(!isValid.success) return response.status(400).send(isValid.error.issues[0].message);
 
         const result = await db.transaction(async (transaction) => {
@@ -27,7 +50,7 @@ export async function updateColaborador(request: Request, response: Response) {
             if(!colaborador) {
                 transaction.rollback();
             }
-            const updatedColaborador = await db
+            const result = await db
                 .update(colaboradorTable)
                 .set({
                     ...colaborador,
@@ -38,7 +61,11 @@ export async function updateColaborador(request: Request, response: Response) {
                         colaboradorTable.id, id
                     )
                 );
-            return updatedColaborador;
+
+            if(!result){
+                transaction.rollback();
+            }
+            return result;
         })
 
         response.status(200).json(result)

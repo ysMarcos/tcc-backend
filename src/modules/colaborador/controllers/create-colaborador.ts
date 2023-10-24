@@ -3,7 +3,6 @@ import { Request, Response } from "express";
 import { db } from "../../../db";
 import { hashSenha } from "../helpers/encrypt";
 import { colaboradorInsertSchema, colaboradorTable } from "../schema";
-//TODO: Validar de se a data de inicio é maior que a de fim
 
 export async function createColaborador(request: Request, response: Response){
     const {
@@ -17,7 +16,6 @@ export async function createColaborador(request: Request, response: Response){
 
     const dtInicio = new Date(dataInicio);
     const dtFim = new Date(dataPrevisaoFim);
-
     const sqlQuery = db
         .insert(colaboradorTable)
         .values({
