@@ -21,9 +21,11 @@ export async function ensureAuthenticated (request: Request, response: Response,
 
     try{
         const data = jwt.verify(token, jwtSecret);
-        const { id } = data as TokenPayload;
+        const dataResponse = data as TokenPayload;
 
-        request.userId = id;
+        if( dataResponse.ativo === false ) return response.sendStatus(401).json({ message: "User is inactive" });
+
+        request.userId = dataResponse.id;
         return next();
     } catch {
         return response.sendStatus(401);
