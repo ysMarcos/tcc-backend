@@ -39,7 +39,8 @@ export const prestacaoInsertSchema = createInsertSchema(prestacaoTable, {
     descricao: z
         .string()
         .min(3, { message: "Descrição must be 3 or more characters long" })
-        .max(150, { message: "Descricao must be 150 or fewer characters long" }),
+        .max(150, { message: "Descricao must be 150 or fewer characters long" })
+        .optional(),
     isPago: z
         .boolean({
             invalid_type_error: "isPago must be an boolean"

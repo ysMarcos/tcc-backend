@@ -46,7 +46,12 @@ export async function createPrestacao(request: Request, response: Response){
         .prepare();
     try {
 
-        const isValid = prestacaoInsertSchema.safeParse({ data });
+        const isValid = prestacaoInsertSchema.safeParse({ 
+            descricao: data.descricao,
+            isPago: data.isPago,
+            clienteFornecedorId: cliforId,
+            colaboradorId
+         });
         if(!isValid.success) return response.status(400).json(isValid.error.issues);
 
         const result = await db.transaction(async (transaction) => {
