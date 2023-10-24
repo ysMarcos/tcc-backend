@@ -10,7 +10,7 @@ enum permissions {
     update = "update-servico",
     delete = "delete-servico"
 }
-//TODO: Fazer validadores para o insert
+
 router.post('/', ensureAuthenticated, verifyPermission([permissions.create]), createServico);
 router.get('/:id', ensureAuthenticated, verifyPermission([permissions.get]), getServicoById);
 router.get('/', ensureAuthenticated, verifyPermission([permissions.get]), listServico);
