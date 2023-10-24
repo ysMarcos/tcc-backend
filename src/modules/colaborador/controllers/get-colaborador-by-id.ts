@@ -7,7 +7,14 @@ export async function getColaboradorById(request: Request, response: Response) {
     const { params } = request;
     const id = Number(params.id);
     const sqlQuery = db
-        .select()
+        .select({
+            id: colaboradorTable.id,
+            user: colaboradorTable.usuario,
+            dataInicio: colaboradorTable.dataInicio,
+            dataFim: colaboradorTable.dataPrevisaoFim,
+            pessoaId: colaboradorTable.pessoaId,
+            ativo: colaboradorTable.ativo
+        })
         .from(colaboradorTable)
         .where(
             eq(
@@ -16,10 +23,8 @@ export async function getColaboradorById(request: Request, response: Response) {
         )
         .prepare();
     try {
-        const colaborador = await sqlQuery.execute({
-            id
-        });
-        return response.status(200).json(colaborador);
+        const result = await sqlQuery.execute({ id });
+        return response.status(200).json(result);
     } catch (error) {
         return response.status(404).json(error)
     }
