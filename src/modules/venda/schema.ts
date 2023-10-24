@@ -19,10 +19,11 @@ export const vendaRelations = relations(vendaTable, ({ one }) => ({
     })
 }))
 
-const vendaInsertSchema = createInsertSchema(vendaTable, {
+export const vendaInsertSchema = createInsertSchema(vendaTable, {
     dataVenda: z
         .date({
-            required_error: "Data is required"
+            required_error: "Data is required",
+            invalid_type_error: "Data must be a valid date"
         }),
     colaboradorId: z
         .number({

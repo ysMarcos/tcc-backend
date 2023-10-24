@@ -3,13 +3,15 @@ import { Request, Response } from 'express';
 import { db } from '../../../db';
 import { clienteFornecedorTable } from '../../cliente-fornecedor/schema';
 import { colaboradorTable } from '../../colaborador/schema';
-import { vendaTable } from '../schema';
+import { vendaInsertSchema, vendaTable } from '../schema';
 
 export async function createVenda(request: Request, response: Response){
     const data = request.body;
 
     const cliforId = Number(data.clienteFornecedorId);
     const colaboradorId = Number(data.colaboradorId);
+
+    const dataVenda = new Date(data.dataVenda);
 
     const cliforExistsSql = db
         .select({
@@ -41,6 +43,13 @@ export async function createVenda(request: Request, response: Response){
             clienteFornecedorId: sql.placeholder("cliforId")
         })
     try {
+
+        const isValid = vendaInsertSchema.safeParse({
+            dataVenda,
+            colaboradorId
+        });
+        if (!isValid.success) return response.status(400).send(isValid.error.issues[0].message);
+
         const result = await db.transaction(async (transaction) => {
             const cliforExists = await cliforExistsSql.execute({ cliforId });
             if(!cliforExists){

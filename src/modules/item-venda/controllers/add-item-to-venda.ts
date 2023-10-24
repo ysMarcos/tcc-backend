@@ -28,15 +28,6 @@ export async function addItemToVenda (request: Request, response: Response) {
             )
         )
         .prepare();
-    const itemVendaSqlQuery = db
-            .select()
-            .from(itemVendaTable)
-            .where(
-                and(
-                    eq(itemVendaTable.vendaId, sql.placeholder("vendaId")),
-                    eq(itemVendaTable.itemId, sql.placeholder("itemId"))
-                )
-            )
     try {
         for ( const produto of carrinho ){
             const isValid = itemVendaInsertSchema.safeParse({
@@ -73,7 +64,7 @@ export async function addItemToVenda (request: Request, response: Response) {
             });
         }
 
-        return response.status(200).json(vendaId);
+        return response.status(200).json({ insertId: vendaId });
     } catch(error){
         return response.status(400).json(error);
     }

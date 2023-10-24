@@ -37,6 +37,6 @@ export async function updateClienteFornecedor(request: Request, response: Respon
         })
         return response.status(200).json(result)
     } catch(error){
-        return response.status(500).json(error);
+        return response.status(400).json(error);
     }
 }
