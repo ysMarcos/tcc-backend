@@ -15,6 +15,9 @@ export async function createColaborador(request: Request, response: Response){
     } = request.body;
     const hashedPassword = await hashSenha(senha);
 
+    const dtInicio = new Date(dataInicio);
+    const dtFim = new Date(dataPrevisaoFim);
+
     const sqlQuery = db
         .insert(colaboradorTable)
         .values({
@@ -24,18 +27,6 @@ export async function createColaborador(request: Request, response: Response){
             dataPrevisaoFim: sql.placeholder("dataPrevisaoFim"),
             pessoaId: sql.placeholder("pessoaId"),
         })
-        .prepare();
-
-    const returnSql = db
-        .select({
-            id: colaboradorTable.id
-        })
-        .from(colaboradorTable)
-        .where(
-            eq(
-                colaboradorTable.id, sql.placeholder("insertId")
-            )
-        )
         .prepare();
 
     try {
@@ -48,25 +39,21 @@ export async function createColaborador(request: Request, response: Response){
         });
         if (!isValid.success) return response.status(400).send(isValid.error.issues[0].message);
 
+
+        if( dtInicio > dtFim) return response.status(400).send({ error: "dataInicio must be greater than dataPrevisaoFim"});
+
         const result = await db.transaction(async (transaction) => {
-            const [insertedColaborador] = await sqlQuery.execute({
+            const [result] = await sqlQuery.execute({
                 usuario,
                 senha: hashedPassword,
                 dataInicio,
                 dataPrevisaoFim,
                 pessoaId,
             });
-            if(!insertedColaborador) transaction.rollback();
-
-            const result = await returnSql.execute({
-                insertId: insertedColaborador.insertId
-            })
-            return result;
+            if(!result) transaction.rollback();
+            return result
         })
-        if(!result) response.status(400).send({ result })
-
-        response.status(201)
-            .json({ message: "User created successfully" });
+        response.status(201).json(result);
     } catch(error){
         return response.status(500).json(error);
     }
