@@ -1,1 +1,0 @@
-ALTER TABLE `prestacao` MODIFY COLUMN `nota_fiscal` varchar(150);

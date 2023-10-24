@@ -1,7 +1,7 @@
 import { sql } from "drizzle-orm";
 import { Request, Response } from "express";
 import { db } from "../../../db";
-import { servicoTable } from "../schema";
+import { servicoInsertSchema, servicoTable } from "../schema";
 
 export async function createServico(request: Request, response: Response){
     const data = request.body;
@@ -14,6 +14,9 @@ export async function createServico(request: Request, response: Response){
         .prepare();
 
     try {
+
+        const isValid = servicoInsertSchema.safeParse(data);
+        if (!isValid.success) return response.status(400).send(isValid.error.issues[0].message);
 
         const result = await db.transaction(async (transaction) => {
             const result = sqlQuery.execute({

@@ -1,6 +1,5 @@
 import { relations } from "drizzle-orm";
 import { float, int, mysqlTable, timestamp, varchar } from "drizzle-orm/mysql-core";
-import { unidadeMedidaTable } from "../unidade-medida/schema";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from 'zod';
 import { itemCategoriaTable } from "../item-categoria/schema";
@@ -10,15 +9,10 @@ export const itemTable = mysqlTable('item', {
     nome: varchar('nome', { length: 50 }).notNull().unique(),
     descricao: varchar('descricao', { length: 150 }),
     valorUnitario: float('valor_unitario').notNull(),
-    unidadeMedidaId: int('unidade_medida_id').notNull().references(() => unidadeMedidaTable.id),
     createdAt: timestamp('createdAt').defaultNow()
 })
 
 export const itemRelations = relations(itemTable, ({ one, many }) => ({
-    unidadeMedida: one(unidadeMedidaTable, {
-        fields: [itemTable.unidadeMedidaId],
-        references: [unidadeMedidaTable.id]
-    }),
     itemCategoria: many(itemCategoriaTable)
 }))
 
@@ -37,11 +31,7 @@ export const itemInsertSchema = createInsertSchema(itemTable, {
         .number({
             required_error: "Valor is required"
         })
-        .positive("O valo deve ser positivo"),
-    unidadeMedidaId: z
-        .number({
-            required_error: "unidadeMedidaId is required"
-        })
+        .positive("O valo deve ser positivo")
 })
 
 export const itemUpdateSchema = createInsertSchema(itemTable, {
@@ -58,8 +48,5 @@ export const itemUpdateSchema = createInsertSchema(itemTable, {
     valorUnitario: z
         .number()
         .positive("The value must be positive")
-        .optional(),
-    unidadeMedidaId: z
-        .number()
         .optional()
 })

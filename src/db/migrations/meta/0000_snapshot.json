@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "45bedf24-52a4-4e9d-9bf5-18e8a9a3690c",
+  "id": "93bf2c6c-6894-4b79-a127-e27cc4433a3e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "categoria": {
@@ -686,13 +686,6 @@
           "notNull": true,
           "autoincrement": false
         },
-        "unidade_medida_id": {
-          "name": "unidade_medida_id",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
         "createdAt": {
           "name": "createdAt",
           "type": "timestamp",
@@ -703,21 +696,7 @@
         }
       },
       "indexes": {},
-      "foreignKeys": {
-        "item_unidade_medida_id_unidade-medida_id_fk": {
-          "name": "item_unidade_medida_id_unidade-medida_id_fk",
-          "tableFrom": "item",
-          "tableTo": "unidade-medida",
-          "columnsFrom": [
-            "unidade_medida_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
+      "foreignKeys": {},
       "compositePrimaryKeys": {
         "item_id": {
           "name": "item_id",
@@ -1007,7 +986,7 @@
           "name": "nota_fiscal",
           "type": "varchar(150)",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
         },
         "colaborador_id": {
@@ -1023,6 +1002,14 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "isPago": {
+          "name": "isPago",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
         },
         "createdAt": {
           "name": "createdAt",
@@ -1099,6 +1086,20 @@
         "servico_id": {
           "name": "servico_id",
           "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "data_inicio": {
+          "name": "data_inicio",
+          "type": "time",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "data_fim": {
+          "name": "data_fim",
+          "type": "time",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -1190,51 +1191,6 @@
       "uniqueConstraints": {
         "servico_nome_unique": {
           "name": "servico_nome_unique",
-          "columns": [
-            "nome"
-          ]
-        }
-      }
-    },
-    "unidade-medida": {
-      "name": "unidade-medida",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
-        },
-        "nome": {
-          "name": "nome",
-          "type": "varchar(50)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": "(now())"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "unidade-medida_id": {
-          "name": "unidade-medida_id",
-          "columns": [
-            "id"
-          ]
-        }
-      },
-      "uniqueConstraints": {
-        "unidade-medida_nome_unique": {
-          "name": "unidade-medida_nome_unique",
           "columns": [
             "nome"
           ]

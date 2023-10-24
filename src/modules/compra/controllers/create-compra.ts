@@ -10,7 +10,7 @@ export async function createCompra(request: Request, response: Response){
 
     const cliforId = Number(data.clienteFornecedorId);
     const colaboradorId = Number(data.colaboradorId);
-    console.log(data)
+
     const cliforExistsSql = db
         .select({
             id: clienteFornecedorTable.id

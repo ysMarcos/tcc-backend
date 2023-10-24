@@ -11,8 +11,7 @@ export async function createItem(request: Request, response: Response){
         .values({
             nome: sql.placeholder("nome"),
             valorUnitario: sql.placeholder("valorUnitario"),
-            descricao: sql.placeholder("descricao"),
-            unidadeMedidaId: sql.placeholder("unidadeMedidaId")
+            descricao: sql.placeholder("descricao")
         })
         .prepare();
 

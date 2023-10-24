@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { db } from "../../../db";
 import { hashSenha } from "../helpers/encrypt";
 import { colaboradorInsertSchema, colaboradorTable } from "../schema";
+import { permissaoColaborador } from "../../permissao-colaborador/schema";
 
 export async function createColaborador(request: Request, response: Response){
     const {
@@ -49,7 +50,7 @@ export async function createColaborador(request: Request, response: Response){
                 pessoaId,
             });
             if(!result) transaction.rollback();
-            return result
+            return result;
         })
         response.status(201).json(result);
     } catch(error){
@@ -109,18 +110,16 @@ export async function firstAccess(request: Request, response: Response){
         if(colaborador) return response.status(401)
 
         const result = await db.transaction(async (transaction) => {
-            const [insertedColaborador] = await sqlQuery.execute({
+            const [colaborador] = await sqlQuery.execute({
                 usuario,
                 senha: hashedPassword,
                 dataInicio,
                 dataPrevisaoFim,
                 pessoaId,
             });
-            if(!insertedColaborador) transaction.rollback();
+            if(!colaborador) transaction.rollback();
 
-            const result = await returnSql.execute({
-                insertId: insertedColaborador.insertId
-            })
+            const result = await db.insert(permissaoColaborador).values({ colaboradorId: colaborador.insertId, permissaoId: 1});
             return result;
         })
         if(!result) response.status(400).send({ result })
