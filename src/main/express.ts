@@ -8,7 +8,6 @@ import categoriaRouter from "../modules/categoria/routes";
 import itemRouter from "../modules/item/routes";
 import itemCategoriaRouter from "../modules/item-categoria/routes";
 import colaboradorRouter from "../modules/colaborador/routes";
-import permissaoRouter from "../modules/permissao/routes";
 import permissaoColaboradorRouter from "../modules/permissao-colaborador/routes";
 import clienteFornecedorRouter from "../modules/cliente-fornecedor/routes";
 import vendaRouter from "../modules/venda/routes";
@@ -27,14 +26,10 @@ router.use('/endereco', enderecoRouter);
 router.use('/categoria', categoriaRouter);
 router.use('/item', itemRouter, itemCategoriaRouter);
 router.use('/colaborador', colaboradorRouter, permissaoColaboradorRouter);
-router.use('/permissao', permissaoRouter);
 router.use('/clientefornecedor', clienteFornecedorRouter);
 router.use('/venda', vendaRouter, itemVendaRouter);
 router.use('/compra', compraRouter, itemCompraRouter);
 router.use('/servico', servicoRouter);
 router.use('/prestacao', prestacaoRouter, servicoPrestacaoRouter);
-router.get('/teste', (response: Response) => {
-    response.send("A");
-})
 
 export default router;

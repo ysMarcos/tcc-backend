@@ -34,12 +34,10 @@ values ("admin"),
 ("get-item"),("create-item"),("update-item"),("delete-item"),
 ("get-pessoa"),("create-pessoa"),("update-pessoa"),("delete-pessoa"),
 ("get-colaborador"),("create-colaborador"),("update-colaborador"),("delete-colaborador"),
-("get-endereco"),("create-endereco"),("update-endereco"),("delete-endereco"),
 ("get-venda"),("create-venda"),("update-venda"),("delete-venda"),
 ("get-servico"),("create-servico"),("update-servico"),("delete-servico"),
 ("get-compra"),("create-compra"),("update-compra"),("delete-compra"),
 ("get-clifor"),("create-clifor"),("update-clifor"),("delete-clifor"),
-("get-cidade"),("create-cidade"),("update-cidade"),("delete-cidade"),
 ("get-categoria"),("create-categoria"),("update-categoria"),("delete-categoria"),
 ("get-prestacao"),("create-prestacao"),("update-prestacao"),("delete-prestacao");
 
