@@ -4,7 +4,7 @@ import { createInsertSchema } from "drizzle-zod";
 import { colaboradorTable } from "../colaborador/schema";
 import { z } from "zod";
 import { clienteFornecedorTable } from "../cliente-fornecedor/schema";
-
+//TODO: mudar o campo valorTotal para valorCompra
 export const compraTable = mysqlTable("compra", {
     id: int('id').autoincrement().primaryKey(),
     nf: varchar('nota_fiscal', { length: 150 }).notNull(),

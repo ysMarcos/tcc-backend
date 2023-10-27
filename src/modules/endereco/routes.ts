@@ -2,7 +2,7 @@ import express from "express";
 import { createEndereco, deleteEndereco, getEnderecoById, listEnderecos, updateEndereco } from "./controller";
 import { ensureAuthenticated } from "../../middlewares/auth-middleware";
 import { verifyPermission } from "../../middlewares/permission-middleware";
-
+//TODO: Atualizar CRUD Endereco
 const router = express.Router();
 
 enum permissions {

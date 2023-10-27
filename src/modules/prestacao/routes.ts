@@ -10,7 +10,7 @@ enum permissions {
     update = "update-prestacao",
     delete = "delete-prestacao"
 }
-//TODO: Fazer validadores para o insert
+
 router.post("/", ensureAuthenticated, verifyPermission([permissions.create]), createPrestacao);
 router.get("/", ensureAuthenticated, verifyPermission([permissions.get]), listPrestacao);
 router.get("/:id", ensureAuthenticated, verifyPermission([permissions.get]), getPrestacaoById);
