@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { pessoaEndereco } from "../schema";
+import { pessoaEnderecoTable } from "../schema";
 import { db } from "../../../db";
 import { and, eq, sql } from "drizzle-orm";
 
@@ -9,11 +9,11 @@ export async function removePessoaFromEndereco(request: Request, response: Respo
     const enderecoId = Number(params.enderecoId);
 
     const sqlQuery = db
-        .delete(pessoaEndereco)
+        .delete(pessoaEnderecoTable)
         .where(
             and(
-                eq( pessoaEndereco.pessoaId, sql.placeholder("pessoaId")),
-                eq( pessoaEndereco.enderecoId, sql.placeholder("enderecoId"))
+                eq( pessoaEnderecoTable.pessoaId, sql.placeholder("pessoaId")),
+                eq( pessoaEnderecoTable.enderecoId, sql.placeholder("enderecoId"))
             )
 
         )

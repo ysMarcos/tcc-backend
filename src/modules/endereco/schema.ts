@@ -3,7 +3,7 @@ import { char, int, mysqlTable, timestamp, varchar } from "drizzle-orm/mysql-cor
 import { createInsertSchema } from "drizzle-zod";
 import { z } from 'zod';
 import { cidadeTable } from "../cidade/schema";
-import { pessoaEndereco } from "../pessoa-endereco/schema";
+import { pessoaEnderecoTable } from "../pessoa-endereco/schema";
 
 export const endereco = mysqlTable('endereco', {
     id: int('id').autoincrement().primaryKey(),
@@ -22,7 +22,7 @@ export const enderecoRelations = relations(endereco, ({ one, many }) => ({
         fields: [endereco.cidadeId],
         references: [cidadeTable.id]
     }),
-    pessoaEndereco: many(pessoaEndereco)
+    pessoaEndereco: many(pessoaEnderecoTable)
 }));
 
 export const enderecoInsertSchema = createInsertSchema(endereco, {

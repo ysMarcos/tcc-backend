@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { db } from "../../../db";
-import { pessoaEndereco } from "../schema";
+import { pessoaEnderecoTable } from "../schema";
 import { sql } from "drizzle-orm";
 
 export async function addEnderecoToPessoa(request: Request, response: Response) {
@@ -9,7 +9,7 @@ export async function addEnderecoToPessoa(request: Request, response: Response) 
     const enderecoId = Number(body.enderecoId);
 
     const sqlQuery = db
-        .insert(pessoaEndereco)
+        .insert(pessoaEnderecoTable)
         .values({
             pessoaId: sql.placeholder("pessoaId"),
             enderecoId: sql.placeholder("enderecoId")

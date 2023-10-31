@@ -40,15 +40,13 @@ export async function createPrestacao(request: Request, response: Response){
         .values({
             descricao: sql.placeholder("descricao"),
             colaboradorId: sql.placeholder("colaboradorId"),
-            clienteFornecedorId: sql.placeholder("clienteFornecedorId"),
-            isPago: sql.placeholder("isPago")
+            clienteFornecedorId: sql.placeholder("clienteFornecedorId")
         })
         .prepare();
     try {
 
-        const isValid = prestacaoInsertSchema.safeParse({ 
+        const isValid = prestacaoInsertSchema.safeParse({
             descricao: data.descricao,
-            isPago: data.isPago,
             clienteFornecedorId: cliforId,
             colaboradorId
          });
@@ -66,8 +64,7 @@ export async function createPrestacao(request: Request, response: Response){
             const result = await sqlQuery.execute({
                 descricao: data.descricao,
                 colaboradorId: colaboradorId,
-                clienteFornecedorId: cliforId,
-                isPago: data.isPago
+                clienteFornecedorId: cliforId
             })
             if(!result){
                 transaction.rollback();

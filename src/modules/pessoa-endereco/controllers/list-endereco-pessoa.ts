@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { db } from '../../../db';
-import { pessoaEndereco } from '../schema';
+import { pessoaEnderecoTable } from '../schema';
 import { endereco } from '../../endereco/schema';
 import { eq, sql } from 'drizzle-orm';
 
@@ -9,14 +9,14 @@ export async function listPessoaEndereco(request: Request, response: Response){
 
     const sqlQuery = db
         .select()
-        .from(pessoaEndereco)
+        .from(pessoaEnderecoTable)
         .innerJoin(
             endereco,
-            eq( endereco.id, pessoaEndereco.enderecoId)
+            eq( endereco.id, pessoaEnderecoTable.enderecoId)
         )
         .where(
             eq(
-                pessoaEndereco.pessoaId, sql.placeholder("pessoaId")
+                pessoaEnderecoTable.pessoaId, sql.placeholder("pessoaId")
             )
         )
     try {

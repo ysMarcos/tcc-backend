@@ -2,7 +2,7 @@ import { InferSelectModel, relations } from "drizzle-orm";
 import { boolean, int, mysqlTable, timestamp, varchar } from "drizzle-orm/mysql-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from 'zod';
-import { pessoaEndereco } from "../pessoa-endereco/schema";
+import { pessoaEnderecoTable } from "../pessoa-endereco/schema";
 
 export const pessoaTable = mysqlTable('pessoa', {
     id: int('id').autoincrement().primaryKey(),
@@ -15,7 +15,7 @@ export const pessoaTable = mysqlTable('pessoa', {
 });
 
 export const pessoaRelations = relations(pessoaTable, ({many}) => ({
-    pessoaEndereco: many(pessoaEndereco)
+    pessoaEndereco: many(pessoaEnderecoTable)
 }));
 
 export const pessoaSelectSchema = createSelectSchema(pessoaTable);

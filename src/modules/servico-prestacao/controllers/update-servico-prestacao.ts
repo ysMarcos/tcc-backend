@@ -4,9 +4,19 @@ import { db } from '../../../db';
 import { prestacaoServicoTable } from '../schema';
 
 export async function updateServicoPrestacao(request: Request, response: Response){
-    const newData = request.body;
+    const data = request.body;
     const id = Number(request.params.id);
     const servicoId = Number(request.params.servicoId);
+
+    const newDataInicio = new Date(data.dataInicio);
+    const newDataFim = new Date(data.dataFim);
+
+    const newData = {
+        valorCobrado: data.valorCobrado,
+        dataInicio: newDataInicio,
+        dataFim: newDataFim,
+        isPago: data.isPago
+    }
 
     const sqlQuery = db
         .select()

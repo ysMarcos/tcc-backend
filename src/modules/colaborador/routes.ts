@@ -1,7 +1,7 @@
 import express from "express";
 import { ensureAuthenticated } from "../../middlewares/auth-middleware";
 import { verifyPermission } from "../../middlewares/permission-middleware";
-import { auth, refreshToken, createColaborador, getColaboradorById, listColaborador, updateColaborador, firstAccess, deleteColaborador } from "./controllers";
+import { auth, createColaborador, getColaboradorById, listColaborador, updateColaborador, firstAccess, deleteColaborador } from "./controllers";
 
 const router = express.Router();
 enum permissions {
@@ -18,6 +18,5 @@ router.get("/:id", ensureAuthenticated, verifyPermission([permissions.get]), get
 router.put("/:id", ensureAuthenticated, verifyPermission([permissions.update]), updateColaborador);
 router.delete("/:id", ensureAuthenticated, verifyPermission([permissions.delete]), deleteColaborador);
 router.post("/auth", auth);
-router.post("/refresh", refreshToken);
 
 export default router;

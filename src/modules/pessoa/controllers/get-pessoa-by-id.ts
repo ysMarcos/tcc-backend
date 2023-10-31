@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { eq, sql } from "drizzle-orm";
 import { db } from "../../../db";
 import { pessoaTable } from "../schema";
+import { pessoaEnderecoTable } from "../../pessoa-endereco/schema";
+import { endereco } from "../../endereco/schema";
 
 export async function getPessoaById(request: Request, response: Response) {
     const { params } = request;
@@ -9,6 +11,18 @@ export async function getPessoaById(request: Request, response: Response) {
     const sqlQuery = db
         .select()
         .from(pessoaTable)
+        .leftJoin(
+            pessoaEnderecoTable,
+            eq(
+                pessoaEnderecoTable.pessoaId, pessoaTable.id
+            )
+        )
+        .leftJoin(
+            endereco,
+            eq(
+                endereco.id, pessoaEnderecoTable.enderecoId
+            )
+        )
         .where(
             eq(
                 pessoaTable.id, sql.placeholder("id")

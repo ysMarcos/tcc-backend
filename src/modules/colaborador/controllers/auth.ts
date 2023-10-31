@@ -32,19 +32,10 @@ export async function auth(request: Request, response: Response) {
             dataPrevisaoFim: user.dataPrevisaoFim,
             ativo: user.ativo,
             pessoaId: user.pessoaId
-        }, jwtSecret, { expiresIn: '1h' });
-
-        const refreshToken = jwt.sign({
-            id: user.id,
-            usuario: user.usuario,
-            dataInicio: user.dataInicio,
-            dataPrevisaoFim: user.dataPrevisaoFim,
-            ativo: user.ativo,
-            pessoaId: user.pessoaId
         }, jwtSecret, { expiresIn: '1d' });
 
         return response.status(200)
-            .json({ accessToken, refreshToken })
+            .json({ accessToken })
     }catch(error) {
         return response.status(401).json(error)
     }

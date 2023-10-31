@@ -11,7 +11,6 @@ export const prestacaoTable = mysqlTable("prestacao", {
     descricao: varchar('nota_fiscal', { length: 150 }),
     colaboradorId: int('colaborador_id').references(() => colaboradorTable.id).notNull(),
     clienteFornecedorId: int('cliente_fornecedor_id').references(() => clienteFornecedorTable.id).notNull(),
-    isPago: boolean('isPago').default(false),
     createdAt: timestamp('createdAt').defaultNow()
 })
 
@@ -40,11 +39,7 @@ export const prestacaoInsertSchema = createInsertSchema(prestacaoTable, {
         .string()
         .min(3, { message: "Descrição must be 3 or more characters long" })
         .max(150, { message: "Descricao must be 150 or fewer characters long" })
-        .optional(),
-    isPago: z
-        .boolean({
-            invalid_type_error: "isPago must be an boolean"
-        })
+        .optional()
 })
 
 export const prestacaoUpdateSchema = createInsertSchema(prestacaoTable, {
@@ -62,10 +57,5 @@ export const prestacaoUpdateSchema = createInsertSchema(prestacaoTable, {
         .string()
         .min(3, { message: "Descrição must be 3 or more characters long" })
         .max(150, { message: "Descricao must be 150 or fewer characters long" })
-        .optional(),
-    isPago: z
-        .boolean({
-            invalid_type_error: "isPago must be an boolean"
-        })
         .optional()
 })
