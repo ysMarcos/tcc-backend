@@ -10,9 +10,9 @@ enum permissions {
     delete = "delete-endereco"
 }
 
-router.post('/:pessoaId/endereco/:enderecoId/', ensureAuthenticated, verifyPermission([permissions.create]), addEnderecoToPessoa);
+router.post('/:pessoaId/endereco/', ensureAuthenticated, verifyPermission([permissions.create]), addEnderecoToPessoa);
 router.get('/:pessoaId/endereco/', ensureAuthenticated, verifyPermission([permissions.get]), listPessoaEndereco);
-router.delete('/:pessoaId/endereco/:enderecoId', ensureAuthenticated, verifyPermission([permissions.delete]), removePessoaFromEndereco);
+router.delete('/:pessoaId/endereco/', ensureAuthenticated, verifyPermission([permissions.delete]), removePessoaFromEndereco);
 
 
 export default router;

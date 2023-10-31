@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { db } from '../../../db';
 import { pessoaEnderecoTable } from '../schema';
-import { endereco } from '../../endereco/schema';
+import { enderecoTable } from '../../endereco/schema';
 import { eq, sql } from 'drizzle-orm';
 
 export async function listPessoaEndereco(request: Request, response: Response){
@@ -11,8 +11,8 @@ export async function listPessoaEndereco(request: Request, response: Response){
         .select()
         .from(pessoaEnderecoTable)
         .innerJoin(
-            endereco,
-            eq( endereco.id, pessoaEnderecoTable.enderecoId)
+            enderecoTable,
+            eq( enderecoTable.id, pessoaEnderecoTable.enderecoId)
         )
         .where(
             eq(

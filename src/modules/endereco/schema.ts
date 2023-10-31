@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { cidadeTable } from "../cidade/schema";
 import { pessoaEnderecoTable } from "../pessoa-endereco/schema";
 
-export const endereco = mysqlTable('endereco', {
+export const enderecoTable = mysqlTable('endereco', {
     id: int('id').autoincrement().primaryKey(),
     rua: varchar('rua', { length: 125 }).notNull(),
     numero: varchar('numero', { length: 6 }).notNull(),
@@ -17,15 +17,15 @@ export const endereco = mysqlTable('endereco', {
     createdAt: timestamp('createdAt').defaultNow()
 });
 
-export const enderecoRelations = relations(endereco, ({ one, many }) => ({
+export const enderecoRelations = relations(enderecoTable, ({ one, many }) => ({
     cidade: one(cidadeTable, {
-        fields: [endereco.cidadeId],
+        fields: [enderecoTable.cidadeId],
         references: [cidadeTable.id]
     }),
     pessoaEndereco: many(pessoaEnderecoTable)
 }));
 
-export const enderecoInsertSchema = createInsertSchema(endereco, {
+export const enderecoInsertSchema = createInsertSchema(enderecoTable, {
     rua: z
         .string({
             required_error: "Rua is required"
@@ -50,12 +50,9 @@ export const enderecoInsertSchema = createInsertSchema(endereco, {
         })
         .length(8, { message: "CEP must be exactly 8 characters long" }),
     tipo: z
-        .enum(["rural", "urbano"]),
+        .enum(["R", "U"]),
     complemento: z
         .string()
-        .min(1, { message: "Complemento should be 1 or more characters long" })
         .max(50, { message: "Complemento should be 50 or fewer characters long" })
         .nullable(),
-})
-
-export type Endereco = InferSelectModel<typeof endereco>;
+});
