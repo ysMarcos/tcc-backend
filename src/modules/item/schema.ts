@@ -32,7 +32,7 @@ export const itemInsertSchema = createInsertSchema(itemTable, {
         .number({
             required_error: "Valor is required"
         })
-        .positive("O valo deve ser positivo")
+        .positive("Valor must be an positive number")
 })
 
 export const itemUpdateSchema = createInsertSchema(itemTable, {

@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { db } from '../../../db';
 import { clienteFornecedorTable } from '../../cliente-fornecedor/schema';
 import { colaboradorTable } from '../../colaborador/schema';
-import { compraTable } from '../schema';
+import { compraInsertSchema, compraTable } from '../schema';
 
 export async function createCompra(request: Request, response: Response){
     const data = request.body;
@@ -46,6 +46,9 @@ export async function createCompra(request: Request, response: Response){
         })
         .prepare();
     try {
+        const isValid = compraInsertSchema.safeParse(data);
+        if (!isValid.success) return response.status(400).send(isValid.error.issues[0].message);
+
         const result = await db.transaction(async (transaction) => {
             const cliforExists = await cliforExistsSql.execute({ cliforId });
             if(!cliforExists){

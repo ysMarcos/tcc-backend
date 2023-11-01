@@ -25,3 +25,33 @@ export const vendaRelations = relations(compraTable, ({ one }) => ({
         references: [clienteFornecedorTable.id]
     })
 }))
+
+export const compraInsertSchema = createInsertSchema(compraTable, {
+    nf: z
+        .string({
+            required_error: "nota fiscal is required"
+        })
+        .max(150, {
+            message: "NotaFiscal must be 150 or fewer characters"
+        }),
+    dataCompra: z
+        .date({
+            required_error: "DataCompra is required",
+            invalid_type_error: "DataCompra must be a number"
+        }),
+    valorTotal: z
+        .number({
+            invalid_type_error: "ValorTotal must be a number",
+            required_error: "ValorTotal is required"
+        }),
+    colaboradorId: z
+        .number({
+            invalid_type_error: "ColaboradorId must be a number",
+            required_error: "ColaboradorId is required"
+        }),
+    clienteFornecedorId: z
+        .number({
+            invalid_type_error: "ClienteFornecedorId must be a number",
+            required_error: "ClienteFornecedorId is required"
+        }),
+})

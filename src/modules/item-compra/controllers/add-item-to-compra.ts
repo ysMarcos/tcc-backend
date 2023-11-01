@@ -2,7 +2,7 @@ import { sql, eq } from "drizzle-orm";
 import { Request, Response } from "express";
 import { db } from "../../../db";
 import { itemTable } from "../../item/schema";
-import { itemCompraTable } from "../schema";
+import { itemCompraInsertSchema, itemCompraTable } from "../schema";
 import { compraTable } from "../../compra/schema";
 
 export async function addItemToCompra (request: Request, response: Response) {
@@ -30,12 +30,12 @@ export async function addItemToCompra (request: Request, response: Response) {
         .prepare();
     try {
         for ( const produto of carrinho ){
-            // const isValid = itemVendaInsertSchema.safeParse({
-            //     itemId: produto.itemId,
-            //     compraId: compraId,
-            //     quantidade: produto.quantidade
-            // });
-            // if (!isValid.success) return response.status(400).send(isValid.error.issues[0].message);
+            const isValid = itemCompraInsertSchema.safeParse({
+                itemId: produto.itemId,
+                compraId: compraId,
+                quantidade: produto.quantidade
+            });
+            if (!isValid.success) return response.status(400).send(isValid.error.issues[0].message);
 
             await db.transaction( async (transaction) => {
                 const [compra] = await compraSqlQuery.execute({compraId});
