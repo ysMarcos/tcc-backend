@@ -6,14 +6,6 @@ CREATE TABLE `categoria` (
 	CONSTRAINT `categoria_nome_unique` UNIQUE(`nome`)
 );
 --> statement-breakpoint
-CREATE TABLE `cidade` (
-	`id` int AUTO_INCREMENT NOT NULL,
-	`nome` varchar(50) NOT NULL,
-	`createdAt` timestamp DEFAULT (now()),
-	CONSTRAINT `cidade_id` PRIMARY KEY(`id`),
-	CONSTRAINT `cidade_nome_unique` UNIQUE(`nome`)
-);
---> statement-breakpoint
 CREATE TABLE `cliente-fornecedor` (
 	`id` int AUTO_INCREMENT NOT NULL,
 	`isCliente` boolean NOT NULL,
@@ -54,7 +46,7 @@ CREATE TABLE `endereco` (
 	`cep` char(8) NOT NULL,
 	`tipo` char(1),
 	`complemento` varchar(50),
-	`cidade_id` int,
+	`cidade` varchar(150) NOT NULL,
 	`createdAt` timestamp DEFAULT (now()),
 	CONSTRAINT `endereco_id` PRIMARY KEY(`id`)
 );
@@ -89,6 +81,7 @@ CREATE TABLE `item` (
 	`nome` varchar(50) NOT NULL,
 	`descricao` varchar(150),
 	`valor_unitario` float NOT NULL,
+	`quantidade` int DEFAULT 0,
 	`createdAt` timestamp DEFAULT (now()),
 	CONSTRAINT `item_id` PRIMARY KEY(`id`),
 	CONSTRAINT `item_nome_unique` UNIQUE(`nome`)
@@ -135,7 +128,6 @@ CREATE TABLE `prestacao` (
 	`nota_fiscal` varchar(150),
 	`colaborador_id` int NOT NULL,
 	`cliente_fornecedor_id` int NOT NULL,
-	`isPago` boolean DEFAULT false,
 	`createdAt` timestamp DEFAULT (now()),
 	CONSTRAINT `prestacao_id` PRIMARY KEY(`id`)
 );
@@ -145,8 +137,9 @@ CREATE TABLE `prestacao_servico` (
 	`valor_cobrado` float NOT NULL,
 	`prestacao_id` int NOT NULL,
 	`servico_id` int NOT NULL,
-	`data_inicio` time NOT NULL,
-	`data_fim` time NOT NULL,
+	`data_inicio` date NOT NULL,
+	`data_fim` date NOT NULL,
+	`isPago` boolean DEFAULT false,
 	`createdAt` timestamp DEFAULT (now()),
 	CONSTRAINT `prestacao_servico_id` PRIMARY KEY(`id`)
 );
@@ -172,7 +165,6 @@ ALTER TABLE `cliente-fornecedor` ADD CONSTRAINT `cliente-fornecedor_pessoa_id_pe
 ALTER TABLE `colaborador` ADD CONSTRAINT `colaborador_pessoa_id_pessoa_id_fk` FOREIGN KEY (`pessoa_id`) REFERENCES `pessoa`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `compra` ADD CONSTRAINT `compra_colaborador_id_colaborador_id_fk` FOREIGN KEY (`colaborador_id`) REFERENCES `colaborador`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `compra` ADD CONSTRAINT `compra_cliente_fornecedor_id_cliente-fornecedor_id_fk` FOREIGN KEY (`cliente_fornecedor_id`) REFERENCES `cliente-fornecedor`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE `endereco` ADD CONSTRAINT `endereco_cidade_id_cidade_id_fk` FOREIGN KEY (`cidade_id`) REFERENCES `cidade`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `item_categoria` ADD CONSTRAINT `item_categoria_item_id_item_id_fk` FOREIGN KEY (`item_id`) REFERENCES `item`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `item_categoria` ADD CONSTRAINT `item_categoria_categoria_id_categoria_id_fk` FOREIGN KEY (`categoria_id`) REFERENCES `categoria`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `item_compra` ADD CONSTRAINT `item_compra_item_id_item_id_fk` FOREIGN KEY (`item_id`) REFERENCES `item`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint

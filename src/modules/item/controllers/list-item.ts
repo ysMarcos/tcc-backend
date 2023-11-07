@@ -39,6 +39,6 @@ export async function listItem(request: Request, response: Response) {
         });
         response.status(200).json(itens);
     } catch(error){
-        return response.status(500).json(error);
+        return response.status(400).json(error);
     }
 }

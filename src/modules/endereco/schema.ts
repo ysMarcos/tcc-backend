@@ -2,7 +2,6 @@ import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm";
 import { char, int, mysqlTable, timestamp, varchar } from "drizzle-orm/mysql-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from 'zod';
-import { cidadeTable } from "../cidade/schema";
 import { pessoaEnderecoTable } from "../pessoa-endereco/schema";
 
 export const enderecoTable = mysqlTable('endereco', {
@@ -13,15 +12,11 @@ export const enderecoTable = mysqlTable('endereco', {
     cep: char('cep', { length: 8 }).notNull(),
     tipo: char('tipo', { length: 1, enum: ['U', 'R'] }),
     complemento: varchar('complemento', { length: 50 }),
-    cidadeId: int('cidade_id').references(() => cidadeTable.id),
+    cidade: varchar('cidade', { length: 150 }).notNull(),
     createdAt: timestamp('createdAt').defaultNow()
 });
 
-export const enderecoRelations = relations(enderecoTable, ({ one, many }) => ({
-    cidade: one(cidadeTable, {
-        fields: [enderecoTable.cidadeId],
-        references: [cidadeTable.id]
-    }),
+export const enderecoRelations = relations(enderecoTable, ({ many }) => ({
     pessoaEndereco: many(pessoaEnderecoTable)
 }));
 
@@ -55,4 +50,8 @@ export const enderecoInsertSchema = createInsertSchema(enderecoTable, {
         .string()
         .max(50, { message: "Complemento should be 50 or fewer characters long" })
         .nullable(),
+    cidade: z
+        .string()
+        .min(3, { message: "Cidade should be 3 or more characters long" })
+        .max(150, { message: "Cidade should be 150 or fewer characters long" })
 });

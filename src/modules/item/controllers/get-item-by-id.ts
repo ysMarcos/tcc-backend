@@ -19,6 +19,6 @@ export async function getItemById(request: Request, response: Response){
         const item = await sqlQuery.execute({ id });
         return response.status(200).json(item);
     } catch(error){
-        return response.status(500).json(error);
+        return response.status(400).json(error);
     }
 }

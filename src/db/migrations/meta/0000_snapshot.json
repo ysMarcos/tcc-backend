@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "93bf2c6c-6894-4b79-a127-e27cc4433a3e",
+  "id": "a68076dc-7316-48f8-ac0e-c52bab98c723",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "categoria": {
@@ -43,51 +43,6 @@
       "uniqueConstraints": {
         "categoria_nome_unique": {
           "name": "categoria_nome_unique",
-          "columns": [
-            "nome"
-          ]
-        }
-      }
-    },
-    "cidade": {
-      "name": "cidade",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
-        },
-        "nome": {
-          "name": "nome",
-          "type": "varchar(50)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": "(now())"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "cidade_id": {
-          "name": "cidade_id",
-          "columns": [
-            "id"
-          ]
-        }
-      },
-      "uniqueConstraints": {
-        "cidade_nome_unique": {
-          "name": "cidade_nome_unique",
           "columns": [
             "nome"
           ]
@@ -393,11 +348,11 @@
           "notNull": false,
           "autoincrement": false
         },
-        "cidade_id": {
-          "name": "cidade_id",
-          "type": "int",
+        "cidade": {
+          "name": "cidade",
+          "type": "varchar(150)",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "createdAt": {
@@ -410,21 +365,7 @@
         }
       },
       "indexes": {},
-      "foreignKeys": {
-        "endereco_cidade_id_cidade_id_fk": {
-          "name": "endereco_cidade_id_cidade_id_fk",
-          "tableFrom": "endereco",
-          "tableTo": "cidade",
-          "columnsFrom": [
-            "cidade_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
+      "foreignKeys": {},
       "compositePrimaryKeys": {
         "endereco_id": {
           "name": "endereco_id",
@@ -685,6 +626,14 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "quantidade": {
+          "name": "quantidade",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": 0
         },
         "createdAt": {
           "name": "createdAt",
@@ -1003,14 +952,6 @@
           "notNull": true,
           "autoincrement": false
         },
-        "isPago": {
-          "name": "isPago",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": false
-        },
         "createdAt": {
           "name": "createdAt",
           "type": "timestamp",
@@ -1092,17 +1033,25 @@
         },
         "data_inicio": {
           "name": "data_inicio",
-          "type": "time",
+          "type": "date",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
         "data_fim": {
           "name": "data_fim",
-          "type": "time",
+          "type": "date",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "isPago": {
+          "name": "isPago",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
         },
         "createdAt": {
           "name": "createdAt",

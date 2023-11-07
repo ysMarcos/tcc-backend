@@ -1,6 +1,5 @@
-import express, { Response } from "express";
+import express from "express";
 
-import cidadeRouter from "../modules/cidade/routes";
 import pessoaRouter from "../modules/pessoa/routes";
 import enderecoRouter from "../modules/endereco/routes";
 import pessoaEnderecoRouter from "../modules/pessoa-endereco/routes";
@@ -21,7 +20,6 @@ import servicoPrestacaoRouter from "../modules/servico-prestacao/routes";
 const router = express.Router();
 
 router.use('/pessoa', pessoaRouter, pessoaEnderecoRouter);
-router.use('/cidade', cidadeRouter);
 router.use('/endereco', enderecoRouter);
 router.use('/categoria', categoriaRouter);
 router.use('/item', itemRouter, itemCategoriaRouter);
