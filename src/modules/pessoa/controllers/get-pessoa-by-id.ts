@@ -4,7 +4,6 @@ import { db } from "../../../db";
 import { pessoaTable } from "../schema";
 import { pessoaEnderecoTable } from "../../pessoa-endereco/schema";
 import { enderecoTable } from "../../endereco/schema";
-import { cidadeTable } from "../../cidade/schema";
 
 export async function getPessoaById(request: Request, response: Response) {
     const { params } = request;
@@ -26,19 +25,13 @@ export async function getPessoaById(request: Request, response: Response) {
             cep: enderecoTable.cep,
             tipo: enderecoTable.tipo,
             complemento: enderecoTable.complemento,
-            cidade: cidadeTable.nome
+            cidade: enderecoTable.cidade
         })
         .from(pessoaEnderecoTable)
         .leftJoin(
             enderecoTable,
             eq(
                 pessoaEnderecoTable.enderecoId, enderecoTable.id
-            )
-        )
-        .leftJoin(
-            cidadeTable,
-            eq(
-                cidadeTable.id, enderecoTable.cidadeId
             )
         )
         .where(
