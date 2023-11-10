@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "a68076dc-7316-48f8-ac0e-c52bab98c723",
+  "id": "4190db57-1028-4731-b16d-e8036490fff5",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "categoria": {
@@ -227,8 +227,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "valor_toal": {
-          "name": "valor_toal",
+        "valor_total": {
+          "name": "valor_total",
           "type": "float",
           "primaryKey": false,
           "notNull": true,

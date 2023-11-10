@@ -9,17 +9,6 @@ import { pessoaTable } from '../../pessoa/schema';
 export async function listVenda(request: Request, response: Response){
     const { query } = request;
     const { limit, page, colaboradorId, clienteFornecedorId } = query;
-    let { dataInicio, dataFim } = query;
-
-    if(dataInicio === "" || dataInicio === undefined){
-        var currentYear = new Date();
-        dataInicio = `${currentYear.getFullYear()}-01-01`;
-    }
-
-    if(dataFim === "" || dataFim === undefined){
-        var currentYear = new Date();
-        dataFim = `${currentYear.getFullYear()}-12-31`;
-    }
 
     const limitReference = Number(limit);
     const pageReference = Number(page);
@@ -54,8 +43,7 @@ export async function listVenda(request: Request, response: Response){
         .where(
             and(
                 like(vendaTable.colaboradorId, sql.placeholder("colaboradorId")),
-                like(vendaTable.clienteFornecedorId, sql.placeholder("clienteFornecedorId")),
-                between(vendaTable.dataVenda, sql.placeholder("dataInicio"), sql.placeholder("dataFim"))
+                like(vendaTable.clienteFornecedorId, sql.placeholder("clienteFornecedorId"))
             )
         )
         .limit(limitReference)
@@ -64,9 +52,7 @@ export async function listVenda(request: Request, response: Response){
     try {
         const result = await sqlQuery.execute({
             colaboradorId: `%${colaboradorId}%`,
-            clienteFornecedorId: `%${clienteFornecedorId}%`,
-            dataInicio,
-            dataFim
+            clienteFornecedorId: `%${clienteFornecedorId}%`
         });
 
         return response.status(200).json(result)

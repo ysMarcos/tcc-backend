@@ -60,7 +60,7 @@ export async function createVenda(request: Request, response: Response){
                 transaction.rollback();
             }
             const result = await sqlQuery.execute({
-                dataVenda: data.dataVenda,
+                dataVenda,
                 colaboradorId,
                 cliforId
             })

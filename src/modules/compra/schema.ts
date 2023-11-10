@@ -9,7 +9,7 @@ export const compraTable = mysqlTable("compra", {
     id: int('id').autoincrement().primaryKey(),
     nf: varchar('nota_fiscal', { length: 150 }).notNull(),
     dataCompra: datetime('data_compra').notNull(),
-    valorTotal: float('valor_toal').notNull(),
+    valorTotal: float('valor_total').notNull(),
     colaboradorId: int('colaborador_id').references(() => colaboradorTable.id).notNull(),
     clienteFornecedorId: int('cliente_fornecedor_id').references(() => clienteFornecedorTable.id).notNull(),
     createdAt: timestamp('createdAt').defaultNow()
@@ -37,7 +37,7 @@ export const compraInsertSchema = createInsertSchema(compraTable, {
     dataCompra: z
         .date({
             required_error: "DataCompra is required",
-            invalid_type_error: "DataCompra must be a number"
+            invalid_type_error: "DataCompra must be an date"
         }),
     valorTotal: z
         .number({

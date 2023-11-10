@@ -11,6 +11,8 @@ export async function createCompra(request: Request, response: Response){
     const cliforId = Number(data.clienteFornecedorId);
     const colaboradorId = Number(data.colaboradorId);
 
+    const dataCompra = new Date(data.dataCompra)
+
     const cliforExistsSql = db
         .select({
             id: clienteFornecedorTable.id
@@ -46,7 +48,13 @@ export async function createCompra(request: Request, response: Response){
         })
         .prepare();
     try {
-        const isValid = compraInsertSchema.safeParse(data);
+        const isValid = compraInsertSchema.safeParse({
+            nf: data.nf,
+            dataCompra,
+            valorTotal: data.valorTotal,
+            colaboradorId,
+            clienteFornecedorId: cliforId
+        });
         if (!isValid.success) return response.status(400).send(isValid.error.issues[0].message);
 
         const result = await db.transaction(async (transaction) => {
@@ -60,7 +68,7 @@ export async function createCompra(request: Request, response: Response){
             }
             const result = await sqlQuery.execute({
                 nf: data.nf,
-                dataCompra: data.dataCompra,
+                dataCompra,
                 valorTotal: data.valorTotal,
                 colaboradorId: colaboradorId,
                 clienteFornecedorId: cliforId

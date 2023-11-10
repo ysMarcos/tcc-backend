@@ -31,7 +31,7 @@ CREATE TABLE `compra` (
 	`id` int AUTO_INCREMENT NOT NULL,
 	`nota_fiscal` varchar(150) NOT NULL,
 	`data_compra` datetime NOT NULL,
-	`valor_toal` float NOT NULL,
+	`valor_total` float NOT NULL,
 	`colaborador_id` int NOT NULL,
 	`cliente_fornecedor_id` int NOT NULL,
 	`createdAt` timestamp DEFAULT (now()),
