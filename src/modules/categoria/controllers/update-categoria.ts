@@ -6,7 +6,10 @@ import { categoriaTable, categoriaUpdateSchema } from "../schema";
 export async function updateCategoria(request: Request, response: Response){
     const { params } = request;
     const id = Number(params.id);
-    const data = request.body;
+    const requestData = request.body;
+
+    let newData: Record<string, string> = {};
+    if(requestData.nome && requestData.nome.length >= 3) newData.nome = requestData.nome;
 
     const getCategoriaQuery = db
     .select()
@@ -19,7 +22,7 @@ export async function updateCategoria(request: Request, response: Response){
     .prepare();
 
     try {
-        const isValid = categoriaUpdateSchema.safeParse(data);
+        const isValid = categoriaUpdateSchema.safeParse(newData);
         if (!isValid.success) return response.status(400).send(isValid.error.issues[0].message);
 
         const result = await db.transaction(async (transaction) => {
@@ -31,7 +34,7 @@ export async function updateCategoria(request: Request, response: Response){
             .update(categoriaTable)
             .set({
                 ...categoria,
-                ...data
+                ...newData
             })
             .where(
                 eq(

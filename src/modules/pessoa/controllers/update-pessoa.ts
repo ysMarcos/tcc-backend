@@ -15,6 +15,7 @@ export async function updatePessoa(request: Request, response: Response) {
     const { params } = request;
     const id = Number(params.id);
     const requestData: newData = request.body;
+
     let newData: Record<string, string> = {};
     if(requestData.nome && requestData.nome.length >= 3) newData.nome = requestData.nome;
     if(requestData.email && requestData.email.length >= 3) newData.email = requestData.email;
