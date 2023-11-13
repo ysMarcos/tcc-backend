@@ -5,22 +5,25 @@ import { itemTable } from "../schema";
 
 export async function listItem(request: Request, response: Response) {
     const { query } = request;
-    const { nome, limit, page, valorMin, valorMax } = query;
+    const { nome, limit, page } = query;
 
     const limitReference = Number(limit);
     const pageReference = Number(page);
     const offset = ( pageReference - 1 ) * limitReference;
 
     const sqlQuery = db
-    .select()
+    .select(
+        {
+            id: itemTable.id,
+            nome: itemTable.nome,
+            valor: itemTable.valorUnitario,
+            quantidade: itemTable.quantidade
+        }
+    )
     .from(itemTable)
     .where(
         and(
-            like(itemTable.nome, sql.placeholder("nome")),
-            between(
-                itemTable.valorUnitario,
-                sql.placeholder("valorMin"), sql.placeholder("valorMax")
-            )
+            like(itemTable.nome, sql.placeholder("nome"))
         )
     )
     .orderBy(
@@ -34,8 +37,6 @@ export async function listItem(request: Request, response: Response) {
     try {
         const itens = await sqlQuery.execute({
             nome: `%${nome}%`,
-            valorMin: Number(valorMin),
-            valorMax: Number(valorMax)
         });
         response.status(200).json(itens);
     } catch(error){

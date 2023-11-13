@@ -8,6 +8,12 @@ export async function updateItem(request: Request, response: Response){
     const id = Number(params.id);
     const data = request.body;
 
+    let newData: Record<string, string> = {};
+    if(data.nome && data.nome.length >= 3) newData.nome = data.nome;
+    if(data.descricao && data.descricao.length >= 3) newData.descricao = data.descricao;
+    if(data.valor && data.valor >= 0) newData.valor = data.valor;
+    if(data.quantidade && data.quantidade >= 0) newData.quantidade = data.quantidade;
+
     const getItemQuery = db
     .select()
     .from(itemTable)
@@ -17,7 +23,7 @@ export async function updateItem(request: Request, response: Response){
     .prepare();
 
     try {
-        const isValid = itemUpdateSchema.safeParse(data);
+        const isValid = itemUpdateSchema.safeParse(newData);
         if (!isValid.success) return response.status(400).send(isValid.error.issues[0].message);
 
         const result = await db.transaction(async (transaction) => {
@@ -29,7 +35,7 @@ export async function updateItem(request: Request, response: Response){
             .update(itemTable)
             .set({
                 ...item,
-                ...data
+                ...newData
             })
             .where(
                 eq(
