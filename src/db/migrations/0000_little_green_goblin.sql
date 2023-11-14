@@ -67,6 +67,13 @@ CREATE TABLE `item_compra` (
 	CONSTRAINT `item_compra_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint
+CREATE TABLE `item_servico` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`item_id` int NOT NULL,
+	`prestacaoservico_id` int NOT NULL,
+	CONSTRAINT `item_servico_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
 CREATE TABLE `item_venda` (
 	`id` int AUTO_INCREMENT NOT NULL,
 	`item_id` int NOT NULL,
@@ -169,6 +176,8 @@ ALTER TABLE `item_categoria` ADD CONSTRAINT `item_categoria_item_id_item_id_fk` 
 ALTER TABLE `item_categoria` ADD CONSTRAINT `item_categoria_categoria_id_categoria_id_fk` FOREIGN KEY (`categoria_id`) REFERENCES `categoria`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `item_compra` ADD CONSTRAINT `item_compra_item_id_item_id_fk` FOREIGN KEY (`item_id`) REFERENCES `item`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `item_compra` ADD CONSTRAINT `item_compra_compra_id_compra_id_fk` FOREIGN KEY (`compra_id`) REFERENCES `compra`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `item_servico` ADD CONSTRAINT `item_servico_item_id_item_id_fk` FOREIGN KEY (`item_id`) REFERENCES `item`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `item_servico` ADD CONSTRAINT `item_servico_prestacaoservico_id_prestacao_servico_id_fk` FOREIGN KEY (`prestacaoservico_id`) REFERENCES `prestacao_servico`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `item_venda` ADD CONSTRAINT `item_venda_item_id_item_id_fk` FOREIGN KEY (`item_id`) REFERENCES `item`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `item_venda` ADD CONSTRAINT `item_venda_venda_id_venda_id_fk` FOREIGN KEY (`venda_id`) REFERENCES `venda`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `permissao-colaborador` ADD CONSTRAINT `permissao-colaborador_permissao_id_permissao_id_fk` FOREIGN KEY (`permissao_id`) REFERENCES `permissao`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint

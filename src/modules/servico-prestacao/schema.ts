@@ -4,6 +4,7 @@ import { servicoTable } from "../servico/schema";
 import { relations } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
+import { itemPrestacaoServicoTable } from "../item-prestacao-servico/schema";
 
 export const prestacaoServicoTable = mysqlTable("prestacao_servico", {
     id: int('id').autoincrement().primaryKey(),
@@ -16,7 +17,7 @@ export const prestacaoServicoTable = mysqlTable("prestacao_servico", {
     createdAt: timestamp('createdAt').defaultNow()
 })
 
-export const prestacaoServicoRelations = relations(prestacaoServicoTable, ({ one }) => ({
+export const prestacaoServicoRelations = relations(prestacaoServicoTable, ({ one, many }) => ({
     prestacao: one(prestacaoTable, {
         fields: [prestacaoServicoTable.prestacaoId],
         references: [prestacaoTable.id]
@@ -24,7 +25,8 @@ export const prestacaoServicoRelations = relations(prestacaoServicoTable, ({ one
     servico: one(servicoTable, {
         fields: [prestacaoServicoTable.servicoId],
         references: [servicoTable.id]
-    })
+    }),
+    itemPrestacaoServico: many(itemPrestacaoServicoTable)
 }))
 
 export const prestacaoServicoInsertSchema = createInsertSchema(prestacaoServicoTable, {

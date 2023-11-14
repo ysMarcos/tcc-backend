@@ -2,7 +2,7 @@ import { sql, eq, and } from "drizzle-orm";
 import { Request, Response } from "express";
 import { db } from "../../../db";
 import { prestacaoServicoInsertSchema, prestacaoServicoTable } from "../schema";
-//TODO: adicionar validadores
+
 export async function addServicoToPrestacao (request: Request, response: Response) {
     const { params, body } = request;
     const prestacaoId = Number(params.id);

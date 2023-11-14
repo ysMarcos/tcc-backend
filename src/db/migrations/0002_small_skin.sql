@@ -1,0 +1,1 @@
+ALTER TABLE `item` MODIFY COLUMN `quantidade` int NOT NULL;
