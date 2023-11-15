@@ -4,19 +4,14 @@ import { db } from "../../../db";
 import { hashSenha } from "../helpers/encrypt";
 import { colaboradorInsertSchema, colaboradorTable } from "../schema";
 import { permissaoColaborador } from "../../permissao-colaborador/schema";
+import { createPessoa } from "../../pessoa/controllers";
 
 export async function createColaborador(request: Request, response: Response){
-    const {
-        usuario,
-        senha,
-        dataInicio,
-        dataPrevisaoFim,
-        pessoaId,
-    } = request.body;
-    const hashedPassword = await hashSenha(senha);
+    const data = request.body;
+    const hashedPassword = await hashSenha(data.senha);
 
-    const dtInicio = new Date(dataInicio);
-    const dtFim = new Date(dataPrevisaoFim);
+    const dtInicio = new Date(data.dataInicio);
+    const dtFim = new Date(data.dataPrevisaoFim);
     const sqlQuery = db
         .insert(colaboradorTable)
         .values({
@@ -30,11 +25,10 @@ export async function createColaborador(request: Request, response: Response){
 
     try {
         const isValid = colaboradorInsertSchema.safeParse({
-            usuario,
-            senha,
-            dataInicio,
-            dataPrevisaoFim,
-            pessoaId,
+            usuario: data.usuario,
+            senha: data.senha,
+            dataInicio: data.dataInicio,
+            dataPrevisaoFim: data.dataPrevisaoFim
         });
         if (!isValid.success) return response.status(400).send(isValid.error.issues[0].message);
 
@@ -42,12 +36,23 @@ export async function createColaborador(request: Request, response: Response){
         if( dtInicio > dtFim) return response.status(400).send({ error: "dataInicio must be greater than dataPrevisaoFim"});
 
         const result = await db.transaction(async (transaction) => {
+
+            const newPessoa = await createPessoa({
+                nome: data.nome,
+                email: data.email,
+                telefone: data.telefone,
+                cadastro: data.cadastro,
+                registro: data.registro,
+            });
+
+            if(newPessoa instanceof Error) transaction.rollback();
+
             const [result] = await sqlQuery.execute({
-                usuario,
+                usuario: data.usuario,
                 senha: hashedPassword,
-                dataInicio,
-                dataPrevisaoFim,
-                pessoaId,
+                dataInicio: data.dataInicio,
+                dataPrevisaoFim: data.dataPrevisaoFim,
+                pessoaId: newPessoa.insertId,
             });
             if(!result) transaction.rollback();
             return result;

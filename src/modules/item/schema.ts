@@ -3,18 +3,20 @@ import { float, int, mysqlTable, timestamp, varchar } from "drizzle-orm/mysql-co
 import { createInsertSchema } from "drizzle-zod";
 import { z } from 'zod';
 import { itemCategoriaTable } from "../item-categoria/schema";
+import { itemPrestacaoServicoTable } from "../item-prestacao-servico/schema";
 
 export const itemTable = mysqlTable('item', {
     id: int('id').autoincrement().primaryKey(),
     nome: varchar('nome', { length: 50 }).notNull().unique(),
     descricao: varchar('descricao', { length: 150 }),
     valorUnitario: float('valor_unitario').notNull(),
-    quantidade: int('quantidade').default(0),
+    quantidade: int('quantidade').default(0).notNull(),
     createdAt: timestamp('createdAt').defaultNow()
 })
 
 export const itemRelations = relations(itemTable, ({ many }) => ({
-    itemCategoria: many(itemCategoriaTable)
+    itemCategoria: many(itemCategoriaTable),
+    itemPrestacaoServico: many(itemPrestacaoServicoTable)
 }))
 
 export const itemInsertSchema = createInsertSchema(itemTable, {

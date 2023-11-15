@@ -4,14 +4,21 @@ import { Request, Response } from "express";
 import { db } from "../../../db";
 import { pessoaInsertSchema, pessoaTable } from "../schema";
 
-export async function createPessoa(request: Request, response: Response){
-    const {
-        nome,
-        email,
-        telefone,
-        cadastro,
-        registro
-    } = request.body;
+type CreatePessoa = {
+    nome: string;
+    email: string;
+    telefone: string;
+    cadastro: string;
+    registro: string | null;
+}
+
+export async function createPessoa({
+    nome,
+    email,
+    telefone,
+    cadastro,
+    registro
+}: CreatePessoa){
 
     const sqlVerify = db
     .select({
@@ -54,17 +61,17 @@ export async function createPessoa(request: Request, response: Response){
             cadastro,
             registro,
         });
-        if(!isValid.success) return response.status(400).json(isValid.error.issues);
+        if(!isValid.success) throw new Error(`${isValid.error.issues}`);
 
         const validCadastro = isCPFOrCNPJ(cadastro);
-        if(!validCadastro) return response.status(400).json({ message: "Cadastros is Invalid" });
+        if(!validCadastro) throw new Error("Cadastro is invalid");
 
         const [pessoa] = await sqlVerify.execute({
             email,
             cadastro,
             registro
         })
-        if(pessoa) return response.status(400).json({ message: "Pessoa already exists" })
+        if(pessoa) throw new Error("Pessoa already exists");
         const result = await db.transaction(async (transaction) => {
             const [result] = await sqlQuery.execute({
                 nome,
@@ -77,9 +84,9 @@ export async function createPessoa(request: Request, response: Response){
 
             return result;
         })
-        return response.status(201).json(result);
+        return result;
     } catch(error){
-        return response.status(500).json(error);
+        throw new Error(`${error}`);
     }
 }
 

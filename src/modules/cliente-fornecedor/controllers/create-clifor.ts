@@ -3,24 +3,10 @@ import { Request, Response } from 'express';
 import { db } from '../../../db';
 import { pessoaTable } from '../../pessoa/schema';
 import { clienteFornecedorTable, clienteFornecedorInsertSchema } from '../schema';
+import { createPessoa } from '../../pessoa/controllers';
 
 export async function createClienteFornecedor(request: Request, response: Response){
-    const {
-        pessoaId,
-        isCliente
-    } = request.body;
-
-    const cliforExistsQuery = db
-        .select({
-            id: clienteFornecedorTable.id
-        })
-        .from(clienteFornecedorTable)
-        .where(
-            eq(
-                clienteFornecedorTable.pessoaId, sql.placeholder("pessoaId")
-            )
-        )
-        .prepare();
+    const data = request.body;
 
     const sqlQuery = db
         .insert(clienteFornecedorTable)
@@ -30,42 +16,25 @@ export async function createClienteFornecedor(request: Request, response: Respon
         })
         .prepare();
 
-    const resultSql = db
-        .select()
-        .from(clienteFornecedorTable)
-        .where(
-            eq(
-                clienteFornecedorTable.id, sql.placeholder("insertId")
-            )
-        )
-        .prepare();
     try {
-        const isValid = clienteFornecedorInsertSchema.safeParse({
-            isCliente
-        });
-        if (!isValid.success) return response.status(400).send(isValid.error.issues[0].message);
-
         const result = await db.transaction(async (transaction) => {
-            const [cliforExists] = await cliforExistsQuery.execute({
-                pessoaId
-            });
-
-            if(cliforExists){
-                transaction.rollback();
-                return;
-            }
-
-            const [insertClifor] = await sqlQuery.execute({
-                pessoaId,
-                isCliente
-            });
-
-            if(!insertClifor){
-                transaction.rollback();
-            }
-            const result = await resultSql.execute({
-                insertId: insertClifor.insertId
+            const newPessoa = await createPessoa({
+                nome: data.nome,
+                email: data.email,
+                telefone: data.telefone,
+                cadastro: data.cadastro,
+                registro: data.registro,
             })
+
+            if(newPessoa instanceof Error) transaction.rollback();
+
+
+            const result = await sqlQuery.execute({
+                pessoaId: newPessoa.insertId,
+                isCliente: data.isCliente
+            });
+
+            if(!result) transaction.rollback();
             return result;
         });
 
