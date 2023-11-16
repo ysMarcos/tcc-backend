@@ -18,7 +18,11 @@ export async function listClienteFornecedor(request: Request, response: Response
     const offset = ( pageReference - 1 ) * limitReference;
 
     const sqlQuery = db
-        .select()
+        .select({
+            id: pessoaTable.id,
+            nome: pessoaTable.nome,
+            cadastro: pessoaTable.cadastro
+        })
         .from(clienteFornecedorTable)
         .innerJoin(
             pessoaTable,
@@ -30,7 +34,6 @@ export async function listClienteFornecedor(request: Request, response: Response
             and(
                 eq(clienteFornecedorTable.isCliente, sql.placeholder("isCliente")),
                 like(pessoaTable.nome, sql.placeholder("nome")),
-                like(pessoaTable.cadastro, sql.placeholder("cadastro"))
             )
         )
         .limit(limitReference)
