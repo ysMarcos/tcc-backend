@@ -2,11 +2,14 @@ import { eq, sql } from "drizzle-orm";
 import {Request, Response} from "express";
 import { db } from "../../../db";
 import { itemTable, itemUpdateSchema } from "../schema";
+import { itemCategoriaTable } from "../../item-categoria/schema";
 
 export async function updateItem(request: Request, response: Response){
     const { params } = request;
     const id = Number(params.id);
     const data = request.body;
+
+    const categoriaId = Number(data.categoriaId);
 
     let newData: Record<string, string> = {};
     if(data.nome && data.nome.length >= 3) newData.nome = data.nome;
@@ -22,6 +25,14 @@ export async function updateItem(request: Request, response: Response){
     ))
     .prepare();
 
+    const insertItemCategoria = db
+    .insert(itemCategoriaTable)
+    .values({
+        itemId: sql.placeholder("itemId"),
+        categoriaId: sql.placeholder("categoriaId")
+    })
+    .prepare()
+
     try {
         const isValid = itemUpdateSchema.safeParse(newData);
         if (!isValid.success) return response.status(400).send(isValid.error.issues[0].message);
@@ -31,7 +42,7 @@ export async function updateItem(request: Request, response: Response){
             if(!item) {
                 transaction.rollback();
             }
-            const updatedItem = await transaction
+            const [result] = await transaction
             .update(itemTable)
             .set({
                 ...item,
@@ -42,7 +53,15 @@ export async function updateItem(request: Request, response: Response){
                     itemTable.id, id
                 )
             );
-            return updatedItem;
+
+            if(categoriaId){
+                await insertItemCategoria.execute({
+                    itemId: item.id,
+                    categoriaId
+                })
+            }
+
+            return result;
         });
         return response.status(200).json(result);
     } catch(error){

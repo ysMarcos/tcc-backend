@@ -1,4 +1,4 @@
-import { eq, and, between, like, sql } from "drizzle-orm";
+import { eq, and, between, like, sql, isNotNull, or } from "drizzle-orm";
 import { Request, Response } from "express";
 import { db } from "../../../db";
 import { itemTable } from "../schema";
@@ -22,20 +22,9 @@ export async function listItem(request: Request, response: Response) {
             quantidade: itemTable.quantidade
         }
     )
-    .from(itemCategoriaTable)
-    .innerJoin(
-        itemTable,
-        eq(itemTable.id, itemCategoriaTable.itemId)
-    )
-    .innerJoin(
-        categoriaTable,
-        eq(categoriaTable.id, itemCategoriaTable.categoriaId)
-    )
+    .from(itemTable)
     .where(
-        and(
-            like(itemTable.nome, sql.placeholder("nome")),
-            like(categoriaTable.nome, sql.placeholder("categoria"))
-        )
+        like(itemTable.nome, sql.placeholder("nome"))
     )
     .orderBy(
         itemTable.nome,
@@ -47,8 +36,7 @@ export async function listItem(request: Request, response: Response) {
 
     try {
         const itens = await sqlQuery.execute({
-            nome: `%${nome}%`,
-            categoria: `%${categoria}%`
+            nome: `%${nome}%`
         });
         response.status(200).json(itens);
     } catch(error){
