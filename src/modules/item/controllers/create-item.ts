@@ -2,9 +2,11 @@ import { Request, Response } from "express";
 import  { sql } from "drizzle-orm"
 import { db } from "../../../db";
 import { itemInsertSchema, itemTable } from "../schema";
+import { itemCategoriaTable } from "../../item-categoria/schema";
 
 export async function createItem(request: Request, response: Response){
     const data = request.body;
+    const categoriaId = Number(data.categoriaId);
 
     const sqlQuery = db
         .insert(itemTable)
@@ -15,24 +17,35 @@ export async function createItem(request: Request, response: Response){
             quantidade: sql.placeholder("quantidade")
         })
         .prepare();
-
+    
+    const insertItemCategoria = db
+        .insert(itemCategoriaTable)
+        .values({
+            itemId: sql.placeholder("itemId"),
+            categoriaId: sql.placeholder("categoriaId")
+        })
+        .prepare()
+    
     try {
         const isValid = itemInsertSchema.safeParse(data);
         if (!isValid.success) return response.status(400).send(isValid.error.issues[0].message);
 
         const result = await db.transaction(async (transaction) => {
-            const insertedItem = await sqlQuery.execute({
+            const [result] = await sqlQuery.execute({
                 nome: data.nome,
                 valorUnitario: data.valorUnitario,
                 descricao: data.descricao,
-                unidadeMedidaId: data.unidadeMedidaId,
                 quantidade: data.quantidade
             });
-            if(!insertedItem) {
-                transaction.rollback()
-                return;
+            if(!result) transaction.rollback();
+            
+            if(categoriaId){
+                await insertItemCategoria.execute({
+                    itemId: result.insertId,
+                    categoriaId
+                })
             }
-            return insertedItem;
+            return result;
         })
 
         response.status(200)

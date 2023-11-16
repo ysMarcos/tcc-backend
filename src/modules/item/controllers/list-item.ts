@@ -1,11 +1,13 @@
-import { and, between, like, sql } from "drizzle-orm";
+import { eq, and, between, like, sql } from "drizzle-orm";
 import { Request, Response } from "express";
 import { db } from "../../../db";
 import { itemTable } from "../schema";
+import { itemCategoriaTable } from "../../item-categoria/schema";
+import { categoriaTable } from "../../categoria/schema";
 
 export async function listItem(request: Request, response: Response) {
     const { query } = request;
-    const { nome, limit, page } = query;
+    const { nome, categoria, limit, page } = query;
 
     const limitReference = Number(limit);
     const pageReference = Number(page);
@@ -20,10 +22,19 @@ export async function listItem(request: Request, response: Response) {
             quantidade: itemTable.quantidade
         }
     )
-    .from(itemTable)
+    .from(itemCategoriaTable)
+    .innerJoin(
+        itemTable,
+        eq(itemTable.id, itemCategoriaTable.itemId)
+    )
+    .innerJoin(
+        categoriaTable,
+        eq(categoriaTable.id, itemCategoriaTable.categoriaId)
+    )
     .where(
         and(
-            like(itemTable.nome, sql.placeholder("nome"))
+            like(itemTable.nome, sql.placeholder("nome")),
+            like(categoriaTable.nome, sql.placeholder("categoria"))
         )
     )
     .orderBy(
@@ -37,6 +48,7 @@ export async function listItem(request: Request, response: Response) {
     try {
         const itens = await sqlQuery.execute({
             nome: `%${nome}%`,
+            categoria: `%${categoria}%`
         });
         response.status(200).json(itens);
     } catch(error){
