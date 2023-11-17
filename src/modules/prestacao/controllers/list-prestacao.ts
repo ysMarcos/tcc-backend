@@ -5,7 +5,7 @@ import { prestacaoTable } from '../schema';
 
 export async function listPrestacao(request: Request, response: Response){
     const { query } = request;
-    const { limit, page, colaboradorId, clienteFornecedorId } = query;
+    const { limit, page, clienteFornecedorId } = query;
 
     const limitReference = Number(limit);
     const pageReference = Number(page);
@@ -16,7 +16,6 @@ export async function listPrestacao(request: Request, response: Response){
         .from(prestacaoTable)
         .where(
             and(
-                like(prestacaoTable.colaboradorId, sql.placeholder("colaboradorId")),
                 like(prestacaoTable.clienteFornecedorId, sql.placeholder("clienteFornecedorId"))
             )
         )
@@ -25,7 +24,6 @@ export async function listPrestacao(request: Request, response: Response){
         .prepare();
     try {
         const result = await sqlQuery.execute({
-            colaboradorId: `%${colaboradorId}%`,
             clienteFornecedorId: `%${clienteFornecedorId}%`
         });
 
