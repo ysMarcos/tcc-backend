@@ -21,8 +21,9 @@ export async function deleteEndereco(request: Request, response: Response) {
                 .delete(pessoaEnderecoTable)
                 .where(
                     eq(
-                    enderecoTable.id, id
-                ))
+                        pessoaEnderecoTable.enderecoId, id
+                    )
+                )
             if(!deletePessoaEndereco) transaction.rollback();
             const [result] = await sqlQuery.execute({id});
             if(!result) transaction.rollback();
