@@ -13,7 +13,7 @@ enum permissions {
 
 router.post('/', ensureAuthenticated, verifyPermission([permissions.create]), createItem);
 router.get('/:id', ensureAuthenticated, verifyPermission([permissions.get]), getItemById);
-router.get('/categoria', ensureAuthenticated, verifyPermission([permissions.get]), listItemCategoria);
+router.get('/categoria/list', ensureAuthenticated, verifyPermission([permissions.get]), listItemCategoria);
 router.get('/', ensureAuthenticated, verifyPermission([permissions.get]), listItem);
 router.put('/:id', ensureAuthenticated, verifyPermission([permissions.update]), updateItem);
 router.delete('/:id', ensureAuthenticated, verifyPermission([permissions.delete]), deleteItem);

@@ -5,7 +5,7 @@ import { prestacaoTable } from '../schema';
 
 export async function listPrestacao(request: Request, response: Response){
     const { query } = request;
-    const { limit, page, clienteFornecedorId } = query;
+    const { limit, page } = query;
 
     const limitReference = Number(limit);
     const pageReference = Number(page);
@@ -14,18 +14,11 @@ export async function listPrestacao(request: Request, response: Response){
     const sqlQuery = db
         .select()
         .from(prestacaoTable)
-        .where(
-            and(
-                like(prestacaoTable.clienteFornecedorId, sql.placeholder("clienteFornecedorId"))
-            )
-        )
         .limit(limitReference)
         .offset(offset)
         .prepare();
-    try {
-        const result = await sqlQuery.execute({
-            clienteFornecedorId: `%${clienteFornecedorId}%`
-        });
+    try {   
+        const result = await sqlQuery.execute();
 
         return response.status(200).json(result)
     } catch(error){
