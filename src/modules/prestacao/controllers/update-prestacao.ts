@@ -6,7 +6,15 @@ import { eq, sql } from "drizzle-orm";
 export async function updatePrestacao(request: Request, response: Response) {
     const { params } = request;
     const id = Number(params.id);
-    const newData = request.body;
+    const data = request.body;
+
+    const clienteFornecedor = Number(data.clienteFornecedor);
+    const colaborador = Number(data.colaborador);
+
+    let newData: Record<any, any> = {};
+    if(data.descricao && data.descricao.lenght >= 3) newData.descricao = data.descricao;
+    if(clienteFornecedor && clienteFornecedor > 0) newData.clienteFornecedorId = clienteFornecedor;
+    if(colaborador && colaborador > 0) newData.colaboradorId = colaborador;
 
     const getPrestacaoToUpdateQuery = db
         .select()
