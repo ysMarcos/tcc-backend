@@ -9,7 +9,16 @@ export async function listServicoPrestacao(request: Request, response: Response)
     const id = Number(request.params.id);
 
     const sqlQuery = db
-        .select()
+        .select({
+            id: prestacaoServicoTable.id,
+            servicoId: prestacaoServicoTable.servicoId,
+            valorCobrado: prestacaoServicoTable.valorCobrado,
+            dataInicio: prestacaoServicoTable.dataInicio,
+            dataFim: prestacaoServicoTable.dataFim,
+            servico: servicoTable.nome,
+            isPago: prestacaoServicoTable.isPago,
+            status: prestacaoServicoTable.status
+        })
         .from(prestacaoServicoTable)
         .innerJoin(
             prestacaoTable,

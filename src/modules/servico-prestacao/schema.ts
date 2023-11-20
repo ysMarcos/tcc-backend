@@ -44,7 +44,7 @@ export const prestacaoServicoInsertSchema = createInsertSchema(prestacaoServicoT
             required_error: "servicoId must an number"
         }),
     dataInicio: z
-        .number({
+        .date({
             required_error: "dataInicio must a date"
         }),
     dataFim: z
