@@ -8,8 +8,8 @@ import { prestacaoInsertSchema, prestacaoTable } from '../schema';
 export async function createPrestacao(request: Request, response: Response){
     const data = request.body;
 
-    const cliforId = Number(data.clienteFornecedorId);
-    const colaboradorId = Number(data.colaboradorId);
+    const cliforId = Number(data.clienteFornecedor);
+    const colaboradorId = Number(data.colaborador);
 
     const cliforExistsSql = db
         .select({

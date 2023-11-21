@@ -14,6 +14,7 @@ export const prestacaoServicoTable = mysqlTable("prestacao_servico", {
     dataInicio: date('data_inicio').notNull(),
     dataFim: date('data_fim').notNull(),
     isPago: boolean('isPago').default(false),
+    status: boolean('status').default(false),
     createdAt: timestamp('createdAt').defaultNow()
 })
 
@@ -43,7 +44,7 @@ export const prestacaoServicoInsertSchema = createInsertSchema(prestacaoServicoT
             required_error: "servicoId must an number"
         }),
     dataInicio: z
-        .number({
+        .date({
             required_error: "dataInicio must a date"
         }),
     dataFim: z
@@ -53,6 +54,11 @@ export const prestacaoServicoInsertSchema = createInsertSchema(prestacaoServicoT
     isPago: z
         .boolean({
             required_error: "isPago must 0 or 1"
+        })
+        .optional(),
+    status: z
+        .boolean({
+            required_error: "status must 0 or 1"
         })
         .optional(),
 })
@@ -86,6 +92,11 @@ export const prestacaoServicoUpdateSchema = createInsertSchema(prestacaoServicoT
     isPago: z
         .boolean({
             required_error: "isPago must 0 or 1"
+        })
+        .optional(),
+    status: z
+        .boolean({
+            required_error: "status must 0 or 1"
         })
         .optional(),
 })

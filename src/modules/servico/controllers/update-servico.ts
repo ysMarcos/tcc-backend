@@ -6,7 +6,10 @@ import { servicoTable } from "../schema";
 export async function updateServico(request: Request, response: Response){
     const { params } = request;
     const id = Number(params.id);
-    const data = request.body;
+    const requestData = request.body;
+
+    let data: Record<string, string> = {};
+    if(requestData.nome && requestData.nome.length >= 3) data.nome = requestData.nome;
 
     const getServicoQuery = db
     .select()

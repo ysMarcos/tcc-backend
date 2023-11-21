@@ -8,7 +8,7 @@ import { z } from "zod";
 
 export const prestacaoTable = mysqlTable("prestacao", {
     id: int('id').autoincrement().primaryKey(),
-    descricao: varchar('nota_fiscal', { length: 150 }),
+    descricao: varchar('descricao', { length: 150 }),
     colaboradorId: int('colaborador_id').references(() => colaboradorTable.id).notNull(),
     clienteFornecedorId: int('cliente_fornecedor_id').references(() => clienteFornecedorTable.id).notNull(),
     createdAt: timestamp('createdAt').defaultNow()

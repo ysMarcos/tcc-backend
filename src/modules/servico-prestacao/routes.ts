@@ -13,7 +13,7 @@ enum permissions {
 router.post("/:id/servicos", ensureAuthenticated, verifyPermission([permissions.create]), addServicoToPrestacao);
 router.get("/:id/servicos", ensureAuthenticated, verifyPermission([permissions.get]), listServicoPrestacao);
 router.get("/:id/servicos/:servicoId", ensureAuthenticated, verifyPermission([permissions.get]), getServicoFromPrestacao);
-router.put("/:id/servicos/:servicoId", ensureAuthenticated, verifyPermission([permissions.update]), updateServicoPrestacao);
+router.put("/servicos/:id", ensureAuthenticated, verifyPermission([permissions.update]), updateServicoPrestacao);
 router.delete("/:id/servicos/:servicoId", ensureAuthenticated, verifyPermission([permissions.delete]), deleteServicoPrestacao);
 
 export default router;

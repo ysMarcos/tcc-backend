@@ -6,17 +6,22 @@ import { prestacaoServicoTable } from '../schema';
 export async function updateServicoPrestacao(request: Request, response: Response){
     const data = request.body;
     const id = Number(request.params.id);
-    const servicoId = Number(request.params.servicoId);
 
-    const newDataInicio = new Date(data.dataInicio);
-    const newDataFim = new Date(data.dataFim);
-
-    const newData = {
-        valorCobrado: data.valorCobrado,
-        dataInicio: newDataInicio,
-        dataFim: newDataFim,
-        isPago: data.isPago
+    let newDataInicio = null;
+    if(data.dataInicio){
+        newDataInicio = new Date(data.dataInicio)
     }
+    let newDataFim = null;
+    if(data.dataFim){
+        newDataFim = new Date(data.dataInicio)
+    }
+
+    let newData: Record<any, any> = {};
+    if(data.valorCobrado && data.valorCobrado.length > 0) newData.valorCobrado = data.valorCobrado;
+    if(newDataInicio) newData.dataInicio = newDataInicio;
+    if(newDataFim) newData.dataFim = data.newDataFim;
+    if(data.isPago === true || data.isPago === false) newData.isPago = data.isPago;
+    if(data.status === true || data.isPago === false) newData.status = data.status;
 
     const sqlQuery = db
         .select()
@@ -24,10 +29,7 @@ export async function updateServicoPrestacao(request: Request, response: Respons
         .where(
             and(
                 eq(
-                    prestacaoServicoTable.prestacaoId, sql.placeholder("id")
-                ),
-                eq(
-                    prestacaoServicoTable.servicoId, sql.placeholder("servicoId")
+                    prestacaoServicoTable.id, sql.placeholder("id")
                 )
             )
         )
@@ -35,25 +37,20 @@ export async function updateServicoPrestacao(request: Request, response: Respons
 
     try {
         const result = await db.transaction(async (transaction) => {
-            const [servico] = await sqlQuery.execute({ id, servicoId });
+            const [servico] = await sqlQuery.execute({ id });
             if(!servico){
                 transaction.rollback();
             }
-            const result = await db
+            const [result] = await db
                 .update(prestacaoServicoTable)
                 .set({
                     ...servico,
                     ...newData
                 })
                 .where(
-                    and(
-                        eq(
-                            prestacaoServicoTable.prestacaoId, id
-                        ),
-                        eq(
-                            prestacaoServicoTable.servicoId, servicoId
-                        )
-                ))
+                    eq(prestacaoServicoTable.id, id)
+                )
+            console.log(result)
             return result;
         })
         return response.status(200).json(result)

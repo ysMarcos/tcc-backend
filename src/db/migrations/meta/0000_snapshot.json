@@ -1,7 +1,11 @@
 {
   "version": "5",
   "dialect": "mysql",
+<<<<<<< HEAD
   "id": "0e9f4334-73f4-4ad5-a401-5686674b1605",
+=======
+  "id": "14f6156b-cbf6-41c5-82c0-9a9cdedd8bef",
+>>>>>>> d64f4fbf5e9b114e729c145be2572d21649ec473
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "categoria": {
@@ -541,6 +545,16 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+<<<<<<< HEAD
+=======
+        },
+        "quantidade": {
+          "name": "quantidade",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+>>>>>>> d64f4fbf5e9b114e729c145be2572d21649ec473
         }
       },
       "indexes": {},
@@ -695,7 +709,7 @@
           "name": "quantidade",
           "type": "int",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false,
           "default": 0
         },
@@ -995,8 +1009,8 @@
           "notNull": true,
           "autoincrement": true
         },
-        "nota_fiscal": {
-          "name": "nota_fiscal",
+        "descricao": {
+          "name": "descricao",
           "type": "varchar(150)",
           "primaryKey": false,
           "notNull": false,
@@ -1111,6 +1125,14 @@
         },
         "isPago": {
           "name": "isPago",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
+        },
+        "status": {
+          "name": "status",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
