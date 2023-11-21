@@ -71,10 +71,7 @@ CREATE TABLE `item_servico` (
 	`id` int AUTO_INCREMENT NOT NULL,
 	`item_id` int NOT NULL,
 	`prestacaoservico_id` int NOT NULL,
-<<<<<<<< HEAD:src/db/migrations/0000_little_green_goblin.sql
-========
 	`quantidade` int NOT NULL,
->>>>>>>> d64f4fbf5e9b114e729c145be2572d21649ec473:src/db/migrations/0000_brainy_eddie_brock.sql
 	CONSTRAINT `item_servico_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint

@@ -1,0 +1,1 @@
+ALTER TABLE `item_servico` ADD `retornado` boolean DEFAULT false;

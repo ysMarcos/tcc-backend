@@ -1,1 +1,0 @@
-ALTER TABLE `item_servico` ADD `quantidade` int NOT NULL;

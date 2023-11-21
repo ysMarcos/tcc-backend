@@ -5,27 +5,15 @@
     {
       "idx": 0,
       "version": "5",
-<<<<<<< HEAD
-      "when": 1699964291936,
-      "tag": "0000_little_green_goblin",
+      "when": 1700569412188,
+      "tag": "0000_slim_dust",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "5",
-      "when": 1699964650148,
-      "tag": "0001_watery_grim_reaper",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1699965903509,
-      "tag": "0002_small_skin",
-=======
-      "when": 1700247329855,
-      "tag": "0000_brainy_eddie_brock",
->>>>>>> d64f4fbf5e9b114e729c145be2572d21649ec473
+      "when": 1700574635906,
+      "tag": "0001_careful_sheva_callister",
       "breakpoints": true
     }
   ]

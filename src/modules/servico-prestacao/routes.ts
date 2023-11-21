@@ -14,6 +14,6 @@ router.post("/:id/servicos", ensureAuthenticated, verifyPermission([permissions.
 router.get("/:id/servicos", ensureAuthenticated, verifyPermission([permissions.get]), listServicoPrestacao);
 router.get("/:id/servicos/:servicoId", ensureAuthenticated, verifyPermission([permissions.get]), getServicoFromPrestacao);
 router.put("/servicos/:id", ensureAuthenticated, verifyPermission([permissions.update]), updateServicoPrestacao);
-router.delete("/:id/servicos/:servicoId", ensureAuthenticated, verifyPermission([permissions.delete]), deleteServicoPrestacao);
+router.delete("/servicos/:id/", ensureAuthenticated, verifyPermission([permissions.delete]), deleteServicoPrestacao);
 
 export default router;

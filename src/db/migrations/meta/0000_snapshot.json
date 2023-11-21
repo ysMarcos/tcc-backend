@@ -1,11 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-<<<<<<< HEAD
-  "id": "0e9f4334-73f4-4ad5-a401-5686674b1605",
-=======
-  "id": "14f6156b-cbf6-41c5-82c0-9a9cdedd8bef",
->>>>>>> d64f4fbf5e9b114e729c145be2572d21649ec473
+  "id": "bcc6d7f8-eed7-44be-9383-f5d0777cc4ac",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "categoria": {
@@ -545,8 +541,6 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
-<<<<<<< HEAD
-=======
         },
         "quantidade": {
           "name": "quantidade",
@@ -554,7 +548,6 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
->>>>>>> d64f4fbf5e9b114e729c145be2572d21649ec473
         }
       },
       "indexes": {},

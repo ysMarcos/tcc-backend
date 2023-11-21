@@ -1,7 +1,7 @@
 import { sql, eq } from "drizzle-orm";
 import { Request, Response } from "express";
 import { db } from "../../../db";
-import { itemPrestacaoServicoTable } from "../../item-prestacao-servico/schema";
+import { itemPrestacaoServicoTable } from "../schema";
 import { itemTable } from "../../item/schema";
 
 export async function addItemToPrestacaoServico (request: Request, response: Response) {
@@ -14,7 +14,8 @@ export async function addItemToPrestacaoServico (request: Request, response: Res
         .values({
             itemId: sql.placeholder("itemId"),
             psId: sql.placeholder("prestacaoServicoId"),
-            quantidade: sql.placeholder("quantidade")
+            quantidade: sql.placeholder("quantidade"),
+            retornado: sql.placeholder("retornado")
         })
         .prepare()
 
@@ -54,7 +55,8 @@ export async function addItemToPrestacaoServico (request: Request, response: Res
             const result = await sqlQuery.execute({
                 itemId: data.itemId,
                 prestacaoServicoId,
-                quantidade: data.quantidade
+                quantidade: data.quantidade,
+                retornado: data.retornado
             })
 
             return result;
