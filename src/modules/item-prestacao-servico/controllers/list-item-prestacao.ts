@@ -10,7 +10,9 @@ export async function listItemServico(request: Request, response: Response){
     const sqlQuery = db
         .select({
             id: itemTable.id,
-            nome: itemTable.nome
+            nome: itemTable.nome,
+            quantidade: itemPrestacaoServicoTable.quantidade,
+            retornado: itemPrestacaoServicoTable.retornado
         })
         .from(itemPrestacaoServicoTable)
         .innerJoin(

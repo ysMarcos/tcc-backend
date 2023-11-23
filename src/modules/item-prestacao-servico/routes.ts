@@ -11,7 +11,7 @@ enum permissions {
     delete = "delete-prestacao"
 }
 
-router.post("/:id/servicos/:servicoId", ensureAuthenticated, verifyPermission([permissions.create]), addItemToPrestacaoServico);
-router.get("/:id/servicos/:servicoId", ensureAuthenticated, verifyPermission([permissions.get]), listItemServico);
+router.post("/:id/servicos/:servicoId/itens", ensureAuthenticated, verifyPermission([permissions.create]), addItemToPrestacaoServico);
+router.get("/:id/servicos/:servicoId/itens", ensureAuthenticated, verifyPermission([permissions.get]), listItemServico);
 
 export default router;

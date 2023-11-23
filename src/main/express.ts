@@ -16,6 +16,7 @@ import itemCompraRouter from "../modules/item-compra/routes";
 import servicoRouter from "../modules/servico/routes";
 import prestacaoRouter from "../modules/prestacao/routes";
 import servicoPrestacaoRouter from "../modules/servico-prestacao/routes";
+import itemServicoRouter from "../modules/item-prestacao-servico/routes"
 
 const router = express.Router();
 
@@ -28,6 +29,6 @@ router.use('/clientefornecedor', clienteFornecedorRouter);
 router.use('/venda', vendaRouter, itemVendaRouter);
 router.use('/compra', compraRouter, itemCompraRouter);
 router.use('/servico', servicoRouter);
-router.use('/prestacao', prestacaoRouter, servicoPrestacaoRouter);
+router.use('/prestacao', prestacaoRouter, servicoPrestacaoRouter, itemServicoRouter);
 
 export default router;
