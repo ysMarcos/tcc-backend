@@ -1,10 +1,10 @@
-import { sql, eq } from "drizzle-orm";
+import { sql, eq, and } from "drizzle-orm";
 import { Request, Response } from "express";
 import { db } from "../../../db";
 import { itemPrestacaoServicoTable } from "../schema";
 import { itemTable } from "../../item/schema";
 
-export async function addItemToPrestacaoServico (request: Request, response: Response) {
+export async function addItemToPrestacaoServico(request: Request, response: Response) {
     const { params, body } = request;
     const prestacaoServicoId = Number(params.id);
     const data = body;
@@ -33,14 +33,13 @@ export async function addItemToPrestacaoServico (request: Request, response: Res
         .prepare()
 
     try {
-        const result = await db.transaction( async (transaction) => {
+        const result = await db.transaction(async (transaction) => {
             const [item] = await findItemQuery.execute({ itemId: data.itemId })
-            if(!item) transaction.rollback();
-            
-            if(item.quantidade < data.quantidade) {
+            if (!item) transaction.rollback();
+
+            if (item.quantidade < data.quantidade) {
                 transaction.rollback();
             }
-
             const baixaItem = await db.update(itemTable)
                 .set({
                     quantidade: item.quantidade - data.quantidade
@@ -50,19 +49,18 @@ export async function addItemToPrestacaoServico (request: Request, response: Res
                         itemTable.id, data.itemId
                     )
                 )
-            if(!baixaItem) transaction.rollback();
-            
+            if (!baixaItem) transaction.rollback();     
+
             const result = await sqlQuery.execute({
                 itemId: data.itemId,
                 prestacaoServicoId,
                 quantidade: data.quantidade,
                 retornado: data.retornado
             })
-
             return result;
         });
         return response.status(200).json(result);
-    } catch(error){
+    } catch (error) {
         return response.status(400).json(error);
     }
 }
