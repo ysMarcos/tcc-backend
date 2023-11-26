@@ -9,7 +9,7 @@ export async function listItemServico(request: Request, response: Response){
 
     const sqlQuery = db
         .select({
-            id: itemTable.id,
+            id: itemPrestacaoServicoTable.id,
             nome: itemTable.nome,
             quantidade: itemPrestacaoServicoTable.quantidade,
             retornado: itemPrestacaoServicoTable.retornado
