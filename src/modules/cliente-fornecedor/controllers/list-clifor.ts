@@ -19,7 +19,7 @@ export async function listClienteFornecedor(request: Request, response: Response
 
     const sqlQuery = db
         .select({
-            id: pessoaTable.id,
+            id: clienteFornecedorTable.id,
             nome: pessoaTable.nome,
             cadastro: pessoaTable.cadastro
         })
